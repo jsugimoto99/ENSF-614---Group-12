@@ -1,0 +1,66 @@
+<mxfile host="Electron" modified="2023-11-22T06:17:04.070Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="svd1NuNakTSyakH301e5" version="22.0.2" type="device">
+  <diagram name="Page-1" id="JmegqseKWQlAWg5_ePTO">
+    <mxGraphModel dx="1527" dy="2710" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sLuIARUeeccSbijKiLno-4" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1034" y="71" width="30.70261437908497" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;container=0;" vertex="1" parent="sLuIARUeeccSbijKiLno-4">
+          <mxGeometry x="0.35130718954249573" y="10" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;container=0;" vertex="1" parent="sLuIARUeeccSbijKiLno-4">
+          <mxGeometry x="4.231118373275249" y="13.879811183732754" width="22.240377632534493" height="22.240377632534493" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-5" target="sLuIARUeeccSbijKiLno-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-5" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=none;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-6" target="sLuIARUeeccSbijKiLno-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-6" value="Flight Chosen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="65" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-8" target="sLuIARUeeccSbijKiLno-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-8" value="Seat Chosen" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="65" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-10" target="sLuIARUeeccSbijKiLno-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-10" value="Ticket Generated" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="65" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-12" target="sLuIARUeeccSbijKiLno-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="95" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-12" target="sLuIARUeeccSbijKiLno-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-12" value="Send Ticket Details Via Email" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="65" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-15" target="sLuIARUeeccSbijKiLno-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-15" value="Ticket Cancelled" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="205" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sLuIARUeeccSbijKiLno-17" target="sLuIARUeeccSbijKiLno-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sLuIARUeeccSbijKiLno-17" value="Refund Ticket" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="205" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
