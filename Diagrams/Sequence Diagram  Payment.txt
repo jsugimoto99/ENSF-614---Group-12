@@ -1,0 +1,16 @@
+title Payment
+User -> paymentview: Initiate payment
+
+paymentview -> payment: Submit billing info
+
+payment -> bank: Query to verify billing info
+
+bank -> bank: Verify credit card
+
+bank -> payment: Send verification status
+
+payment -> paymentview: display result (success/fail)
+
+payment->payment:Generate ticket if payment successful
+
+note over payment:Ticket

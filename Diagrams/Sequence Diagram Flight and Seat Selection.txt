@@ -1,0 +1,26 @@
+title Flight and Seat Selection
+
+User -> WebView: Select Flight
+
+WebView -> Backend: Communicate to DB
+
+Backend -> DB: Query DB for flight details
+
+DB -> DB: Search for Flight
+
+DB -> WebView: Display Flight Details
+
+User -> WebView: Select Seat
+
+WebView -> Backend: Communicate to DB
+
+Backend -> DB: Query DB for Seat Selection
+
+DB -> DB: Search for seat
+
+DB -> SeatController: Seat results
+
+SeatController ->SeatController: Assign seat
+
+SeatController ->WebView: Return Flight and Seat Details
+

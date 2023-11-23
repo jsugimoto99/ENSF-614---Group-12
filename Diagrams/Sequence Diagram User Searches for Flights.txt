@@ -1,0 +1,15 @@
+title Sequence Diagram: User Searches for Flights
+
+User -> WebView: Enter search criteria
+
+WebView -> Backend: Request to backend
+
+Backend -> DB: Query DB
+
+DB -> DB: Verify Flight Data
+
+DB -> Backend: Return Flight Data
+
+Backend -> WebView: Send Data to WebView
+
+WebView -> User: Display Flights

@@ -1,0 +1,22 @@
+title Registering User
+
+User -> WebView: Register User
+
+WebView -> UserController: Communicate to DB
+
+UserController -> DB: Query DB
+
+DB -> DB: Check if user exists
+
+DB ->UserController: User already exists
+
+UserController ->WebView: Update view
+
+WebView -> User: Re-prompt User
+
+DB ->UserController: User doesn't exist
+
+UserController ->DB: Create New Registered User 
+box over DB: New Registered User
+
+UserController -> WebView: Update view
