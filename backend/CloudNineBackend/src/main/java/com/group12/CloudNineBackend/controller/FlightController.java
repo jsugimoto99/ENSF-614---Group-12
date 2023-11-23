@@ -3,11 +3,7 @@ package com.group12.CloudNineBackend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.FlightService;
 import com.group12.CloudNineBackend.domain.Flight;
@@ -21,6 +17,7 @@ import com.group12.CloudNineBackend.domain.Flight;
 
 @RestController
 @RequestMapping("/flight")
+@CrossOrigin
 public class FlightController {
 
     @Autowired

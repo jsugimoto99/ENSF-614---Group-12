@@ -1,5 +1,8 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.sql.Date;
+import java.sql.Time;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,9 +25,9 @@ public class Flight {
 
     private String depart_loc;
     private String dest_loc;
-    private String depart_date;
-    private String depart_time;
-    private String arrive_time;
+    private Date depart_date;
+    private Time depart_time;
+    private Time arrive_time;
 
     /**
      * Default constructor for Flight class.
@@ -55,7 +58,7 @@ public class Flight {
      *
      * @return The departure date.
      */
-    public String getDepart_date() {
+    public Date getDepart_date() {
         return depart_date;
     }
 
@@ -64,7 +67,7 @@ public class Flight {
      *
      * @param depart_date The departure date to set.
      */
-    public void setDepart_date(String depart_date) {
+    public void setDepart_date(Date depart_date) {
         this.depart_date = depart_date;
     }
 
@@ -73,7 +76,7 @@ public class Flight {
      *
      * @return The departure time.
      */
-    public String getDepart_time() {
+    public Time getDepart_time() {
         return depart_time;
     }
 
@@ -82,7 +85,7 @@ public class Flight {
      *
      * @param depart_time The departure time to set.
      */
-    public void setDepart_time(String depart_time) {
+    public void setDepart_time(Time depart_time) {
         this.depart_time = depart_time;
     }
 
@@ -109,7 +112,7 @@ public class Flight {
      *
      * @return The arrival time.
      */
-    public String getArrive_time() {
+    public Time getArrive_time() {
         return arrive_time;
     }
 
@@ -118,7 +121,7 @@ public class Flight {
      *
      * @param arrive_time The arrival time to set.
      */
-    public void setArrive_time(String arrive_time) {
+    public void setArrive_time(Time arrive_time) {
         this.arrive_time = arrive_time;
     }
 }

@@ -2,6 +2,12 @@ import React from "react";
 import Login from "./Login";
 
 function Navbar() {
+  
+  // Function to handle the button click
+  const handleClick = () => {
+    Login();
+    console.log("Button has been a  clicked!");
+  };
   return (
     <>
       <header class="text-gray-600 body-font">
@@ -19,7 +25,7 @@ function Navbar() {
             >
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
-            <span class="ml-3 text-xl">ENSF 614</span>
+            <span class="ml-3 text-xl">Cloud 9 Airlines</span>
           </a>
           <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
             <a class="mr-5 hover:text-gray-900">First Link</a>
@@ -27,8 +33,9 @@ function Navbar() {
             <a class="mr-5 hover:text-gray-900">Third Link</a>
             <a class="mr-5 hover:text-gray-900">Fourth Link</a>
           </nav>
-          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-            Button
+          <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+          onClick={handleClick()}>
+            Login
             <svg
               fill="none"
               stroke="currentColor"
