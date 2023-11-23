@@ -1,12 +1,13 @@
-import React from 'react'
-import AddFlight from './AddFlight'
+import React from "react";
+import AddFlight from "./AddFlight";
+import Front from "./Front";
 
 function Home() {
   return (
     <>
-    <AddFlight />
+      <Front />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
