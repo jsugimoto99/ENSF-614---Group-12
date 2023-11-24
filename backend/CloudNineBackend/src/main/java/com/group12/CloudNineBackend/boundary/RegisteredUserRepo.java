@@ -6,5 +6,7 @@ import com.group12.CloudNineBackend.domain.RegisteredUser;
 
 @Repository
 public interface RegisteredUserRepo extends JpaRepository<RegisteredUser, Integer> {
-	 boolean existsByUsernameAndPassword(String username, String password);
+	boolean existsByUsernameAndPassword(String username, String password);
+	boolean existsByEmail(String email);
+	boolean existsByUsername(String username);
 }

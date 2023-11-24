@@ -3,6 +3,8 @@ package com.group12.CloudNineBackend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.FlightService;
@@ -30,10 +32,11 @@ public class FlightController {
      * @return A string indicating that the flight has been created.
      */
     @PostMapping("/add")
-    public String add(@RequestBody Flight flight) {
-        flightService.addFlight(flight);
-        return "Flight has been created";
+    public HttpStatus add(@RequestBody Flight flight) {
+    	flightService.addFlight(flight);
+        return HttpStatus.OK;
     }
+        
 
     /**
      * Handles HTTP GET requests to retrieve a list of all flights.

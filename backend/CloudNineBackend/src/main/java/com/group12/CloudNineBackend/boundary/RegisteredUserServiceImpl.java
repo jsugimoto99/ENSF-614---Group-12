@@ -20,4 +20,13 @@ public class RegisteredUserServiceImpl implements RegisteredUserService{
 		
 	}
 
+	@Override
+	public boolean isEmailAlreadyRegistered(String email) {
+		return registeredUserRepo.existsByEmail(email);
+	}
+
+	@Override
+	public boolean isUsernameAlreadyRegistered(String username) {
+		return registeredUserRepo.existsByUsername(username);
+	}
 }

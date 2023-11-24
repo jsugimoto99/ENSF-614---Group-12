@@ -1,5 +1,5 @@
 import React from "react";
-import AddFlight from "./AddFlight";
+import AddFlight from "./Flights";
 import Front from "./Front";
 
 function Home() {

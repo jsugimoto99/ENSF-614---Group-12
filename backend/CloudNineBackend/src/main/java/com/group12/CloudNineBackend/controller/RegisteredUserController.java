@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import com.group12.CloudNineBackend.boundary.RegisteredUserService;
 import com.group12.CloudNineBackend.domain.RegisteredUser;
 /**
@@ -21,25 +22,34 @@ public class RegisteredUserController {
 	private RegisteredUserService registeredUserService;
 	
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody RegisteredUser registeredUser) {
+    public HttpStatus login(@RequestBody RegisteredUser registeredUser) {
         String username = registeredUser.getUsername();
         String password = registeredUser.getPassword();
 
         // Validate credentials (consider using a more secure authentication mechanism)
         if (registeredUserService.isValidUser(username, password)) {
             // Authentication successful
-            return ResponseEntity.ok("Login successful!");
+            return HttpStatus.OK;
         } else {
             // Authentication failed
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            return HttpStatus.UNAUTHORIZED;
         }
     }
 	
-	@PostMapping("/register")
-    public String register(@RequestBody RegisteredUser registeredUser) {
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisteredUser registeredUser) {
+        if (registeredUserService.isEmailAlreadyRegistered(registeredUser.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is already registered");
+        }
+
+        if (registeredUserService.isUsernameAlreadyRegistered(registeredUser.getUsername())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already taken");
+        }
+
         registeredUserService.addRegisteredUser(registeredUser);
-        return "User has been Registered";
+        	return ResponseEntity.status(HttpStatus.CREATED).body("User has been Registered");
     }
+
 	
 	
 }

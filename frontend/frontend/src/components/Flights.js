@@ -25,6 +25,9 @@ export default function AddFlight() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(flight),
     })
+      .then((response) => {
+        console.log(response.text()); // Only attempt to parse JSON if there's content
+      })
       .then((data) => {
         console.log("New Flight added:", data);
       })

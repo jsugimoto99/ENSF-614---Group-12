@@ -6,5 +6,9 @@ public interface RegisteredUserService {
 	boolean isValidUser(String username, String password);
 
 	public RegisteredUser addRegisteredUser(RegisteredUser registeredUser);
+
+	boolean isEmailAlreadyRegistered(String email);
+
+	boolean isUsernameAlreadyRegistered(String username);
 }
 
