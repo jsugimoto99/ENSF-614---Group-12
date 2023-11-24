@@ -2,13 +2,35 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
 
-function Login({ updateUserRole }){
+function Login({ updateUserRole }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userErrorMessage, setUserErrorMessage] = useState(""); // New state for error message
+  const [passErrorMessage, setPassErrorMessage] = useState(""); // New state for error message
+  const [loginMessgae, setloginMessage] = useState("");// New state for login message
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setUserErrorMessage("");
+    setPassErrorMessage("");
+    setloginMessage("");
+
+    // Check if username or password is blank
+    if (username.trim() === "") {
+      setUserErrorMessage("Username is required");
+      return;
+    }
+    setUserErrorMessage("");
+    if (password.trim() === "") {
+      setPassErrorMessage("Password is required");
+      return;
+    }
+    setPassErrorMessage("");
+    // Clear any previous error message
+
+
+
     const loginCredentials = {
       username: username,
       password: password,
@@ -17,22 +39,28 @@ function Login({ updateUserRole }){
 
     console.log(loginCredentials);
 
-    
+
     try {
-      const response = await fetch("http://localhost:8081/registeredUser/login", {
+      const response = await fetch("http://localhost:8081/User/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginCredentials),
       });
 
-      if (response.ok) {
+      if (response == "OK") {
         const userData = await response.json();
-        console.log("Login successful:", userData);
+        console.log("Login status:", userData.body);
+        if (userData == "OK") {
+          // Call the updateUserRole function passed from App.js
+          updateUserRole(userData.body);
+          navigate("/");
 
-        // Call the updateUserRole function passed from App.js
-        updateUserRole('registeredUser');
+        }
+        else {
+          setloginMessage("Invalid Login, please check your username and password then try again.")
+          return;
+        }
 
-        // navigate("/");
       } else {
         console.log("Login failed");
         // Handle login failure, show error message, etc.
@@ -57,6 +85,10 @@ function Login({ updateUserRole }){
                 Sign in to your account
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
+                {/* Display error message */}
+                {loginMessgae && (
+                  <p className="text-red-500">{loginMessgae}</p>
+                )}
                 <div>
                   <label
                     for="email"
@@ -75,6 +107,10 @@ function Login({ updateUserRole }){
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
+                {/* Display error message */}
+                {userErrorMessage && (
+                  <p className="text-red-500">{userErrorMessage}</p>
+                )}
                 <div>
                   <label
                     for="password"
@@ -93,6 +129,10 @@ function Login({ updateUserRole }){
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
+                {/* Display error message */}
+                {passErrorMessage && (
+                  <p className="text-red-500">{passErrorMessage}</p>
+                )}
                 <div class="flex items-center justify-between">
                   <div class="flex items-start">
                     <div class="flex items-center h-5">

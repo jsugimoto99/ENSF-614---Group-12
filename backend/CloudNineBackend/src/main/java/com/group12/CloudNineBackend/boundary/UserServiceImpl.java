@@ -4,29 +4,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.group12.CloudNineBackend.domain.RegisteredUser;
 @Service
-public class RegisteredUserServiceImpl implements RegisteredUserService{
+public class UserServiceImpl implements UserService{
 
 	@Autowired
-	private RegisteredUserRepo registeredUserRepo;
+	private UserRepo userRepo;
 	
 	@Override
 	public boolean isValidUser(String username, String password) {
-		 return registeredUserRepo.existsByUsernameAndPassword(username, password);
+		 return userRepo.existsByUsernameAndPassword(username, password);
 	}
 
 	@Override
 	public RegisteredUser addRegisteredUser(RegisteredUser registeredUser) {
-		return registeredUserRepo.save(registeredUser);
+		return userRepo.save(registeredUser);
 		
 	}
 
 	@Override
 	public boolean isEmailAlreadyRegistered(String email) {
-		return registeredUserRepo.existsByEmail(email);
+		return userRepo.existsByEmail(email);
 	}
 
 	@Override
 	public boolean isUsernameAlreadyRegistered(String username) {
-		return registeredUserRepo.existsByUsername(username);
+		return userRepo.existsByUsername(username);
 	}
+
+	@Override
+	public String getUserRole(String username) {
+	    return userRepo.getUserRoleByUsername(username);
+	}
+
 }

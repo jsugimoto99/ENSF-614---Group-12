@@ -1,31 +1,49 @@
 package com.group12.CloudNineBackend.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "registeredUsers", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"username"}),
-        @UniqueConstraint(columnNames = {"email"})
-        })
 public class RegisteredUser extends User {
-	private String username;
-	private String password;
-	
-	public String getUsername() {
-		return username;
+	// Fields specific to credit card information
+    private String creditCardNumber;
+    private String creditCardExpirationDate;
+    private int creditCardCVV;
+
+    // Constructors
+    public RegisteredUser() {
+        this.role = "registered user";  // Override the role for registered users
+    }
+
+	public int getCreditCardCVV() {
+		return creditCardCVV;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setCreditCardCVV(int creditCardCVV) {
+		this.creditCardCVV = creditCardCVV;
 	}
-	public String getPassword() {
-		return password;
+
+	public String getCreditCardExpirationDate() {
+		return creditCardExpirationDate;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setCreditCardExpirationDate(String creditCardExpirationDate) {
+		this.creditCardExpirationDate = creditCardExpirationDate;
+	}
+
+	/**
+	 * @return the creditCardNumber
+	 */
+	public String getCreditCardNumber() {
+		return creditCardNumber;
+	}
+
+	/**
+	 * @param creditCardNumber the creditCardNumber to set
+	 */
+	public void setCreditCardNumber(String creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
 	}
 	
 }

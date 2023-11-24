@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function AddFlight() {
+export default function ModFlight() {
   const [depart_loc, setDeparture] = useState("");
   const [dest_loc, setDestination] = useState("");
   const [depart_date, setDate] = useState("");

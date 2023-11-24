@@ -1,6 +1,8 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
 import AdminNavbar from "./components/AdminNavbar";
+import Registration from "./components/Registration";
+import UserNavbar from "./components/UserNavbar";
 import Admin from "./components/Admin";
 import RegisteredNavbar from "./components/RegisteredNavbar"
 import Footer from "./components/Footer";
@@ -11,9 +13,10 @@ import SignUp from "./components/SignUp";
 import './App.css';
 import AddFlight from './components/Flights';
 import React, { useState } from "react";
+import BrowseFlights from "./components/BrowseFlights";
 
 function App() {
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState('user');
 
   const updateUserRole = (newUserRole) => {
     setUserRole(newUserRole);
@@ -25,6 +28,8 @@ function App() {
         return <AdminNavbar setUserRole={setUserRole} />;
       case 'registeredUser':
         return <RegisteredNavbar setUserRole={setUserRole} />;
+      case 'user':
+        return <UserNavbar setUserRole={setUserRole} />;
       default:
         return <Navbar />;
     }
@@ -33,14 +38,20 @@ function App() {
       {renderNavbar()} {/* Conditional rendering based on user's role */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/browseFlights" element={<BrowseFlights />} />
         <Route
           path="/login"
           element={<Login updateUserRole={updateUserRole} />}
         />
         <Route path="/signup" element={<SignUp />} />
-        {userRole === 'user' && (
-          <Route path="/addflight" element={<AddFlight />} />
-        )}
+        {userRole === 'user'}
+        <>
+          <Route path="/browseFlights" element={<BrowseFlights />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/myFlights" element={<myFlights />} />
+        </>
+
+
         <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />

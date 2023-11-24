@@ -25,7 +25,13 @@ public class User {
 	private String state;
 	private String zip;
 	private String email;
-	private String role;
+	protected String role;
+	private String username;
+	private String password;
+	
+	public User() {
+        this.role = "user";  // Default role is "user"
+    }
 	public String getfName() {
 		return fName;
 	}
@@ -73,6 +79,18 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 		
 }
