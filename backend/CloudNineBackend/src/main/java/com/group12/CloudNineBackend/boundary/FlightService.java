@@ -26,4 +26,7 @@ public interface FlightService {
      * @return The Flight object that has been added.
      */
     public Flight addFlight(Flight flight);
+
+	public void deleteFlight(Flight flight);
+	
 }
