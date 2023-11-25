@@ -3,6 +3,7 @@ package com.group12.CloudNineBackend.boundary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.group12.CloudNineBackend.domain.RegisteredUser;
+import com.group12.CloudNineBackend.domain.User;
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -12,12 +13,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean isValidUser(String username, String password) {
 		 return userRepo.existsByUsernameAndPassword(username, password);
-	}
-
-	@Override
-	public RegisteredUser addRegisteredUser(RegisteredUser registeredUser) {
-		return userRepo.save(registeredUser);
-		
 	}
 
 	@Override
@@ -33,6 +28,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String getUserRole(String username) {
 	    return userRepo.getUserRoleByUsername(username);
+	}
+
+	@Override
+	public User addUser(User user) {
+		return userRepo.save(user);
 	}
 
 }

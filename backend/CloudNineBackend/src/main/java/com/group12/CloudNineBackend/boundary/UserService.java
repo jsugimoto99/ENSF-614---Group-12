@@ -1,11 +1,11 @@
 package com.group12.CloudNineBackend.boundary;
 
-import com.group12.CloudNineBackend.domain.RegisteredUser;
+import com.group12.CloudNineBackend.domain.User;
 
 public interface UserService {
 	boolean isValidUser(String username, String password);
 
-	public RegisteredUser addRegisteredUser(RegisteredUser registeredUser);
+	public User addUser(User user);
 
 	boolean isEmailAlreadyRegistered(String email);
 

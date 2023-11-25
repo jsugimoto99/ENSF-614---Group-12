@@ -46,21 +46,20 @@ function Login({ updateUserRole }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginCredentials),
       });
-
-      if (response == "OK") {
+    
+      if (response.ok) {
         const userData = await response.json();
-        console.log("Login status:", userData.body);
-        if (userData == "OK") {
+        console.log("Login status:", userData);
+    
+        if (userData.status === "success") {
           // Call the updateUserRole function passed from App.js
-          updateUserRole(userData.body);
+          updateUserRole(userData.userRole);
           navigate("/");
-
-        }
-        else {
-          setloginMessage("Invalid Login, please check your username and password then try again.")
+          return;
+        } else {
+          setloginMessage("Invalid Login, please check your username and password then try again.");
           return;
         }
-
       } else {
         console.log("Login failed");
         // Handle login failure, show error message, etc.
@@ -68,6 +67,7 @@ function Login({ updateUserRole }) {
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
+    
   };
   return (
     <>

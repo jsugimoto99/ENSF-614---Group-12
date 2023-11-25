@@ -6,17 +6,18 @@ import UserNavbar from "./components/UserNavbar";
 import Admin from "./components/Admin";
 import RegisteredNavbar from "./components/RegisteredNavbar"
 import Footer from "./components/Footer";
+import ManageFlights from "./components/ManageFlights";
 import Login from "./components/Login";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import './App.css';
-import AddFlight from './components/Flights';
 import React, { useState } from "react";
 import BrowseFlights from "./components/BrowseFlights";
+import Promotions from "./components/Promotions";
 
 function App() {
-  const [userRole, setUserRole] = useState('user');
+  const [userRole, setUserRole] = useState('');
 
   const updateUserRole = (newUserRole) => {
     setUserRole(newUserRole);
@@ -26,7 +27,7 @@ function App() {
     switch (userRole) {
       case 'admin':
         return <AdminNavbar setUserRole={setUserRole} />;
-      case 'registeredUser':
+      case 'registered user':
         return <RegisteredNavbar setUserRole={setUserRole} />;
       case 'user':
         return <UserNavbar setUserRole={setUserRole} />;
@@ -39,6 +40,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/browseFlights" element={<BrowseFlights />} />
+        <Route path="/manageFlights" element={<ManageFlights />} />
         <Route
           path="/login"
           element={<Login updateUserRole={updateUserRole} />}
@@ -50,7 +52,12 @@ function App() {
           <Route path="/registration" element={<Registration />} />
           <Route path="/myFlights" element={<myFlights />} />
         </>
-
+        {userRole === 'registered user'}
+        <>
+          <Route path="/browseFlights" element={<BrowseFlights />} />
+          <Route path="/promotions" element={<Promotions />} />
+          <Route path="/myFlights" element={<myFlights />} />
+        </>
 
         <Route path="/admin" element={<Admin />} />
       </Routes>

@@ -11,6 +11,6 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public boolean isAdmin(String username, String password) {
-	    return admin != null && username.equals("admin") && password.equals("ENSF614");
+	    return admin != null && username.equals("admin") && password.equals("admin");
 	}
 }

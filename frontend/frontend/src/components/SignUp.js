@@ -29,7 +29,7 @@ export default function SignUp() {
 
     console.log(registerUser);
 
-    fetch("http://localhost:8081/registeredUser/register", {
+    fetch("http://localhost:8081/User/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(registerUser),

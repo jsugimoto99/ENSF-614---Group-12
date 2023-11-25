@@ -31,6 +31,9 @@ class Navbar extends Component {
               <Link to="/browseFlights">
                 <a className="mr-5 hover:text-green-900">Browse Flights</a>
               </Link>
+              <Link to="/manageFlights">
+                <a className="mr-5 hover:text-green-900">Manage Flights</a>
+              </Link>
             </nav>
             <Link to="login">
               <button

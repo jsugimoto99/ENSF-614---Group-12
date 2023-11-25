@@ -1,11 +1,17 @@
-import React, { Component } from 'react'
+// BrowseFlights.js
 
-export class BrowseFlights extends Component {
+import React, { Component } from 'react';
+import FlightList from './FlightList';
+
+class BrowseFlights extends Component {
   render() {
     return (
-      <div>BrowseFlights</div>
-    )
+      <div>
+        <h1>Browse Flights</h1>
+        <FlightList />
+      </div>
+    );
   }
 }
 
-export default BrowseFlights
+export default BrowseFlights;
