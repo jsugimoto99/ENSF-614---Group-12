@@ -20,10 +20,18 @@ import ModFlights from "./components/ModFlights";
 
 function App() {
   const [user, setUser] = useState({
-    username: '',
-    email: '',
     role: '',
-    // ... other attributes
+    id: '',
+    username: '',
+    password: '',
+    email: '',
+    street: '',
+    city: '',
+    state: '',
+    zip: '',
+    credit_card: '',
+    exp_date:'',
+    cvv: ''
   });
 
   const updateUserAttributes = (newAttributes) => {
@@ -59,7 +67,7 @@ function App() {
         <Route path="/manageFlights" element={<ManageFlights />} />
         <Route
           path="/login"
-          element={<Login updateUserRole={updateUserRole} />}
+          element={<Login updateUserAttributes={updateUserAttributes} />}
         />
         <Route path="/signup" element={<SignUp />} />
         {userRole === 'user'}

@@ -63,9 +63,15 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
 	    Map<String, String> response = new HashMap<>();
+	    
+	    Long id = user.getId();
+	    
 	    userService.registerUser(user);
-    	response.put("status", "success");
-        response.put("message", "User is now registered");
+	    String userRole = userService.getUserRole(id);
+	    
+	    	response.put("status", "success");
+        	response.put("message", "User is now registered");
+        	response.put("userRole", userRole);
         return ResponseEntity.status(HttpStatus.OK).body(response);
 		
 	

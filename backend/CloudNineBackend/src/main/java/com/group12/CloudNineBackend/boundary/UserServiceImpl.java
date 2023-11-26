@@ -70,20 +70,17 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String getCity(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getCity(id);
 	}
 
 	@Override
 	public String getPassword(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getPassword(id);
 	}
 
 	@Override
 	public String getState(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getState(id);
 	}
 
 	@Override
@@ -94,14 +91,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String getCvv(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getCvv(id);
 	}
 
 	@Override
 	public String getExpDate(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getExpDate(id);
 	}
 
 }

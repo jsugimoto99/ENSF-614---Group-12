@@ -16,7 +16,7 @@ import jakarta.persistence.UniqueConstraint;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	private String fName;
 	private String lName;
@@ -32,6 +32,10 @@ public class User {
 	public User() {
         this.role = "user";  // Default role is "user"
     }
+	
+	public Long getId() {
+		return id;
+	}
 	public String getfName() {
 		return fName;
 	}

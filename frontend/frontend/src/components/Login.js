@@ -27,8 +27,8 @@ function Login({ updateUserRole }) {
       setPassErrorMessage("Password is required");
       return;
     }
-  
-    
+
+
 
 
 
@@ -47,14 +47,24 @@ function Login({ updateUserRole }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginCredentials),
       });
-    
+
       if (response.ok) {
         const userData = await response.json();
-        console.log("Login status:", userData);
-    
+        console.log("Login status:", userData.status);
+
         if (userData.status === "success") {
           // Call the updateUserRole function passed from App.js
-          updateUserAttributes(userBata.,userData.Role);
+          updateUserAttributes({
+            role: userData.role,
+            id: userData.id,
+            username: userData.username,
+            password: userData.password,
+            email: userData.email,
+            street: userData.street,
+            city: userData.city,
+            state: userData.state,
+            zip: userData.zip
+          });
           navigate("/");
           return;
         } else {
@@ -68,7 +78,7 @@ function Login({ updateUserRole }) {
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
-    
+
   };
   return (
     <>
