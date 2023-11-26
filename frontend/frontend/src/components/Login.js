@@ -12,6 +12,7 @@ function Login({ updateUserRole }) {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    // Clear any previous error message
     setUserErrorMessage("");
     setPassErrorMessage("");
     setloginMessage("");
@@ -21,13 +22,13 @@ function Login({ updateUserRole }) {
       setUserErrorMessage("Username is required");
       return;
     }
-    setUserErrorMessage("");
+
     if (password.trim() === "") {
       setPassErrorMessage("Password is required");
       return;
     }
-    setPassErrorMessage("");
-    // Clear any previous error message
+  
+    
 
 
 
@@ -53,7 +54,7 @@ function Login({ updateUserRole }) {
     
         if (userData.status === "success") {
           // Call the updateUserRole function passed from App.js
-          updateUserRole(userData.userRole);
+          updateUserAttributes(userBata.,userData.Role);
           navigate("/");
           return;
         } else {

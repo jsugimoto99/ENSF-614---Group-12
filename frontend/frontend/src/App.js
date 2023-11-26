@@ -2,8 +2,8 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import AdminNavbar from "./components/AdminNavbar";
 import Registration from "./components/Registration";
+import AdminLogin from "./components/AdminLogin";
 import UserNavbar from "./components/UserNavbar";
-import Admin from "./components/Admin";
 import RegisteredNavbar from "./components/RegisteredNavbar"
 import Footer from "./components/Footer";
 import ManageFlights from "./components/ManageFlights";
@@ -15,8 +15,24 @@ import './App.css';
 import React, { useState } from "react";
 import BrowseFlights from "./components/BrowseFlights";
 import Promotions from "./components/Promotions";
+import BookedFlights from "./components/BookedFlights";
+import ModFlights from "./components/ModFlights";
 
 function App() {
+  const [user, setUser] = useState({
+    username: '',
+    email: '',
+    role: '',
+    // ... other attributes
+  });
+
+  const updateUserAttributes = (newAttributes) => {
+    setUser((prevUser) => {
+      // Merge the previous user attributes with the new attributes
+      return { ...prevUser, ...newAttributes };
+    });
+  };
+  
   const [userRole, setUserRole] = useState('');
 
   const updateUserRole = (newUserRole) => {
@@ -49,17 +65,26 @@ function App() {
         {userRole === 'user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="/myFlights" element={<myFlights />} />
+          <Route path="/registration" element={<Registration updateUserRole={updateUserRole} />} />
+          <Route path="/myFlights" element={<BookedFlights />} />
         </>
         {userRole === 'registered user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
           <Route path="/promotions" element={<Promotions />} />
-          <Route path="/myFlights" element={<myFlights />} />
+          <Route path="/myFlights" element={<BookedFlights />} />
         </>
 
-        <Route path="/admin" element={<Admin />} />
+
+        <Route path="/admin" element={<AdminLogin updateUserRole={updateUserRole} />} />
+        {userRole === 'admin'}
+        <>
+          <Route path="/flights" element={<ModFlights />} />
+          <Route path="/showPromotions" element={<Promotions />} />
+          <Route path="/myFlights" element={<BookedFlights />} />
+        </>
+        
+
       </Routes>
       <Footer />
     </div>

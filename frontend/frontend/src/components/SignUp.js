@@ -15,7 +15,7 @@ export default function SignUp() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    const registerUser = {
+    const User = {
       fName: fName,
       lName: lName,
       email: email,
@@ -27,18 +27,18 @@ export default function SignUp() {
       zip: zip,
     };
 
-    console.log(registerUser);
+    console.log(User);
 
-    fetch("http://localhost:8081/User/register", {
+    fetch("http://localhost:8081/User/signUp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(registerUser),
+      body: JSON.stringify(User),
     })
       .then((response) => {
         console.log(response.text()); // Only attempt to parse JSON if there's content
       })
       .then((data) => {
-        console.log("User Registered: ", data);
+        console.log("Signed Up: ", data);
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);

@@ -50,7 +50,7 @@ function AdminLogin({ updateUserRole }) {
     
         if (userData.status === "success") {
           // Call the updateUserRole function passed from App.js
-          updateUserRole("admin");
+          updateUserRole('admin');
           navigate("/");
           return;
         } else {

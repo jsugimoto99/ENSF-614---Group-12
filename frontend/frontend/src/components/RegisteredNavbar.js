@@ -32,12 +32,16 @@ class RegisteredNavbar extends Component {
               </Link>
             </a>
             <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center text-gray-50">
-              <Link to="/addflight">
-                <a className="mr-5 hover:text-green-900">Reservation</a>
+              <Link to="/browseFlights">
+                <a className="mr-5 hover:text-green-900">Book a Flight</a>
               </Link>
+              <Link to="/myFlights">
+              <a className="mr-5 hover:text-green-900">My Flights</a>
+              </Link>
+              <Link to="/showPromotions">
               <a className="mr-5 hover:text-green-900">Promotions</a>
-              <a className="mr-5 hover:text-green-900">Flight Status</a>
-              <a className="mr-5 hover:text-green-900">Rewards</a>
+              </Link>
+             
             </nav>
             <Link to="/">
               <button

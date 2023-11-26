@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function ModFlight() {
+export default function ModFlights() {
   const [depart_loc, setDeparture] = useState("");
   const [dest_loc, setDestination] = useState("");
   const [depart_date, setDate] = useState("");
@@ -42,9 +42,8 @@ export default function ModFlight() {
         <div class="container px-5 py-24 mx-auto">
           <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
             <h1 class="title-font font-medium text-3xl text-gray-900">
-              Book your Trip now!
+              Add Flight To The System
             </h1>
-            <p class="leading-relaxed mt-4">Great</p>
           </div>
           <div class="container mx-auto lg:w-3/4 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col w-full">
             <h2 class="text-gray-900 text-lg font-medium title-font mb-5">

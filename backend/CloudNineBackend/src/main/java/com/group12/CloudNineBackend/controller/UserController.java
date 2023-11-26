@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.group12.CloudNineBackend.boundary.UserService;
+import com.group12.CloudNineBackend.domain.RegisteredUser;
 import com.group12.CloudNineBackend.domain.User;
 /**
  * 
@@ -45,8 +46,8 @@ public class UserController {
 	    }
 	}
 	
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    @PostMapping("/signUp")
+    public ResponseEntity<String> signUp(@RequestBody User user) {
         if (userService.isEmailAlreadyRegistered(user.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is already registered");
         }
@@ -56,11 +57,19 @@ public class UserController {
         }
 
         userService.addUser(user);
-        	return ResponseEntity.status(HttpStatus.CREATED).body("User has been Registered");
+        	return ResponseEntity.status(HttpStatus.CREATED).body("User has been signed up");
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
+	    Map<String, String> response = new HashMap<>();
+	    userService.registerUser(user);
+    	response.put("status", "success");
+        response.put("message", "User is now registered");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+		
 	
-	
+    }
 }
 
 
