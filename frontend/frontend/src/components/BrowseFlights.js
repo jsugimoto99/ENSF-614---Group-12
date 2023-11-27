@@ -1,8 +1,11 @@
 import React from 'react'
+import BrowseFlight from './BrowseFlights/BrowseFlight'
 
 function BrowseFlights() {
   return (
-    <div>BrowseFlights</div>
+    <div>
+      <BrowseFlight />
+    </div>
   )
 }
 

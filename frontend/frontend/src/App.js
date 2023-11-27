@@ -17,6 +17,7 @@ import BrowseFlights from "./components/BrowseFlights";
 import Promotions from "./components/Promotions";
 import BookedFlights from "./components/BookedFlights";
 import ModFlights from "./components/ModFlights";
+import FlightList from "./components/BrowseFlights/FlightList";
 
 function App() {
   const [user, setUser] = useState({
@@ -48,7 +49,7 @@ function App() {
     });
   };
   
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState('user');
 
   const updateUserRole = (newUserRole) => {
     setUserRole(newUserRole);
@@ -83,6 +84,7 @@ function App() {
         {userRole === 'user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
+          <Route path="/flighList/:param" Component={FlightList} />
           <Route path="/registration" element={<Registration 
                                                 updateUserAttributes = {updateUserAttributes} 
                                                 user = {user}
