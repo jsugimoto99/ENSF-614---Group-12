@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function BrowseFlight() {
   const navigate = useNavigate();
   const handleClick = () => {
-    // navigate(`/browseflight/${paramValue}`);
+    const paramName = "flights";
+    navigate(`/flightList/${paramName}`);
   };
   return (
     <>

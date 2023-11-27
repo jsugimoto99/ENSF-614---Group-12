@@ -84,7 +84,7 @@ function App() {
         {userRole === 'user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
-          <Route path="/flighList/:param" Component={FlightList} />
+          <Route path="/flightList/:paramName" element={<FlightList />} />
           <Route path="/registration" element={<Registration 
                                                 updateUserAttributes = {updateUserAttributes} 
                                                 user = {user}
