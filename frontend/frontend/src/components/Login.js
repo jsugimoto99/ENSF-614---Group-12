@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
 
-function Login({ updateUserRole }) {
+function Login({ user, updateUserAttributes }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [userErrorMessage, setUserErrorMessage] = useState(""); // New state for error message
@@ -54,7 +54,7 @@ function Login({ updateUserRole }) {
 
         if (userData.status === "success") {
           // Call the updateUserRole function passed from App.js
-          updateUserAttributes({
+          const userAttributes = {
             role: userData.role,
             id: userData.id,
             username: userData.username,
@@ -64,7 +64,10 @@ function Login({ updateUserRole }) {
             city: userData.city,
             state: userData.state,
             zip: userData.zip
-          });
+          }
+
+          console.log(userAttributes);
+          updateUserAttributes(userAttributes);
           navigate("/");
           return;
         } else {

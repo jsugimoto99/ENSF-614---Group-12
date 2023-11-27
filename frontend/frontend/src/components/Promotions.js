@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class Promotions extends Component {
-  render() {
-    return (
-      <div>Promotions</div>
-    )
-  }
+function Promotions() {
+  return (
+    <div>Promotions</div>
+  )
 }
 
 export default Promotions

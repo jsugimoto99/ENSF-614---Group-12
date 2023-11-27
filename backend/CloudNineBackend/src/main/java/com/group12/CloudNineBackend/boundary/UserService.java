@@ -1,7 +1,5 @@
 package com.group12.CloudNineBackend.boundary;
 
-import org.springframework.data.repository.query.Param;
-
 import com.group12.CloudNineBackend.domain.RegisteredUser;
 import com.group12.CloudNineBackend.domain.User;
 
@@ -9,36 +7,40 @@ public interface UserService {
 	boolean isValidUser(String username, String password);
 
 	public User addUser(User user);
-
+	
 	boolean isEmailAlreadyRegistered(String email);
 
 	boolean isUsernameAlreadyRegistered(String username);
 
 	String getUserRole(String username);
 	
-	String getUserInformation(Long id);
-	
-	public RegisteredUser registerUser (User user);
-
-	String getUserRole(Long id);
+	public void registerUser(Long userId, RegisteredUser registeredUser);
 	
 	Long getUserId(String username);
 	
-	String getFName(Long id);
+	String getFName(String username);
 	
-	String getLName(Long id);
+	String getLName(String username);
 	
-	String getCity(Long id);
+	String getCity(String username);
 	
-	String getPassword (Long id);
+	String getEmail(String username);
 	
-	String getState (Long id);
+	String getPassword(String username);
 	
-	String getZip (Long id);
+	String getState (String username);
 	
-	String getCvv (Long id);
+	String getZip(String username);
 	
-	String getExpDate (Long id);
+//	int getCvv(String username);
+	
+	String getExpDate(String username);
+	
+	String getCardNum(String username);
+
+	String getStreet(String username);
+
+	String getUsername(Long userId);
 	
 	
 	

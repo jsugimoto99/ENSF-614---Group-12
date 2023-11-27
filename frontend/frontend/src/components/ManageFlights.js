@@ -1,15 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class ManageFlights extends Component {
-  render() {
-    return (
-      <div>
-        ManageFlights
-        here
-
-      </div>
-    )
-  }
+function ManageFlights() {
+  return (
+    <div>ManageFlights</div>
+  )
 }
 
 export default ManageFlights

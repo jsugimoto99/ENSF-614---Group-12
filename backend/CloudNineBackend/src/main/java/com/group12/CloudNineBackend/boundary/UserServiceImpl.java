@@ -1,18 +1,21 @@
 package com.group12.CloudNineBackend.boundary;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.group12.CloudNineBackend.domain.RegisteredUser;
 import com.group12.CloudNineBackend.domain.User;
+
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepo userRepo;
-	
+
 	@Override
 	public boolean isValidUser(String username, String password) {
-		 return userRepo.existsByUsernameAndPassword(username, password);
+		return userRepo.existsByUsernameAndPassword(username, password);
 	}
 
 	@Override
@@ -26,77 +29,119 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String getUserRole(Long id) {
-	    return userRepo.getUserRole(id);
-	}
-
-	@Override
 	public User addUser(User user) {
 		return userRepo.save(user);
 	}
 
 	@Override
-	public RegisteredUser registerUser(User user) {
-		RegisteredUser registeredUser = (RegisteredUser) user;	
-		userRepo.delete(user);
-		return userRepo.save(registeredUser);
+	public void registerUser(Long userId, RegisteredUser registeredUser) {
+		Optional<User> optionalUser = userRepo.findById(userId);
+
+		if (optionalUser.isPresent()) {
+			User existingUser = optionalUser.get();
+
+			// Check if the user is not already a RegisteredUser
+			if (!(existingUser instanceof RegisteredUser)) {
+				// Create a new RegisteredUser instance
+				RegisteredUser updatedUser = registeredUser;
+				
+				 // Set the ID from the existing user to the new RegisteredUser
+	            updatedUser.setId(existingUser.getId());
+				// Copy relevant fields from User to RegisteredUser
+				copyUserFieldsToRegisteredUser(existingUser, updatedUser);
+				// Remove the old User
+				userRepo.delete(existingUser);
+				// Save the new RegisteredUser
+				userRepo.save(updatedUser);
+
+			} else {
+				throw new RuntimeException("User not found with ID: " + userId);
+			}
+		}
 	}
 
-	@Override
-	public String getUserInformation(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	private void copyUserFieldsToRegisteredUser(User user, RegisteredUser registeredUser) {
+		;
+		registeredUser.setfName(user.getfName());
+		registeredUser.setlName(user.getlName());
+		registeredUser.setEmail(user.getEmail());
+		registeredUser.setUsername(user.getUsername());
+		registeredUser.setPassword(user.getPassword());
+		registeredUser.setStreet(user.getStreet());
+		registeredUser.setCity(user.getCity());
+		registeredUser.setState(user.getState());
+		registeredUser.setZip(user.getZip());
+		
 	}
 
 	@Override
 	public String getUserRole(String username) {
-		return getUserRole(username);
+		return userRepo.getUserRole(username);
 	}
 
 	@Override
 	public Long getUserId(String username) {
-		return getUserId(username);
+		return userRepo.getUserId(username);
 	}
 
 	@Override
-	public String getFName(Long id) {
-		return getFName(id);
+	public String getFName(String username) {
+		return userRepo.getFName(username);
 	}
 
 	@Override
-	public String getLName(Long id) {
-		return getLName(id);
+	public String getLName(String username) {
+		return userRepo.getLName(username);
 	}
 
 	@Override
-	public String getCity(Long id) {
-		return getCity(id);
+	public String getCity(String username) {
+		return userRepo.getCity(username);
 	}
 
 	@Override
-	public String getPassword(Long id) {
-		return getPassword(id);
+	public String getPassword(String username) {
+		return userRepo.getPassword(username);
 	}
 
 	@Override
-	public String getState(Long id) {
-		return getState(id);
+	public String getState(String username) {
+		return userRepo.getState(username);
 	}
 
 	@Override
-	public String getZip(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getZip(String username) {
+		return userRepo.getZip(username);
+	}
+
+//	@Override
+//	public int getCvv(String username) {
+//		return userRepo.getCvv(username);
+//	}
+
+	@Override
+	public String getExpDate(String username) {
+		return userRepo.getExpDate(username);
 	}
 
 	@Override
-	public String getCvv(Long id) {
-		return getCvv(id);
+	public String getCardNum(String username) {
+		return userRepo.getCardNumber(username);
 	}
 
 	@Override
-	public String getExpDate(Long id) {
-		return getExpDate(id);
+	public String getEmail(String username) {
+		return userRepo.getEmail(username);
+	}
+
+	@Override
+	public String getStreet(String username) {
+		return userRepo.getStreet(username);
+	}
+
+	@Override
+	public String getUsername(Long userId) {
+		return userRepo.getUsername(userId);
 	}
 
 }

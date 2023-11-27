@@ -1,49 +1,74 @@
 package com.group12.CloudNineBackend.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Data
 @Entity
+@DiscriminatorValue("RegisteredUser")
 public class RegisteredUser extends User {
-	// Fields specific to credit card information
+
+    // Fields specific to credit card information
+    @Column(name = "creditCardNumber")
     private String creditCardNumber;
-    private String creditCardExpirationDate;
-    private int creditCardCVV;
+
+    @Column(name = "creditCardExp")
+    private String creditCardExp;
+
+    @Column(name = "creditCardCvv")
+    private int creditCardCvv;
 
     // Constructors
     public RegisteredUser() {
-        this.role = "registered user";  // Override the role for registered users
+        this.setRole("registered user");  // Override the role for registered users
     }
 
-	public int getCreditCardCVV() {
-		return creditCardCVV;
-	}
+    /**
+     * @return the creditCardCvv
+     */
+    public int getCreditCardCvv() {
+        return creditCardCvv;
+    }
 
-	public void setCreditCardCVV(int creditCardCVV) {
-		this.creditCardCVV = creditCardCVV;
-	}
+    /**
+     * @param creditCardCvv the creditCardCvv to set
+     */
+    public void setCreditCardCvv(int creditCardCvv) {
+        this.creditCardCvv = creditCardCvv;
+    }
 
-	public String getCreditCardExpirationDate() {
-		return creditCardExpirationDate;
-	}
+    /**
+     * @return the creditCardNumber
+     */
+    public String getCreditCardNumber() {
+        return creditCardNumber;
+    }
 
-	public void setCreditCardExpirationDate(String creditCardExpirationDate) {
-		this.creditCardExpirationDate = creditCardExpirationDate;
-	}
+    /**
+     * @param creditCardNumber the creditCardNumber to set
+     */
+    public void setCreditCardNumber(String creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+    }
 
-	/**
-	 * @return the creditCardNumber
-	 */
-	public String getCreditCardNumber() {
-		return creditCardNumber;
-	}
+    /**
+     * @return the creditCardExp
+     */
+    public String getCreditCardExp() {
+        return creditCardExp;
+    }
 
-	/**
-	 * @param creditCardNumber the creditCardNumber to set
-	 */
-	public void setCreditCardNumber(String creditCardNumber) {
-		this.creditCardNumber = creditCardNumber;
+    /**
+     * @param creditCardExp the creditCardExp to set
+     */
+    public void setCreditCardExp(String creditCardExp) {
+        this.creditCardExp = creditCardExp;
+    }
+
+	public void setId(Long id) {
+		this.id = id;
+		
 	}
-	
 }

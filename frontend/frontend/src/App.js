@@ -29,15 +29,22 @@ function App() {
     city: '',
     state: '',
     zip: '',
-    credit_card: '',
-    exp_date:'',
+    cardNumber: '',
+    expDate:'',
     cvv: ''
   });
 
   const updateUserAttributes = (newAttributes) => {
     setUser((prevUser) => {
       // Merge the previous user attributes with the new attributes
-      return { ...prevUser, ...newAttributes };
+      const updatedUser = { ...prevUser, ...newAttributes };
+  
+      // Update user role based on the 'role' property in newAttributes
+      if (newAttributes.role) {
+        setUserRole(newAttributes.role);
+      }
+  
+      return updatedUser;
     });
   };
   
@@ -50,11 +57,11 @@ function App() {
   const renderNavbar = () => {
     switch (userRole) {
       case 'admin':
-        return <AdminNavbar setUserRole={setUserRole} />;
+        return <AdminNavbar updateUserAttributes={updateUserAttributes} />;
       case 'registered user':
-        return <RegisteredNavbar setUserRole={setUserRole} />;
+        return <RegisteredNavbar updateUserAttributes={updateUserAttributes} />;
       case 'user':
-        return <UserNavbar setUserRole={setUserRole} />;
+        return <UserNavbar updateUserAttributes={updateUserAttributes} />;
       default:
         return <Navbar />;
     }
@@ -67,13 +74,19 @@ function App() {
         <Route path="/manageFlights" element={<ManageFlights />} />
         <Route
           path="/login"
-          element={<Login updateUserAttributes={updateUserAttributes} />}
+          element={<Login 
+                    updateUserAttributes={updateUserAttributes} 
+                    user = {user}
+                    />}
         />
         <Route path="/signup" element={<SignUp />} />
         {userRole === 'user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
-          <Route path="/registration" element={<Registration updateUserRole={updateUserRole} />} />
+          <Route path="/registration" element={<Registration 
+                                                updateUserAttributes = {updateUserAttributes} 
+                                                user = {user}
+                                                />} />
           <Route path="/myFlights" element={<BookedFlights />} />
         </>
         {userRole === 'registered user'}

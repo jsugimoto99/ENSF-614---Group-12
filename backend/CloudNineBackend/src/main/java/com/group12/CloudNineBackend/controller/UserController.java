@@ -24,8 +24,8 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, String>> login(@RequestBody User user) {
-	    Map<String, String> response = new HashMap<>();
+	public ResponseEntity<Map<String, Object>> login(@RequestBody User user) {
+	    Map<String, Object> response = new HashMap<>();
 	    
 	    String username = user.getUsername();
 	    String password = user.getPassword();
@@ -33,10 +33,26 @@ public class UserController {
 	    // Validate credentials (consider using a more secure authentication mechanism)
 	    if (userService.isValidUser(username, password)) {
 	        // Authentication successful
-	        String userRole = userService.getUserRole(username); // Adjust this based on your logic
 	        response.put("status", "success");
 	        response.put("message", "Authentication successful");
-	        response.put("userRole", userRole);
+	        Long id = userService.getUserId(username);
+	        response.put("id", id);
+	        String userRole = userService.getUserRole(username); // Adjust this based on your logic
+	        
+	        response.put("role", userRole);
+	        response.put("username", username);
+	        response.put("password", password);
+	        String email = userService.getEmail(username);
+			response.put("email", email);
+	        String street = userService.getStreet(username);
+			response.put("street", street);
+	        String city = userService.getCity(username);
+			response.put("city", city);
+	        String state = userService.getState(username);
+			response.put("state", state);
+	        String zip = userService.getZip(username);
+			response.put("zip", zip);
+	        
 	        return ResponseEntity.status(HttpStatus.OK).body(response);
 	    } else {
 	        // Authentication failed
@@ -47,34 +63,61 @@ public class UserController {
 	}
 	
     @PostMapping("/signUp")
-    public ResponseEntity<String> signUp(@RequestBody User user) {
+    public ResponseEntity<Map<String, Object>> signUp(@RequestBody User user) {
+        Map<String, Object> response = new HashMap<>();
+
+        // Validate user input (e.g., check if email and username are not empty)
+
         if (userService.isEmailAlreadyRegistered(user.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email is already registered");
+            response.put("status", "error");
+            response.put("message", "Email already exists");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         if (userService.isUsernameAlreadyRegistered(user.getUsername())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username is already taken");
+            response.put("status", "error");
+            response.put("message", "Username already exists");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         userService.addUser(user);
-        	return ResponseEntity.status(HttpStatus.CREATED).body("User has been signed up");
+
+        response.put("status", "success");
+        response.put("message", "Sign up successful");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
-	    Map<String, String> response = new HashMap<>();
-	    
-	    Long id = user.getId();
-	    
-	    userService.registerUser(user);
-	    String userRole = userService.getUserRole(id);
-	    
-	    	response.put("status", "success");
-        	response.put("message", "User is now registered");
-        	response.put("userRole", userRole);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-		
-	
+    @PostMapping("/register/{userId}")
+    public ResponseEntity<Map<String, Object>> register(@PathVariable Long userId, @RequestBody RegisteredUser user) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            userService.registerUser(userId, user);
+
+            // Fetch additional information about the registered user
+            String username = userService.getUsername(userId);
+            String userRole = userService.getUserRole(username);
+//            int userCvv = userService.getCvv(username);
+            String userCardNum = userService.getCardNum(username);
+            String userCardExp = userService.getExpDate(username);
+
+            // Prepare the response
+            response.put("status", "success");
+            response.put("message", "User is now registered");
+            response.put("userRole", userRole);
+            response.put("cardNumber", userCardNum);
+            response.put("expDate", userCardExp);
+//            response.put("cvv", String.valueOf(userCvv));
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            // Log the exception (consider using a proper logging framework)
+            e.printStackTrace();
+
+            // Provide a meaningful error response to the client
+            response.put("status", "error");
+            response.put("message", "Internal server error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 }
 
