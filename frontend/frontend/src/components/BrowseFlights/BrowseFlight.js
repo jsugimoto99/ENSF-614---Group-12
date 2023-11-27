@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { unstable_HistoryRouter } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function BrowseFlight() {
-  const history = unstable_HistoryRouter();
+  const navigate = useNavigate();
   const handleClick = () => {
-    // history.push(`/browseflight/${paramValue}`);
+    // navigate(`/browseflight/${paramValue}`);
   };
   return (
     <>
