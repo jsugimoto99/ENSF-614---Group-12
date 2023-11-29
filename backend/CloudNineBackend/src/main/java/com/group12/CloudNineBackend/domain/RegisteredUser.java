@@ -1,53 +1,74 @@
 package com.group12.CloudNineBackend.domain;
 
-
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import lombok.Data;
 
+@Data
 @Entity
-public class RegisteredUser {
+@DiscriminatorValue("RegisteredUser")
+public class RegisteredUser extends User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	private String fName;
-	private String lName;
-	private String address;
-	private String email;
-	private String phone;
-	
-	public String getfName() {
-		return fName;
-	}
-	public void setfName(String fName) {
-		this.fName = fName;
-	}
-	public String getlName() {
-		return lName;
-	}
-	public void setlName(String lName) {
-		this.lName = lName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    // Fields specific to credit card information
+    @Column(name = "creditCardNumber")
+    private String creditCardNumber;
+
+    @Column(name = "creditCardExp")
+    private String creditCardExp;
+
+    @Column(name = "creditCardCvv")
+    private int creditCardCvv;
+
+    // Constructors
+    public RegisteredUser() {
+        this.setRole("registered user");  // Override the role for registered users
+    }
+
+    /**
+     * @return the creditCardCvv
+     */
+    public int getCreditCardCvv() {
+        return creditCardCvv;
+    }
+
+    /**
+     * @param creditCardCvv the creditCardCvv to set
+     */
+    public void setCreditCardCvv(int creditCardCvv) {
+        this.creditCardCvv = creditCardCvv;
+    }
+
+    /**
+     * @return the creditCardNumber
+     */
+    public String getCreditCardNumber() {
+        return creditCardNumber;
+    }
+
+    /**
+     * @param creditCardNumber the creditCardNumber to set
+     */
+    public void setCreditCardNumber(String creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+    }
+
+    /**
+     * @return the creditCardExp
+     */
+    public String getCreditCardExp() {
+        return creditCardExp;
+    }
+
+    /**
+     * @param creditCardExp the creditCardExp to set
+     */
+    public void setCreditCardExp(String creditCardExp) {
+        this.creditCardExp = creditCardExp;
+    }
+
+	public void setId(Long id) {
+		this.id = id;
 		
+	}
 }
