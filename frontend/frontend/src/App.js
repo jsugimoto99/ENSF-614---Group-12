@@ -18,6 +18,7 @@ import Promotions from "./components/Promotions";
 import BookedFlights from "./components/BookedFlights";
 import ModFlights from "./components/ModFlights";
 import FlightList from "./components/BrowseFlights/FlightList";
+import Insurance from "./components/BrowseFlights/Insurance";
 
 function App() {
   const [user, setUser] = useState({
@@ -73,22 +74,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/browseFlights" element={<BrowseFlights />} />
         <Route path="/manageFlights" element={<ManageFlights />} />
-        <Route
-          path="/login"
-          element={<Login 
-                    updateUserAttributes={updateUserAttributes} 
-                    user = {user}
-                    />}
-        />
+        <Route path="/login" element={<Login updateUserAttributes={updateUserAttributes} user = {user} />} />
         <Route path="/signup" element={<SignUp />} />
         {userRole === 'user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
           <Route path="/flightList/:paramName" element={<FlightList />} />
-          <Route path="/registration" element={<Registration 
-                                                updateUserAttributes = {updateUserAttributes} 
-                                                user = {user}
-                                                />} />
+          <Route path="/flights/insurance" element={<Insurance />} />
+          <Route path="/registration" element={<Registration updateUserAttributes = {updateUserAttributes} user = {user} />} />
           <Route path="/myFlights" element={<BookedFlights />} />
         </>
         {userRole === 'registered user'}
@@ -97,8 +90,6 @@ function App() {
           <Route path="/promotions" element={<Promotions />} />
           <Route path="/myFlights" element={<BookedFlights />} />
         </>
-
-
         <Route path="/admin" element={<AdminLogin updateUserRole={updateUserRole} />} />
         {userRole === 'admin'}
         <>
@@ -106,8 +97,6 @@ function App() {
           <Route path="/showPromotions" element={<Promotions />} />
           <Route path="/myFlights" element={<BookedFlights />} />
         </>
-        
-
       </Routes>
       <Footer />
     </div>

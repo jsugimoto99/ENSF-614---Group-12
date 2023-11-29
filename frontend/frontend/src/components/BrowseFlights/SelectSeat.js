@@ -1,5 +1,6 @@
 // SelectSeat.js
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SelectSeat = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -12,6 +13,11 @@ const SelectSeat = () => {
     } else {
       setSelectedSeats([...selectedSeats, seat]);
     }
+  };
+
+  const [isSeatVisible, setSeatVisible] = useState(false);
+  const toggleSeat = () => {
+    setSeatVisible(!isSeatVisible);
   };
 
   const renderSeats = () => {
@@ -49,6 +55,14 @@ const SelectSeat = () => {
         {renderSeats()}
       </div>
       <p className="mt-4">Selected Seats: {selectedSeats.join(", ")}</p>
+      <Link to='/flights/insurance'>
+        <button
+          
+          class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
+        >
+          Continue ...
+        </button>
+      </Link>
     </div>
   );
 };
