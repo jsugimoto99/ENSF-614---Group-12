@@ -95,23 +95,23 @@ class Insurance
 }
 
 
-People <|-- User: is-a
-People <|-- Staff: is-a
-Staff <|-- Crew: is-a
-Staff <|-- Admin: is-a
-Staff <|-- AirlineAgent: is-a
-User <|-- RegisteredUser: is-a
-User -- Ticket: uses
-User -- Flight: uses
-Ticket *-- Seat: has-a
-Ticket *-- Flight: has-a
-Ticket o-- Insurance: has-a
-Ticket *-- Payment: has-a
-RegisteredUser -- Promo: uses
-AirlineAgent -- Flight: uses
-Admin -- Flight : uses
-Admin -- Crew : uses
-Admin -- Aircraft : uses
-Admin -- RegisteredUser : uses
+People "many" <|-- "many" User: is-a
+People "many" <|-- "many" Staff: is-a
+Staff "many" <|-- "many" Crew: is-a
+Staff "many" <|-- "1" Admin: is-a
+Staff "many" <|-- "many" AirlineAgent: is-a
+User "1" <|-- "1" RegisteredUser: is-a
+User "1" -- "1" Ticket: uses
+User "many" -- "1" Flight: uses
+Ticket "1" *-- "1"  Seat: has-a
+Ticket "1" *-- "1" Flight: has-a
+Ticket "1" o-- "1" Insurance: has-a
+Ticket "many" *-- "1" Payment: has-a
+RegisteredUser "1" -- "1" Promo: uses
+AirlineAgent "many" -- "many" Flight: uses
+Admin "1" -- "many" Flight : uses
+Admin "1" -- "many" Crew : uses
+Admin "1" -- "many" Aircraft : uses
+Admin "1" -- "many" RegisteredUser : uses
 
 @enduml
