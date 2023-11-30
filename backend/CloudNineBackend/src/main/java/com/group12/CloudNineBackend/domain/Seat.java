@@ -8,13 +8,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
+@Table(name = "seat", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"seatId"}),
+})
 public class Seat {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seatId;
+    private String seatId;
 	private String type;
 	// Change to Object User and Flight
 	private String user;
@@ -40,6 +45,7 @@ public class Seat {
         }
     }
 	
+
 	/**
 	 * @return the type
 	 */
@@ -70,16 +76,17 @@ public class Seat {
 	/**
 	 * @return the flight
 	 */
-	public Flight getFlight() {
+	public Flight getFlight(){
 		return flight;
 	}
+
 	/**
-	 * @param flight the flight to set
+	 * @return the aircraft
 	 */
 //	public void setFlight(Flight flight) {
 //		this.flight = flight;
 //	}
-	
+
 	
 	
 	

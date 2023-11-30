@@ -51,7 +51,11 @@ const AdminNavbar = ({ updateUserAttributes }) => {
               <a className="mr-5 hover:text-green-900">Flights</a>
             </Link>
             <a className="mr-5 hover:text-green-900">Crew</a>
+
+            <Link to="/aircrafts">
             <a className="mr-5 hover:text-green-900">Aircrafts</a>
+            </Link>
+            
             <a className="mr-5 hover:text-green-900">Promotions</a>
           </nav>
           <Link to="/">
