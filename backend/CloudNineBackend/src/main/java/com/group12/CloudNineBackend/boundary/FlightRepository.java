@@ -1,6 +1,11 @@
 package com.group12.CloudNineBackend.boundary;
 
+import java.sql.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.group12.CloudNineBackend.domain.Flight;
 
@@ -13,6 +18,11 @@ import com.group12.CloudNineBackend.domain.Flight;
  * 
  */
 @Repository
-public interface FlightRepository extends JpaRepository<Flight, Integer> {
+public interface FlightRepository extends JpaRepository<Flight, Long> {
+
+	void deleteById(Long id);
+
+	List<Flight> findByDateAndDepartLocAndDestLoc(Date depart_date, String depart_loc, String dest_loc);
+
 
 }

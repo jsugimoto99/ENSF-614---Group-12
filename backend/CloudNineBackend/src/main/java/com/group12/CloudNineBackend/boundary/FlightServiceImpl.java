@@ -1,5 +1,6 @@
 package com.group12.CloudNineBackend.boundary;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,14 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllFlights() {
         return flightRepository.findAll();
     }
+
+	@Override
+	public void deleteFlight(Long id) {
+		flightRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Flight> getFlights(Date date, String dep, String dest) {
+		return flightRepository.findByDateAndDepartLocAndDestLoc(date, dep, dest);
+	}
 }

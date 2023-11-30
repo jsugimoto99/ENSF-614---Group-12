@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  .email-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .header {
+    background-color: #f7f7f7;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: 2px solid #eeeeee;
+  }
+  .header h2 {
+    margin: 0;
+  }
+  .ticket-details {
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    margin-top: 15px;
+  }
+  .ticket-details h3 {
+    margin-top: 0;
+  }
+  .ticket-details p {
+    margin-bottom: 0;
+  }</style>
+</head>
+<body>
+
+<div class="email-container">
+  <div class="header">
+    <h2>Your E-Ticket Confirmation</h2>
+  </div>
+  
+  <div class="ticket-details">
+    <h3>Booking Details</h3>
+    <p><strong>Ticket ID:</strong> <span th:text="${ticketId}">[ticketId]</span></p>
+    <p><strong>Price:</strong> <span th:text="'$' + ${price}">[price]</span></p>
+    <p><strong>Destination:</strong> <span th:text="${destination}">[destination]</span></p>
+    <p><strong>Seat:</strong> <span th:text="${seat}">[seat]</span></p>
+  </div>
+  
+  <p>Thank you for booking with us!</p>
+</div>
+
+</body>
+</html>

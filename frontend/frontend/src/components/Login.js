@@ -1,8 +1,83 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
+import axios from "axios";
 
-function Login() {
+function Login({ user, updateUserAttributes }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [userErrorMessage, setUserErrorMessage] = useState(""); // New state for error message
+  const [passErrorMessage, setPassErrorMessage] = useState(""); // New state for error message
+  const [loginMessgae, setloginMessage] = useState("");// New state for login message
+  const navigate = useNavigate();
+
+  
+
+const handleClick = async (e) => {
+  e.preventDefault();
+  setUserErrorMessage("");
+  setPassErrorMessage("");
+  setloginMessage("");
+
+  if (username.trim() === "") {
+    setUserErrorMessage("Username is required");
+    return;
+  }
+
+  if (password.trim() === "") {
+    setPassErrorMessage("Password is required");
+    return;
+  }
+
+  const loginCredentials = {
+    username: username,
+    password: password,
+  };
+
+  console.log(loginCredentials);
+
+  try {
+    const response = await axios.post("http://localhost:8081/User/login", loginCredentials, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const userData = response.data;
+
+      console.log("Login status:", userData.status);
+
+      if (userData.status === "success") {
+        const userAttributes = {
+          role: userData.role,
+          id: userData.id,
+          username: userData.username,
+          password: userData.password,
+          email: userData.email,
+          street: userData.street,
+          city: userData.city,
+          state: userData.state,
+          zip: userData.zip
+        }
+
+        console.log(userAttributes);
+        updateUserAttributes(userAttributes);
+        navigate("/");
+        return;
+      } else {
+        setloginMessage("Invalid Login, please check your username and password then try again.");
+        return;
+      }
+    } else {
+      console.log("Login failed");
+      // Handle login failure, show error message, etc.
+    }
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+};
+
   return (
     <>
       <section class="bg-gray-50">
@@ -19,22 +94,32 @@ function Login() {
                 Sign in to your account
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
+                {/* Display error message */}
+                {loginMessgae && (
+                  <p className="text-red-500">{loginMessgae}</p>
+                )}
                 <div>
                   <label
                     for="email"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your email
+                    Username
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
+                    type="username"
+                    name="username"
+                    id="username"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@company.com"
-                    required=""
+                    placeholder="username"
+                    required="true"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
+                {/* Display error message */}
+                {userErrorMessage && (
+                  <p className="text-red-500">{userErrorMessage}</p>
+                )}
                 <div>
                   <label
                     for="password"
@@ -48,9 +133,15 @@ function Login() {
                     id="password"
                     placeholder="••••••••"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    required="true"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
+                {/* Display error message */}
+                {passErrorMessage && (
+                  <p className="text-red-500">{passErrorMessage}</p>
+                )}
                 <div class="flex items-center justify-between">
                   <div class="flex items-start">
                     <div class="flex items-center h-5">
@@ -60,6 +151,7 @@ function Login() {
                         type="checkbox"
                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                         required=""
+
                       />
                     </div>
                     <div class="ml-3 text-sm">
@@ -81,8 +173,10 @@ function Login() {
                 <button
                   type="submit"
                   class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  onClick={handleClick}
                 >
                   Sign in
+
                 </button>
                 <p class="text-sm font-light text-gray-500 dark:text-gray-300">
                   Don’t have an account yet?{" "}
@@ -102,6 +196,5 @@ function Login() {
       </section>
     </>
   );
-}
-
+};
 export default Login;

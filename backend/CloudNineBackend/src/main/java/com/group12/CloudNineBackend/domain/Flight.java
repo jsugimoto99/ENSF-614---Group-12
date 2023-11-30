@@ -21,13 +21,13 @@ public class Flight {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private String depart_loc;
-    private String dest_loc;
-    private Date depart_date;
-    private Time depart_time;
-    private Time arrive_time;
+    private String departLoc;
+    private String destLoc;
+    private Date date;
+    private Time departTime;
+    private Time arriveTime;
 
     /**
      * Default constructor for Flight class.
@@ -35,13 +35,16 @@ public class Flight {
     public Flight() {
     }
 
+    public Long getId() {
+    	return id;
+    }
     /**
      * Gets the departure location of the flight.
      *
      * @return The departure location.
      */
-    public String getDepart_loc() {
-        return depart_loc;
+    public String getDepartLoc() {
+        return departLoc;
     }
 
     /**
@@ -49,8 +52,8 @@ public class Flight {
      *
      * @param depart_loc The departure location to set.
      */
-    public void setDepart_loc(String depart_loc) {
-        this.depart_loc = depart_loc;
+    public void setDepartLoc(String depart_loc) {
+        this.departLoc = depart_loc;
     }
 
     /**
@@ -58,8 +61,8 @@ public class Flight {
      *
      * @return The departure date.
      */
-    public Date getDepart_date() {
-        return depart_date;
+    public Date getDate() {
+        return date;
     }
 
     /**
@@ -67,8 +70,8 @@ public class Flight {
      *
      * @param depart_date The departure date to set.
      */
-    public void setDepart_date(Date depart_date) {
-        this.depart_date = depart_date;
+    public void setDate(Date depart_date) {
+        this.date = depart_date;
     }
 
     /**
@@ -76,8 +79,8 @@ public class Flight {
      *
      * @return The departure time.
      */
-    public Time getDepart_time() {
-        return depart_time;
+    public Time getDepartTime() {
+        return departTime;
     }
 
     /**
@@ -85,8 +88,8 @@ public class Flight {
      *
      * @param depart_time The departure time to set.
      */
-    public void setDepart_time(Time depart_time) {
-        this.depart_time = depart_time;
+    public void setDepartTime(Time depart_time) {
+        this.departTime = depart_time;
     }
 
     /**
@@ -94,8 +97,8 @@ public class Flight {
      *
      * @return The destination location.
      */
-    public String getDest_loc() {
-        return dest_loc;
+    public String getDestLoc() {
+        return destLoc;
     }
 
     /**
@@ -103,8 +106,8 @@ public class Flight {
      *
      * @param dest_loc The destination location to set.
      */
-    public void setDest_loc(String dest_loc) {
-        this.dest_loc = dest_loc;
+    public void setDestLoc(String dest_loc) {
+        this.destLoc = dest_loc;
     }
 
     /**
@@ -112,8 +115,8 @@ public class Flight {
      *
      * @return The arrival time.
      */
-    public Time getArrive_time() {
-        return arrive_time;
+    public Time getArriveTime() {
+        return arriveTime;
     }
 
     /**
@@ -121,7 +124,7 @@ public class Flight {
      *
      * @param arrive_time The arrival time to set.
      */
-    public void setArrive_time(Time arrive_time) {
-        this.arrive_time = arrive_time;
+    public void setArriveTime(Time arrive_time) {
+        this.arriveTime = arrive_time;
     }
 }
