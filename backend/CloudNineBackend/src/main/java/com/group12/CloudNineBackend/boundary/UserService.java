@@ -3,6 +3,10 @@ package com.group12.CloudNineBackend.boundary;
 import com.group12.CloudNineBackend.domain.RegisteredUser;
 import com.group12.CloudNineBackend.domain.User;
 
+/**
+ * @author Jeremy Sugimoto
+ *
+ */
 public interface UserService {
 	boolean isValidUser(String username, String password);
 

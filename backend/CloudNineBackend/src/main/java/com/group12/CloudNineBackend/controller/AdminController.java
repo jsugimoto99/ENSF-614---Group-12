@@ -9,9 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.group12.CloudNineBackend.boundary.AdminService;
+import com.group12.CloudNineBackend.boundary.AdminRepo;
 import com.group12.CloudNineBackend.domain.Admin;
-import com.group12.CloudNineBackend.domain.User;
 /**
  * 
 
@@ -23,7 +22,7 @@ import com.group12.CloudNineBackend.domain.User;
 @CrossOrigin
 public class AdminController {
 	@Autowired
-	private AdminService adminService;
+	private AdminRepo adminRepo;
 	
     @PostMapping("/login")
 	public ResponseEntity<Map<String, String>> login(@RequestBody Admin admin) {
@@ -33,7 +32,7 @@ public class AdminController {
 	    String password = admin.getPassword();
 
 	    // Validate credentials (consider using a more secure authentication mechanism)
-	    if (adminService.isAdmin(username, password)) {
+	    if (adminRepo.existsByUsernameAndPassword(username, password)) {
 	        // Authentication successful
 	        response.put("status", "success");
 	        response.put("message", "Authentication successful");

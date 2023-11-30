@@ -1,0 +1,169 @@
+@startuml
+abstract class People
+{
+-name: String
+-address: String
++People()                            
++People(n: String, a: String)
++getName(): String
++setName(n: String): void
++getAddress(): String
++setAddress(a: String): void
+}
+
+class User
+{
++User()
++User(n: String, a: String)
+}
+
+abstract class Staff
+{
+-employeeID: int
++Staff()
++Staff(n: String, a: String, e: int)
+}
+
+class AirlineAgent
+{
++AirlineAgent()
++AirlineAgent(n: String, a: String, e: int)
++browsePassengers(): void
+}
+
+class Admin
+{
++Admin()
++Admin(n: String, a: String, e: int)
++browseFlightList(): void
++browseCrewList(): void
++browseAircraftList(): void
++addCrew(): String
++deleteCrew(): void
++addAircraft(): String
++deleteAircraft(): void
++addFlightDestination(): String
++deleteFlightDestination(): void
++addFlightInfo(): String
++deleteFlightInfo(): void
++modifyFlightInfo(): void
++browseRegisteredUser(): void
+}
+
+class Aircraft
+{
+-aircraftName: String
+-aircraftNumber: int
++Aircraft()                            
++Aircraft(n: String, num: int)
++getName(): String
++setName(n: String): void
++getNumber(): int
++setNumber(num: int): void
++aircraftList(aircraft: List<int>)
+}
+
+class Crew
+{
++Crew()
++Crew(n: String, a: String, e: int)
++staffList(staff: List<Staff>)
+}
+
+class Flight
+{
+-flightName: String
+-flightNumber: int
++Flight()                            
++Flight(n: String, num: int)
++getName(): String
++setName(n: String): void
++getNumber(): int
++setNumber(num: int): void
++flightList(flight: List<int>)
+}
+
+class Promo
+{
+-promoNumber: int
++Promo()                            
++Promo(n: int)
++getPromoNumber(): int
++setPromoNumber(n: int): void
+}
+
+class RegisteredUser
+{
+-registrationID: int
++RegisteredUser()
++RegisteredUser(n: String, a: String, r: int)
++getPromoNumber(): int
++getNumber(): int
++setNumber(num: int): void
++registeredUserList(registeredUser: List<User>)
+}
+
+class Seat
+{
+-seatNumber: int
++Seat()                            
++Seat(n: int)
++getNumber(): int
++setNumber(num: int): void
+}
+
+class Ticket
+{
+-ticketNumber: int
++Ticket()                            
++Ticket(n: int)
++getNumber(): int
++setNumber(num: int): void
++selectFlight(): void
++selectSeat(): void
++selectInsurance(): void
++cancelTicket(): void
++makePayment():void
++passengerList(passenger: List<int>)
++bookingConfirmation():void
+}
+
+class Payment
+{
+-cardNumber: int
++Payment()                            
++Payment(n: int)
++getNumber(): int
++setNumber(num: int): void
+}
+
+class Insurance
+{
+-insuranceNumber: int
++Insurance()                            
++Insurance(n: int)
++getNumber(): int
++setNumber(num: int): void
+}
+
+
+People <|-- User: is-a
+People <|-- Staff: is-a
+Staff <|-- Crew: is-a
+Staff <|-- Admin: is-a
+Staff <|-- AirlineAgent: is-a
+User <|-- RegisteredUser: is-a
+User -- Ticket: uses
+User -- Flight: uses
+Ticket *-- Seat: has-a
+Ticket *-- Flight: has-a
+Ticket o-- Insurance: has-a
+Ticket *-- Payment: has-a
+RegisteredUser -- Promo: uses
+AirlineAgent -- Flight: uses
+Admin -- Flight : uses
+Admin -- Crew : uses
+Admin -- Aircraft : uses
+Admin -- RegisteredUser : uses
+
+@enduml
