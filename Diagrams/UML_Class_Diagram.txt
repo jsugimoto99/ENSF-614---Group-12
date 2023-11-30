@@ -1,0 +1,92 @@
+@startuml
+abstract class People
+{
+        
+}
+
+class User
+{
+   
+}
+
+class AirlineAgent
+{
+                  
+}
+
+class Admin
+{
+         
+}
+
+class Aircraft
+{
+         
+}
+
+class Crew
+{
+         
+}
+
+class Flight
+{
+         
+}
+
+class Promo
+{
+         
+}
+
+class RegisteredUser
+{
+         
+}
+
+abstract class Staff
+{
+         
+}
+
+class Seat
+{
+         
+}
+
+class Ticket
+{
+         
+}
+
+class Payment
+{
+         
+}
+
+class Insurance
+{
+         
+}
+
+
+People <|-- User: is-a
+People <|-- Staff: is-a
+Staff <|-- Crew: is-a
+Staff <|-- Admin: is-a
+Staff <|-- AirlineAgent: is-a
+User <|-- RegisteredUser: is-a
+User -- Ticket: uses
+User -- Flight: uses
+Ticket *-- Seat: has-a
+Ticket *-- Flight: has-a
+Ticket o-- Insurance: has-a
+Ticket *-- Payment: has-a
+RegisteredUser -- Promo: uses
+AirlineAgent -- Flight: uses
+Admin -- Flight : uses
+Admin -- Crew : uses
+Admin -- Aircraft : uses
+Admin -- RegisteredUser : uses
+
+@enduml
