@@ -1,0 +1,117 @@
+@startuml
+abstract class People
+{
+-name: String
+-address: String
+}
+
+class User
+{
+
+}
+
+abstract class Staff
+{
+-employeeID: int
+}
+
+class AirlineAgent
+{
++browsePassengers(): void
+}
+
+class Admin
+{
++browseFlightList(): void
++browseCrewList(): void
++browseAircraftList(): void
++addCrew(): String
++deleteCrew(): void
++addAircraft(): String
++deleteAircraft(): void
++addFlightDestination(): String
++deleteFlightDestination(): void
++addFlightInfo(): String
++deleteFlightInfo(): void
++modifyFlightInfo(): void
++browseRegisteredUser(): void
+}
+
+class Aircraft
+{
+-aircraftName: String
+-aircraftNumber: int
++aircraftList(aircraft: List<int>)
+}
+
+class Crew
+{
++staffList(staff: List<Staff>)
+}
+
+class Flight
+{
+-flightName: String
+-flightNumber: int
++flightList(flight: List<int>)
+}
+
+class Promo
+{
+-promoNumber: int
+}
+
+class RegisteredUser
+{
+-registrationID: int
++registeredUserList(registeredUser: List<User>)
+}
+
+class Seat
+{
+-seatNumber: int
+}
+
+class Ticket
+{
+-ticketNumber: int
++selectFlight(): void
++selectSeat(): void
++selectInsurance(): void
++cancelTicket(): void
++makePayment():void
++passengerList(passenger: List<int>)
++bookingConfirmation():void
+}
+
+class Payment
+{
+-cardNumber: int
+}
+
+class Insurance
+{
+-insuranceNumber: int
+}
+
+
+People <|-- User: is-a
+People <|-- Staff: is-a
+Staff <|-- Crew: is-a
+Staff <|-- Admin: is-a
+Staff <|-- AirlineAgent: is-a
+User <|-- RegisteredUser: is-a
+User -- Ticket: uses
+User -- Flight: uses
+Ticket *-- Seat: has-a
+Ticket *-- Flight: has-a
+Ticket o-- Insurance: has-a
+Ticket *-- Payment: has-a
+RegisteredUser -- Promo: uses
+AirlineAgent -- Flight: uses
+Admin -- Flight : uses
+Admin -- Crew : uses
+Admin -- Aircraft : uses
+Admin -- RegisteredUser : uses
+
+@enduml
