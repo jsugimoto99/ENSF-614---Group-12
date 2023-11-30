@@ -21,13 +21,13 @@ const SelectSeat = () => {
   };
 
   const renderSeats = () => {
-    const rows = 2;
-    const seatsPerRow = 3;
+    const rows = 6;
+    const seatsPerRow = 2;
 
     const seatGrid = [];
 
     for (let row = 1; row <= rows; row++) {
-      for (let seat = 1; seat <= seatsPerRow; seat++) {
+      for (let seat = 1; seat < seatsPerRow; seat++) {
         const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
         const isSelected = selectedSeats.includes(seatNumber);
 

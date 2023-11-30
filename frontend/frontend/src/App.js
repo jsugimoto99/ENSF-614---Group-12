@@ -19,6 +19,7 @@ import BookedFlights from "./components/BookedFlights";
 import ModFlights from "./components/ModFlights";
 import FlightList from "./components/BrowseFlights/FlightList";
 import Insurance from "./components/BrowseFlights/Insurance";
+import ModAircrafts from "./components/ModAircrafts";
 
 function App() {
   const [user, setUser] = useState({
@@ -51,7 +52,6 @@ function App() {
   };
   
   const [userRole, setUserRole] = useState('admin');
-
   const updateUserRole = (newUserRole) => {
     setUserRole(newUserRole);
   };
@@ -94,6 +94,7 @@ function App() {
         {userRole === 'admin'}
         <>
           <Route path="/flights" element={<ModFlights />} />
+          <Route path="/aircrafts" element={<ModAircrafts />} />
           <Route path="/showPromotions" element={<Promotions />} />
           <Route path="/myFlights" element={<BookedFlights />} />
         </>

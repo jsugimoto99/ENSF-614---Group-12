@@ -4,14 +4,12 @@ import java.util.List;
 import java.util.Map;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.group12.CloudNineBackend.boundary.FlightService;
+import com.group12.CloudNineBackend.boundary.FlightRepo;
 import com.group12.CloudNineBackend.domain.Flight;
 
 /**
@@ -27,7 +25,7 @@ import com.group12.CloudNineBackend.domain.Flight;
 public class FlightController {
 
     @Autowired
-    private FlightService flightService;
+    private FlightRepo flightRepo;
 
     /**
      * Handles HTTP POST requests to create a new flight.
@@ -37,14 +35,14 @@ public class FlightController {
      */
     @PostMapping("/add")
     public HttpStatus add(@RequestBody Flight flight) {
-    	flightService.addFlight(flight);
+    	flightRepo.save(flight);
         return HttpStatus.OK;
     }
         
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteFlight(@PathVariable("id") Long id) {
         try {
-            flightService.deleteFlight(id);
+            flightRepo.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,7 +56,7 @@ public class FlightController {
     @GetMapping("/listAll")
     public ResponseEntity<List<Map<String, Object>>> getAllFlights() {
         try {
-            List<Flight> flights = flightService.getAllFlights();
+            List<Flight> flights = flightRepo.findAll();
             List<Map<String, Object>> responseList = new ArrayList<>();
 
             for (Flight flight : flights) {
@@ -84,7 +82,7 @@ public class FlightController {
         @PathVariable Date date
     ) {
         try {
-            List<Flight> flights = flightService.getFlights(date, departLoc, destLoc);
+            List<Flight> flights = flightRepo.findByDateAndDepartLocAndDestLoc(date, departLoc, destLoc);
             List<Map<String, Object>> responseList = new ArrayList<>();
 
             for (Flight flight : flights) {

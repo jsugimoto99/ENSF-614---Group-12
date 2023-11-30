@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.group12.CloudNineBackend.boundary.UserRepo;
 import com.group12.CloudNineBackend.boundary.UserService;
 import com.group12.CloudNineBackend.domain.RegisteredUser;
 import com.group12.CloudNineBackend.domain.User;
@@ -23,6 +25,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private UserRepo userRepo;
+	
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody User user) {
 	    Map<String, Object> response = new HashMap<>();
@@ -31,26 +36,26 @@ public class UserController {
 	    String password = user.getPassword();
 
 	    // Validate credentials (consider using a more secure authentication mechanism)
-	    if (userService.isValidUser(username, password)) {
+	    if (userRepo.existsByUsernameAndPassword(username, password)) {
 	        // Authentication successful
 	        response.put("status", "success");
 	        response.put("message", "Authentication successful");
-	        Long id = userService.getUserId(username);
+	        Long id = userRepo.getUserId(username);
 	        response.put("id", id);
-	        String userRole = userService.getUserRole(username); // Adjust this based on your logic
+	        String userRole = userRepo.getUserRole(username); // Adjust this based on your logic
 	        
 	        response.put("role", userRole);
 	        response.put("username", username);
 	        response.put("password", password);
-	        String email = userService.getEmail(username);
+	        String email =userRepo.getEmail(username);
 			response.put("email", email);
-	        String street = userService.getStreet(username);
+	        String street = userRepo.getStreet(username);
 			response.put("street", street);
-	        String city = userService.getCity(username);
+	        String city = userRepo.getCity(username);
 			response.put("city", city);
-	        String state = userService.getState(username);
+	        String state = userRepo.getState(username);
 			response.put("state", state);
-	        String zip = userService.getZip(username);
+	        String zip = userRepo.getZip(username);
 			response.put("zip", zip);
 	        
 	        return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -68,19 +73,19 @@ public class UserController {
 
         // Validate user input (e.g., check if email and username are not empty)
 
-        if (userService.isEmailAlreadyRegistered(user.getEmail())) {
+        if (userRepo.existsByEmail(user.getEmail())) {
             response.put("status", "error");
             response.put("message", "Email already exists");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
-        if (userService.isUsernameAlreadyRegistered(user.getUsername())) {
+        if (userRepo.existsByUsername(user.getUsername())) {
             response.put("status", "error");
             response.put("message", "Username already exists");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
-        userService.addUser(user);
+        userRepo.save(user);
 
         response.put("status", "success");
         response.put("message", "Sign up successful");

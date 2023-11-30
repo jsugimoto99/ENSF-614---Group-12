@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import com.group12.CloudNineBackend.domain.RegisteredUser;
 import com.group12.CloudNineBackend.domain.User;
 
+/**
+ * @author Jeremy Sugimoto
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

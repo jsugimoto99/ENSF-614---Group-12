@@ -18,7 +18,7 @@ import com.group12.CloudNineBackend.domain.Flight;
  * 
  */
 @Repository
-public interface FlightRepository extends JpaRepository<Flight, Long> {
+public interface FlightRepo extends JpaRepository<Flight, Long> {
 
 	void deleteById(Long id);
 
