@@ -2,11 +2,15 @@ package com.group12.CloudNineBackend.domain;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 /**
  * Entity class representing a Flight.
@@ -29,6 +33,27 @@ public class Flight {
     private Time departTime;
     private Time arriveTime;
 
+    
+    // One-to-many relationship with Seat
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seats = new ArrayList<>();
+    
+    // Method to add a seat to the flight
+    public void addSeat(Seat seat) {
+        seats.add(seat);
+        seat.setFlight(this);
+    }
+
+    // Method to remove a seat from the flight
+    public void removeSeat(Seat seat) {
+        seats.remove(seat);
+//        seat.setFlight(null);
+    }
+    
+    public List<Seat> getSeats() {
+    	return seats;
+    }
+    
     /**
      * Default constructor for Flight class.
      */

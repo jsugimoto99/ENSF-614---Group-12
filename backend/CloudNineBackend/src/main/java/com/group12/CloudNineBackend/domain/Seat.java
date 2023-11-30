@@ -1,9 +1,13 @@
 package com.group12.CloudNineBackend.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -14,19 +18,34 @@ import jakarta.persistence.UniqueConstraint;
 public class Seat {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String seatId;
 	private String type;
 	// Change to Object User and Flight
 	private String user;
-	private Long aircraftId;
-	
-	public Seat(Long aircraft, String seatId, String type) {
-		this.seatId = seatId;
-		this.type = type;
-		this.aircraftId = aircraft;
-	}
+//	private String flight;
 	
 	
+	@ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
+
+    @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Ticket ticket;
+	
+    public void setTicket(Ticket ticket) {
+    	this.ticket = ticket;
+    	ticket.setSeat(this);
+    }
+    
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+        if (flight != null && !flight.getSeats().contains(this)) {
+            flight.getSeats().add(this); // This line maintains the bidirectional relationship.
+        }
+    }
+	
+
 	/**
 	 * @return the type
 	 */
@@ -57,23 +76,17 @@ public class Seat {
 	/**
 	 * @return the flight
 	 */
-
+	public Flight getFlight(){
+		return flight;
+	}
 
 	/**
 	 * @return the aircraft
 	 */
-	public long getAircraftId() {
-		return aircraftId;
-	}
+//	public void setFlight(Flight flight) {
+//		this.flight = flight;
+//	}
 
-
-	/**
-	 * @param aircraft the aircraft to set
-	 */
-	public void setAircraftId(Long aircraft) {
-		this.aircraftId = aircraft;
-	}
-	
 	
 	
 	
