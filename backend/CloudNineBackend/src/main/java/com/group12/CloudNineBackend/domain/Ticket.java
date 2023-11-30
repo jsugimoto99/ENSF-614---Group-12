@@ -22,7 +22,7 @@ public class Ticket {
 	
     private String toEmail;
     private String price;
-    private String depart_loc;
+    private String departure;
     private String destination;
     private String seat;
     
@@ -91,4 +91,18 @@ public class Ticket {
                 ", seat='" + seat + '\'' +
                 '}';
     }
+
+	/**
+	 * @return the departure
+	 */
+	public String getDeparture() {
+		return departure;
+	}
+
+	/**
+	 * @param departure the departure to set
+	 */
+	public void setDeparture(String departure) {
+		this.departure = departure;
+	}
 }

@@ -57,14 +57,17 @@ const FlightList = () => {
                   {flights.map((flight) => (
                     <li key={flight.id} className="flex items-center justify-between mb-4">
                       <div className="mr-10 flex w-4/5">
-                        <div className="mr-4 w-1/4">
-                          <span className="text-teal-400">From:</span> {flight.depart_loc}
+                      <div className="mr-4 w-1/6">
+                          <span className="text-teal-400">ID:</span> {flight.id}
                         </div>
-                        <div className="mr-4 w-1/2">
-                          <span className="text-teal-400">To:</span> {flight.dest_loc}
+                        <div className="mr-4 w-1/6">
+                          <span className="text-teal-400">From:</span> {flight.departLoc}
+                        </div>
+                        <div className="mr-4 w-1/4">
+                          <span className="text-teal-400">To:</span> {flight.destLoc}
                         </div>
                         <div className="mr-4">
-                          <span className="text-teal-400">Departure Date:</span> {flight.depart_date}
+                          <span className="text-teal-400">Departure Date:</span> {flight.date}
                         </div>
                       </div>
                       <button
@@ -72,7 +75,7 @@ const FlightList = () => {
                         type="button"
                         className="px-6 py-2 font-semibold rounded dark:bg-teal-400 dark:text-gray-900"
                       >
-                        Select Seats
+                        Select Flight
                       </button>
                     </li>
                   ))}
