@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 /**
  * Entity class representing a Ticket.
@@ -23,8 +25,24 @@ public class Ticket {
     private String toEmail;
     private String price;
     private String departure;
+    //private Flight flight
     private String destination;
-    private String seat;
+//    private String seat;
+    
+    @OneToOne
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
+    
+    
+//    public String getdestination(Flight flight){
+//    	return flight.getDepartLoc();
+//    }
+    
+    
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+        seat.setTicket(this); // This line ensures the bidirectional relationship is maintained.
+    }
     
     // Default constructor
     public Ticket() {
@@ -72,13 +90,16 @@ public class Ticket {
         this.destination = destination;
     }
 
-    public String getSeat() {
-        return seat;
+    public Seat getSeat() {
+        return this.seat;
     }
 
-    public void setSeat(String seat) {
-        this.seat = seat;
-    }
+//    public void setSeat(Seat seat) {
+//        this.seat = seat;
+//        if (seat != null && seat.getTicket() != this) {
+//            seat.setTicket(this); // This line maintains the bidirectional relationship.
+//        }
+//    }
 
     // Optional: Override the toString method for debugging
     @Override

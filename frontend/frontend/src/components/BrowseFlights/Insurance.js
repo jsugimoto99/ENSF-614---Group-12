@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const Insurance = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/payment`);
+ 
+  };
   return (
     <>
       <section class="text-gray-600 body-font">
@@ -128,8 +135,10 @@ const Insurance = () => {
             </div>
           </div>
         </div>
-        <Link to="/flights/insurance">
-          <button class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">
+        <Link to="/payment">
+          <button 
+          onClick={handleClick}
+          class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">
             Continue to Payment ...
           </button>
         </Link>
