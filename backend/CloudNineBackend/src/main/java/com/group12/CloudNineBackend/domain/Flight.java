@@ -34,6 +34,7 @@ public class Flight {
     private Time arriveTime;
 
     
+    //Change Seats to Tickets
     // One-to-many relationship with Seat
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats = new ArrayList<>();

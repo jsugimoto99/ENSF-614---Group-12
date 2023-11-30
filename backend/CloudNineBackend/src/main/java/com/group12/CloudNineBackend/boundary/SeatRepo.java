@@ -5,6 +5,6 @@ import com.group12.CloudNineBackend.domain.Seat;
 
 public interface SeatRepo extends JpaRepository<Seat, Integer>{
 
-	void deleteById(Long id);
+	void deleteById(int id);
 
 }
