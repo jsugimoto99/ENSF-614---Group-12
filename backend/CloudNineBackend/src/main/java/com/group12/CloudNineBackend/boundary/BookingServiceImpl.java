@@ -22,7 +22,7 @@ public class BookingServiceImpl implements BookingService {
         		(savedTicket.getTicketId()),
         		savedTicket.getPrice(),
         		savedTicket.getDestination(),
-        		savedTicket.getSeat());
+        		savedTicket.getSeat().getSeatId());
         
         return savedTicket;
     }

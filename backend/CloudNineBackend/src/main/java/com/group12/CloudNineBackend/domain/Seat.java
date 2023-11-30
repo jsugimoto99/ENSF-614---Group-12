@@ -18,13 +18,17 @@ import jakarta.persistence.UniqueConstraint;
 public class Seat {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seatId;
+    private String seatId;
+	
 	private String type;
 	// Change to Object User and Flight
 	private String user;
 //	private String flight;
 	
+	
+	public String getSeatId() {
+		return seatId;
+	}
 	
 	@ManyToOne
     @JoinColumn(name = "flight_id")
