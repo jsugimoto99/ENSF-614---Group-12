@@ -7,6 +7,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.group12.CloudNineBackend.domain.User;
 
+/**
+ * @author Jeremy Sugimoto
+ *
+ */
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
 	boolean existsByUsernameAndPassword(String username, String password);
