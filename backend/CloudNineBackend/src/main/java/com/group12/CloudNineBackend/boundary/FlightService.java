@@ -1,6 +1,8 @@
 package com.group12.CloudNineBackend.boundary;
 
 import com.group12.CloudNineBackend.domain.Flight;
+
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -26,7 +28,9 @@ public interface FlightService {
      * @return The Flight object that has been added.
      */
     public Flight addFlight(Flight flight);
+	
+	 public List<Flight> getFlights(Date date, String dep, String dest );
 
-	public void deleteFlight(Flight flight);
+	void deleteFlight(Long id);
 	
 }

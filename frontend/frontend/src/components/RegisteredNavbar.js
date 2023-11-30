@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import logo from "./images/logo.png";
 
 const RegisteredNavbar = ({ updateUserAttributes}) => {
+  const navigate = useNavigate();
+
   const handleClick = () => {
     const userAttributes = {
       role: 'default',
@@ -22,6 +24,8 @@ const RegisteredNavbar = ({ updateUserAttributes}) => {
     console.log(userAttributes);
     updateUserAttributes(userAttributes);
     console.log("Logout successful!");
+    navigate("/");
+          return;
   };
 
   return (

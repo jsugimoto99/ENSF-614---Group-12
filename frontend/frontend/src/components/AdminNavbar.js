@@ -1,13 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
 
-const AdminNavbar = ({ setUserRole }) => {
+const AdminNavbar = ({ updateUserAttributes }) => {
+  const navigate = useNavigate();
+
   // Function to handle the button click
   const handleClick = () => {
-    // Assuming you have a function to logout in App.js
-    setUserRole("default");
+    const userAttributes = {
+      role: 'default',
+      id: '',
+      username: '',
+      password: '',
+      email: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      cardNumber: '',
+      expDate: '',
+      cvv: ''
+    }
+
+    console.log(userAttributes);
+    updateUserAttributes(userAttributes);
     console.log("Logout successful!");
+    navigate("/");
+          return;
   };
 
   return (

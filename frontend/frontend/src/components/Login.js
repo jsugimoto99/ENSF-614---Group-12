@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./images/logo.png";
+import axios from "axios";
 
 function Login({ user, updateUserAttributes }) {
   const [username, setUsername] = useState("");
@@ -10,79 +11,73 @@ function Login({ user, updateUserAttributes }) {
   const [loginMessgae, setloginMessage] = useState("");// New state for login message
   const navigate = useNavigate();
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    // Clear any previous error message
-    setUserErrorMessage("");
-    setPassErrorMessage("");
-    setloginMessage("");
+  
 
-    // Check if username or password is blank
-    if (username.trim() === "") {
-      setUserErrorMessage("Username is required");
-      return;
-    }
+const handleClick = async (e) => {
+  e.preventDefault();
+  setUserErrorMessage("");
+  setPassErrorMessage("");
+  setloginMessage("");
 
-    if (password.trim() === "") {
-      setPassErrorMessage("Password is required");
-      return;
-    }
+  if (username.trim() === "") {
+    setUserErrorMessage("Username is required");
+    return;
+  }
 
+  if (password.trim() === "") {
+    setPassErrorMessage("Password is required");
+    return;
+  }
 
-
-
-
-    const loginCredentials = {
-      username: username,
-      password: password,
-
-    };
-
-    console.log(loginCredentials);
-
-
-    try {
-      const response = await fetch("http://localhost:8081/User/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginCredentials),
-      });
-
-      if (response.ok) {
-        const userData = await response.json();
-        console.log("Login status:", userData.status);
-
-        if (userData.status === "success") {
-          // Call the updateUserRole function passed from App.js
-          const userAttributes = {
-            role: userData.role,
-            id: userData.id,
-            username: userData.username,
-            password: userData.password,
-            email: userData.email,
-            street: userData.street,
-            city: userData.city,
-            state: userData.state,
-            zip: userData.zip
-          }
-
-          console.log(userAttributes);
-          updateUserAttributes(userAttributes);
-          navigate("/");
-          return;
-        } else {
-          setloginMessage("Invalid Login, please check your username and password then try again.");
-          return;
-        }
-      } else {
-        console.log("Login failed");
-        // Handle login failure, show error message, etc.
-      }
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
-
+  const loginCredentials = {
+    username: username,
+    password: password,
   };
+
+  console.log(loginCredentials);
+
+  try {
+    const response = await axios.post("http://localhost:8081/User/login", loginCredentials, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 200) {
+      const userData = response.data;
+
+      console.log("Login status:", userData.status);
+
+      if (userData.status === "success") {
+        const userAttributes = {
+          role: userData.role,
+          id: userData.id,
+          username: userData.username,
+          password: userData.password,
+          email: userData.email,
+          street: userData.street,
+          city: userData.city,
+          state: userData.state,
+          zip: userData.zip
+        }
+
+        console.log(userAttributes);
+        updateUserAttributes(userAttributes);
+        navigate("/");
+        return;
+      } else {
+        setloginMessage("Invalid Login, please check your username and password then try again.");
+        return;
+      }
+    } else {
+      console.log("Login failed");
+      // Handle login failure, show error message, etc.
+    }
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+};
+
   return (
     <>
       <section class="bg-gray-50">

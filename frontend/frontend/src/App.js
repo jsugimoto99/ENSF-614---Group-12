@@ -50,7 +50,7 @@ function App() {
     });
   };
   
-  const [userRole, setUserRole] = useState('user');
+  const [userRole, setUserRole] = useState('admin');
 
   const updateUserRole = (newUserRole) => {
     setUserRole(newUserRole);
@@ -90,7 +90,7 @@ function App() {
           <Route path="/promotions" element={<Promotions />} />
           <Route path="/myFlights" element={<BookedFlights />} />
         </>
-        <Route path="/admin" element={<AdminLogin updateUserRole={updateUserRole} />} />
+        <Route path="/admin" element={<AdminLogin updateUserAttributes = {updateUserAttributes} user = {user} />} />
         {userRole === 'admin'}
         <>
           <Route path="/flights" element={<ModFlights />} />

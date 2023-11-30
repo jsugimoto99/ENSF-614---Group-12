@@ -1,62 +1,94 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function BrowseFlight() {
   const navigate = useNavigate();
+  const [depart_loc, setDeparture] = useState("");
+  const [dest_loc, setDestination] = useState("");
+  const [depart_date, setDate] = useState("");
+  const [locations, setLocations] = useState([
+    { id: "YYC", name: 'Calgary' },
+    { id: "YYZ", name: 'Toronto' },
+    { id: "YXU", name: 'London' },
+  ]);
+  
+  
+  
   const handleClick = () => {
     const paramName = "flights";
-    navigate(`/flightList/${paramName}`);
+    navigate(`/flightList/${paramName}?depart_loc=${depart_loc}&dest_loc=${dest_loc}&depart_date=${depart_date}`);
+ 
   };
   return (
     <>
-      <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24 mx-auto">
-          <div class="flex flex-col text-center w-full mb-12">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-              Browse our flights and destinations
-            </h1>
-            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-              See our flihgt time
-            </p>
-          </div>
-          <div class="flex lg:w-2/3 w-1/2 sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-            <div class="relative flex-grow w-1/2">
-              <input
-                type="text"
-                placeholder="From"
-                id="text"
-                name="text"
-                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              />
-            </div>
-            <div class="relative flex-grow w-1/2">
-              <input
-                type="text"
-                placeholder="To"
-                id="text"
-                name="text"
-                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              />
-            </div>
-            <div class="relative flex-grow w-1/2">
-              <input
-                type="date"
-                placeholder="Date"
-                id="date"
-                name="date"
-                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              />
-            </div>
-
-            <button
-              onClick={handleClick}
-              class="text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
-            >
-              Search
-            </button>
-          </div>
+      <section className="text-gray-600 body-font">
+      <div className="container px-5 py-24 mx-auto">
+        <div className="flex flex-col text-center w-full mb-12">
+          <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+            Browse our flights and destinations
+          </h1>
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
+            See our flight time
+          </p>
         </div>
-      </section>
+        <div className="flex lg:w-2/3 w-1/2 sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+          <div className="relative flex-grow w-1/2">
+          <select
+                id="depart_loc"
+                name="depart_loc"
+                value={depart_loc}
+                onChange={(e) => setDeparture(e.target.value)}
+                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              >
+                {/* Add default option */}
+                <option value="" disabled selected>Select a location</option>
+                {/* Populate options from the locations state */}
+                {locations.map(location => (
+                  <option key={location.id} value={location.id}>
+                    {location.name}
+                  </option>
+                ))}
+              </select>
+          </div>
+          <div className="relative flex-grow w-1/2">
+          <select
+                id="dest_loc"
+                name="dest_loc"
+                value={dest_loc}
+                onChange={(e) => setDestination(e.target.value)}
+                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              >
+                {/* Add default option */}
+                <option value="" disabled selected>Select a location</option>
+                {/* Populate options from the locations state */}
+                {locations.map(location => (
+                  <option key={location.id} value={location.id}>
+                    {location.name}
+                  </option>
+                ))}
+              </select>
+          </div>
+          <div className="relative flex-grow w-1/2">
+          <input
+                type="date"
+                id="depart_date"
+                name="depart_date"
+                value={depart_date}
+                onChange={(e) => setDate(e.target.value)}
+                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              />
+          </div>
+
+          <button
+            onClick={handleClick}
+            className="text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </section>
       <section>
         <div className="max-w-md p-8 mx-auto rounded-lg dark:bg-gray-900 dark:text-gray-100">
           <div className="flex justify-between space-x-8">
