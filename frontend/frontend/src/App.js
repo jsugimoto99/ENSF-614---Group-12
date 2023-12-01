@@ -21,6 +21,7 @@ import FlightList from "./components/BrowseFlights/FlightList";
 import Insurance from "./components/BrowseFlights/Insurance";
 import Payment from "./components/BrowseFlights/Payment";
 import ModAircrafts from "./components/ModAircrafts";
+import ThankYou from "./components/payments/ThankYou";
 
 function App() {
   const [user, setUser] = useState({
@@ -85,6 +86,8 @@ function App() {
           <Route path="/registration" element={<Registration updateUserAttributes = {updateUserAttributes} user = {user} />} />
           <Route path="/myFlights" element={<BookedFlights />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/thankyou" element={<ThankYou />} />
+          
         </>
         {userRole === 'registered user'}
         <>

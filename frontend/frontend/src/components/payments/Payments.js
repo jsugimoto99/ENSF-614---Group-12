@@ -1,6 +1,11 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Payments() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/payment`);
+  };
   return (
     <>
       <section>
@@ -137,6 +142,14 @@ function Payments() {
             </div>
           </div>
         </section>
+        <Link to="/thankyou">
+          <button
+            onClick={handleClick}
+            class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
+          >
+            Make Payment ...
+          </button>
+        </Link>
       </section>
     </>
   );
