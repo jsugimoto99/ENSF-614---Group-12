@@ -10,6 +10,6 @@ import com.group12.CloudNineBackend.domain.Aircraft;
  *
  */
 public interface AircraftRepo extends JpaRepository<Aircraft, Integer> {
-	void deleteById(Long id);
+	void deleteById(int id);
 
 }

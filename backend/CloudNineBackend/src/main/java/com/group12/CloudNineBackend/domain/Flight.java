@@ -31,29 +31,8 @@ public class Flight {
     private String destLoc;
     private Date date;
     private Time departTime;
-    private Time arriveTime;
+    private Time arriveTime;  
 
-    
-    //Change Seats to Tickets
-    // One-to-many relationship with Seat
-    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Seat> seats = new ArrayList<>();
-    
-    // Method to add a seat to the flight
-    public void addSeat(Seat seat) {
-        seats.add(seat);
-        seat.setFlight(this);
-    }
-
-    // Method to remove a seat from the flight
-    public void removeSeat(Seat seat) {
-        seats.remove(seat);
-//        seat.setFlight(null);
-    }
-    
-    public List<Seat> getSeats() {
-    	return seats;
-    }
     
     /**
      * Default constructor for Flight class.

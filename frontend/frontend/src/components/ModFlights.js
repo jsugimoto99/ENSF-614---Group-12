@@ -8,11 +8,7 @@ export default function ModFlights() {
   const [departTime, setDepartureTime] = useState("00:00");
   const [arriveTime, setArrivalTime] = useState("00:00");
   const [flights, setFlights] = useState([]);
-  const [locations, setLocations] = useState([
-    { id: "YYC", name: 'Calgary' },
-    { id: "YYZ", name: 'Toronto' },
-    { id: "YXU", name: 'London' },
-  ]);
+  const [locations, setLocations] = useState([]);
 
   useEffect(() => {
     axios
@@ -26,8 +22,6 @@ export default function ModFlights() {
   }, []);
 
   const handleDelete = (flightId) => {
-    
-    
     axios
       .delete(`http://localhost:8081/flight/delete/${flightId}`)
       .then((response) => {
@@ -40,18 +34,18 @@ export default function ModFlights() {
       });
   };
 
-  //To Implement!!!!!!!!!!!!!!!!!!!
-  // useEffect(() => {
-  //   // Make a GET request to fetch locations
-  //   axios.get('http://example.com/locations')
-  //     .then(response => {
-  //       // Assuming the response data is an array of locations
-  //       setLocations(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching locations:', error);
-  //     });
-  // }, []); // The empty dependency array ensures the effect runs only once when the component mounts
+  // To Implement!!!!!!!!!!!!!!!!!!!
+  useEffect(() => {
+    // Make a GET request to fetch locations
+    axios.get('http://localhost:8081/location/listAll')
+      .then(response => {
+        // Assuming the response data is an array of locations
+        setLocations(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching locations:', error);
+      });
+  }, []); // The empty dependency array ensures the effect runs only once when the component mounts
 
 
 
@@ -75,9 +69,11 @@ export default function ModFlights() {
     })
       .then((response) => {
         console.log(response.data); // Axios automatically parses JSON
+        return axios.get("http://localhost:8081/flight/listAll");
       })
-      .then((data) => {
-        console.log("New Flight added:", data);
+      .then((response) => {
+        
+        setFlights(response.data)
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
@@ -132,8 +128,8 @@ export default function ModFlights() {
                 <option value="" disabled selected>Select a location</option>
                 {/* Populate options from the locations state */}
                 {locations.map(location => (
-                  <option key={location.id} value={location.id}>
-                    {location.name}
+                  <option key={location.code} value={location.city}>
+                    {location.city}
                   </option>
                 ))}
               </select>
@@ -154,8 +150,8 @@ export default function ModFlights() {
                 <option value="" disabled selected>Select a location</option>
                 {/* Populate options from the locations state */}
                 {locations.map(location => (
-                  <option key={location.id} value={location.id}>
-                    {location.name}
+                  <option key={location.code} value={location.city}>
+                    {location.city}
                   </option>
                 ))}
               </select>

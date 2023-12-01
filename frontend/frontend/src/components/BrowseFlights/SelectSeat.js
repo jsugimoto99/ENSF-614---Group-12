@@ -11,7 +11,7 @@ const SelectSeat = () => {
         selectedSeats.filter((selectedSeat) => selectedSeat !== seat)
       );
     } else {
-      setSelectedSeats([...selectedSeats, seat]);
+      setSelectedSeats([seat]);
     }
   };
 
@@ -55,13 +55,13 @@ const SelectSeat = () => {
       <div className="grid grid-cols-6 gap-4 max-w-md mx-auto">
         {renderSeats()}
       </div>
-      <p className="mt-4">Selected Seats: {selectedSeats.join(", ")}</p>
+      <p className="mt-4">Selected Seat: {selectedSeats}</p>
       <Link to='/flights/insurance'>
         <button
           
           class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
         >
-          Continue ...
+          Continue
         </button>
       </Link>
     </div>

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 function BrowseFlight() {
@@ -7,12 +8,19 @@ function BrowseFlight() {
   const [depart_loc, setDeparture] = useState("");
   const [dest_loc, setDestination] = useState("");
   const [depart_date, setDate] = useState("");
-  const [locations, setLocations] = useState([
-    { id: "YYC", name: 'Calgary' },
-    { id: "YYZ", name: 'Toronto' },
-    { id: "YXU", name: 'London' },
-  ]);
+  const [locations, setLocations] = useState([]);
   
+  useEffect(() => {
+    // Make a GET request to fetch locations
+    axios.get('http://localhost:8081/location/listAll')
+      .then(response => {
+        // Assuming the response data is an array of locations
+        setLocations(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching locations:', error);
+      });
+  }, []);
   
   
   const handleClick = () => {
@@ -45,8 +53,8 @@ function BrowseFlight() {
                 <option value="" disabled selected>Select a location</option>
                 {/* Populate options from the locations state */}
                 {locations.map(location => (
-                  <option key={location.id} value={location.id}>
-                    {location.name}
+                  <option key={location.code} value={location.city}>
+                    {location.city}
                   </option>
                 ))}
               </select>
@@ -63,8 +71,8 @@ function BrowseFlight() {
                 <option value="" disabled selected>Select a location</option>
                 {/* Populate options from the locations state */}
                 {locations.map(location => (
-                  <option key={location.id} value={location.id}>
-                    {location.name}
+                  <option key={location.code} value={location.city}>
+                    {location.city}
                   </option>
                 ))}
               </select>
