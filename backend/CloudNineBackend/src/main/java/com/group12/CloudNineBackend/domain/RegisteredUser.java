@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@DiscriminatorValue("RegisteredUser")
 public class RegisteredUser extends User {
 
     // Fields specific to credit card information

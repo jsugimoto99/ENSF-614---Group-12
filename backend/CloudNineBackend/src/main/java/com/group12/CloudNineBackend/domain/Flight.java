@@ -10,7 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 /**
  * Entity class representing a Flight.
@@ -25,13 +27,17 @@ public class Flight {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long flightId;
+
+    private Long flightId;
 
     private String departLoc;
     private String destLoc;
     private Date date;
     private Time departTime;
     private Time arriveTime;
+    @OneToOne
+    @JoinColumn(name = "aircraftId")
+    private Aircraft aircraft;
 
     
     //Change Seats to Tickets
@@ -60,13 +66,15 @@ public class Flight {
     	return tickets;
     }
     
+
     /**
      * Default constructor for Flight class.
      */
     public Flight() {
     }
 
-    public long getId() {
+
+    public Long getId() {
     	return flightId;
     }
     /**
@@ -158,4 +166,14 @@ public class Flight {
     public void setArriveTime(Time arrive_time) {
         this.arriveTime = arrive_time;
     }
+
+	public Long getAircraftId() {
+		// TODO Auto-generated method stub
+		return aircraft.getId();
+	}
+
+	public void setAircraft(Aircraft aircraft) {
+		this.aircraft = aircraft;
+		
+	}
 }

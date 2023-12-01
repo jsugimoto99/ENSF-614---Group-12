@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation} from "react-router-dom";
 // import logo from ".components/images/logo.png";
 // axios import remains the same
 
 function Payment() {
+  const location = useLocation();
+  const selectedFlight = new URLSearchParams(location.search).get('selectedFlight');
+  const selectedSeat = new URLSearchParams(location.search).get('selectedSeat');
+  const insurance = new URLSearchParams(location.search).get('insurance');
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,9 +16,14 @@ function Payment() {
   const [expMonth, setExpMonth] = useState("");
   const [expYear, setExpYear] = useState("");
   const [cvv, setCvv] = useState("");
+  const [seatId,setSeatId] = useState("")
   const navigate = useNavigate();
 
   // Error state variables can be added here if needed
+
+  const handleClickRoute = () => {
+    navigate(`/payment`);
+  };
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -29,8 +38,8 @@ function Payment() {
         creditCard,
         expMonth,
         expYear,
-        cvv
-      }
+        cvv,
+      },
     };
 
     console.log(registrationData);
@@ -41,67 +50,150 @@ function Payment() {
 
   return (
     <>
-      <section className="bg-gray-50">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-            {/* <img className="w-8 h-8 mr-2" src={logo} alt="logo" /> */}
-          </a>
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Register
+      <section>
+        <section class="text-gray-600 body-font relative">
+          <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-12">
+              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                Make a Payment
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
-                {/* Form fields for first name, last name, email, and payment details */}
-                {/* Add each input field here with similar structure to the existing ones */}
-                {/* For example, for first name: */}
-                <div>
-                  <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    id="firstName"
-                    placeholder="First Name"
-                    required
-                    className="input-field-class" // Replace with actual class names
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
+              <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+                Seat: {selectedSeat}
+                </p>
+              <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+                Seat Price:
+              </p>
+              <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+                Total Price:
+              </p>
+            </div>
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                Bulling Info
+              </h1>
+              <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-1/2">
+                  <div class="relative">
+                    <label for="name" class="leading-7 text-sm text-gray-600">
+                      First Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    />
+                  </div>
                 </div>
-                {/* Add other input fields similarly */}
-                <div>
-                  <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    id="lastName"
-                    placeholder="Last Name"
-                    required
-                    className="input-field-class" // Replace with actual class names
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
+                <div class="p-2 w-1/2">
+                  <div class="relative">
+                    <label for="name" class="leading-7 text-sm text-gray-600">
+                      Name On Card
+                    </label>
+                    <input
+                      type="name"
+                      id="name on Card"
+                      name="name on card"
+                      class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    />
+                  </div>
                 </div>
-                
-                {/* Submit button */}
-                <Link>
-                <button
-                  type="submit"
-                  className="submit-button-class" // Replace with actual class names
-                  onClick={handleClick}
-                >
-                  Complete Payment
-                </button>
-                </Link>
-                
-              </form>
+              </div>
+            </div>
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+              <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-1/2">
+                  <div class="relative">
+                    <label for="name" class="leading-7 text-sm text-gray-600">
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      id="Last name"
+                      name="name"
+                      class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    />
+                  </div>
+                </div>
+                <div class="p-2 w-1/2">
+                  <div class="relative">
+                    <label for="number" class="leading-7 text-sm text-gray-600">
+                      Credit Card
+                    </label>
+                    <input
+                      type="number"
+                      id="number"
+                      name="number"
+                      class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+              <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-1/2">
+                  <div class="relative">
+                    <label for="name" class="leading-7 text-sm text-gray-600">
+                      Email
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    />
+                  </div>
+                </div>
+                <div class="p-2 w-1/2 relative">
+                  <div class="flex justify-center">
+                    <div class="relative pr-2">
+                      <label for="name" class="leading-7 text-sm text-gray-600">
+                        Year
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      />
+                    </div>
+                    <div class="relative pr-2">
+                      <label for="name" class="leading-7 text-sm text-gray-600">
+                        Month
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      />
+                    </div>
+                    <div class="relative pr-">
+                      <label for="name" class="leading-7 text-sm text-gray-600">
+                        CCV
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+        <Link to="/thankyou">
+          <button
+            onClick={handleClickRoute}
+            class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
+          >
+            Make Payment ...
+          </button>
+        </Link>
       </section>
     </>
   );

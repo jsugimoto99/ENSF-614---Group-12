@@ -1,26 +1,26 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import AdminNavbar from "./components/AdminNavbar";
+import Navbar from "./components/NavBars/Navbar";
+import AdminNavbar from "./components/NavBars/AdminNavbar";
 import Registration from "./components/Registration";
 import AdminLogin from "./components/AdminLogin";
-import UserNavbar from "./components/UserNavbar";
-import RegisteredNavbar from "./components/RegisteredNavbar"
+import UserNavbar from "./components/NavBars/UserNavbar";
+import RegisteredNavbar from "./components/NavBars/RegisteredNavbar"
 import Footer from "./components/Footer";
-import ManageFlights from "./components/ManageFlights";
+import ManageFlights from "./components/ManageFlights/ManageFlights";
 import Login from "./components/Login";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import './App.css';
 import React, { useState } from "react";
-import BrowseFlights from "./components/BrowseFlights";
+import BrowseFlights from "./components/BrowseFlights/BrowseFlight";
 import Promotions from "./components/Promotions";
-import BookedFlights from "./components/BookedFlights";
-import ModFlights from "./components/ModFlights";
+import ModFlights from "./components/Admin/ModFlights";
 import FlightList from "./components/BrowseFlights/FlightList";
 import Insurance from "./components/BrowseFlights/Insurance";
 import Payment from "./components/BrowseFlights/Payment";
-import ModAircrafts from "./components/ModAircrafts";
+import ModAircrafts from "./components/Admin/ModAircrafts";
+import ThankYou from "./components/payments/ThankYou";
 
 function App() {
   const [user, setUser] = useState({
@@ -81,16 +81,18 @@ function App() {
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
           <Route path="/flightList/:paramName" element={<FlightList />} />
-          <Route path="/flights/insurance" element={<Insurance />} />
+          <Route path="flights/insurance/:paramName" element={<Insurance />} />
           <Route path="/registration" element={<Registration updateUserAttributes = {updateUserAttributes} user = {user} />} />
-          <Route path="/myFlights" element={<BookedFlights />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route path="/manageFlights" element={<ManageFlights />} />
+          <Route path="/payment/:paramName" element={<Payment />} />
+          <Route path="/thankyou" element={<ThankYou />} />
+          
         </>
         {userRole === 'registered user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
           <Route path="/promotions" element={<Promotions />} />
-          <Route path="/myFlights" element={<BookedFlights />} />
+          <Route path="/manageFlights" element={<ManageFlights />} />
         </>
         <Route path="/admin" element={<AdminLogin updateUserAttributes = {updateUserAttributes} user = {user} />} />
         {userRole === 'admin'}
@@ -98,7 +100,6 @@ function App() {
           <Route path="/flights" element={<ModFlights />} />
           <Route path="/aircrafts" element={<ModAircrafts />} />
           <Route path="/showPromotions" element={<Promotions />} />
-          <Route path="/myFlights" element={<BookedFlights />} />
         </>
       </Routes>
       <Footer />
