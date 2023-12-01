@@ -28,7 +28,7 @@ public class SeatController {
     }
         
     @DeleteMapping("/delete/{seatId}")
-    public ResponseEntity<HttpStatus> deleteSeat(@PathVariable("seatId") int seatId) {
+    public ResponseEntity<HttpStatus> deleteSeat(@PathVariable("seatId") String seatId) {
         try {
             seatRepo.deleteById(seatId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

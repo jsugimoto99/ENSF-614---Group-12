@@ -2,7 +2,11 @@ package com.group12.CloudNineBackend.boundary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.group12.CloudNineBackend.domain.Seat;
 import com.group12.CloudNineBackend.domain.Ticket;
+import com.group12.CloudNineBackend.domain.BookingRequest;
+import com.group12.CloudNineBackend.domain.Flight;
 import java.util.List;
 
 @Service
@@ -13,9 +17,36 @@ public class BookingServiceImpl implements BookingService {
     
     @Autowired
     private EmailService emailService;
+    
+    @Autowired
+    private SeatRepo seatRepository;
+    
+    @Autowired
+    private FlightRepo flightRepository;
 
     @Override
-    public Ticket addTicket(Ticket ticket) {
+    public Ticket addTicket(BookingRequest request) {
+    	// Convert String IDs to Long
+        String seat_id = request.getSeatId();
+        long flight_id = request.getFlightId();
+        
+        // Fetch the Seat and Flight from the repositories
+        Seat seat = seatRepository.findById(seat_id)
+                        .orElseThrow();
+        Flight flight = flightRepository.findById(flight_id)
+                        .orElseThrow();
+        
+        
+        Ticket ticket = new Ticket();
+        ticket.setSeat(seat);
+        ticket.setFlight(flight);
+        ticket.setToEmail(request.gettoEmail());
+        ticket.setFirstName(request.getFirstName());
+        ticket.setLastName(request.getLastName());
+        // ... set other fields on the ticket
+        
+        
+        // Save the ticket
         Ticket savedTicket = ticketRepository.save(ticket);
         
         emailService.sendMail(savedTicket.getToEmail(),
@@ -23,6 +54,7 @@ public class BookingServiceImpl implements BookingService {
         		savedTicket.getPrice(),
         		savedTicket.getDestination(),
         		savedTicket.getSeat().getSeatId());
+        		
         
         return savedTicket;
     }

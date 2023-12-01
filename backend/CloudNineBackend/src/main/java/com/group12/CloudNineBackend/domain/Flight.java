@@ -25,7 +25,7 @@ public class Flight {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long flightId;
 
     private String departLoc;
     private String destLoc;
@@ -36,23 +36,28 @@ public class Flight {
     
     //Change Seats to Tickets
     // One-to-many relationship with Seat
-    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Seat> seats = new ArrayList<>();
+//    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Seat> seats = new ArrayList<>();
     
-    // Method to add a seat to the flight
-    public void addSeat(Seat seat) {
-        seats.add(seat);
-        seat.setFlight(this);
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
+    
+    // Method to add a ticket to the flight
+    public void addTicket(Ticket ticket) {
+        if (ticket != null && !tickets.contains(ticket)) {
+            tickets.add(ticket);
+//            ticket.setFlight(this); // Ensuring the bidirectional relationship is maintained
+        }
     }
 
-    // Method to remove a seat from the flight
-    public void removeSeat(Seat seat) {
-        seats.remove(seat);
-//        seat.setFlight(null);
+    // Method to remove a ticket from the flight
+    public void removeTicket(Ticket ticket) {
+        tickets.remove(ticket);
+//        tickets.setFlight(null);
     }
     
-    public List<Seat> getSeats() {
-    	return seats;
+    public List<Ticket> getTickets() {
+    	return tickets;
     }
     
     /**
@@ -61,8 +66,8 @@ public class Flight {
     public Flight() {
     }
 
-    public Long getId() {
-    	return id;
+    public long getId() {
+    	return flightId;
     }
     /**
      * Gets the departure location of the flight.

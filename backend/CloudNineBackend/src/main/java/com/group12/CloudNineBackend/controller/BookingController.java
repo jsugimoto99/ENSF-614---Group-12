@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.BookingService;
+import com.group12.CloudNineBackend.domain.BookingRequest;
 import com.group12.CloudNineBackend.domain.Ticket;
 
 /**
@@ -30,9 +31,12 @@ public class BookingController {
      * @return A ResponseEntity indicating the result of the operation.
      */
     @PostMapping("/add")
-    public ResponseEntity<String> addTicket(@RequestBody Ticket ticket) {
-        bookingService.addTicket(ticket);
-        return new ResponseEntity<>("Ticket has been successfully created.", HttpStatus.CREATED);
+    public ResponseEntity<String> addTicket(@RequestBody BookingRequest bookingRequest) {
+        
+        System.out.println("Received booking request: " + bookingRequest);
+    	
+    	Ticket createdTicket = bookingService.addTicket(bookingRequest);
+            return new ResponseEntity<>("Ticket has been successfully created with ID: " + createdTicket.getTicketId(), HttpStatus.CREATED);
     }
 
     /**
@@ -48,4 +52,5 @@ public class BookingController {
 
     // Additional methods can be added here for other operations like updating or deleting tickets
 
+    
 }

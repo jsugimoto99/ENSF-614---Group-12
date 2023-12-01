@@ -31,7 +31,7 @@ public class EmailServiceImpl implements EmailService{
 	private ResourceLoader resourceLoader;
 	
 	@Override
-	public String sendMail(String to, int ticketId, String price, String destination, String seat) {
+	public String sendMail(String to, int ticketId, int price, String destination, String seatId) {
 		// TODO Auto-generated method stub
 		try {
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -48,9 +48,9 @@ public class EmailServiceImpl implements EmailService{
 	   
 
             content = content.replace("[ticketId]", String.valueOf(ticketId))
-                    .replace("[price]", price)
+                    .replace("[price]", String.valueOf(price))
                     .replace("[destination]", destination)
-                    .replace("[seat]", seat);
+                    .replace("[seat]", (seatId));
             
             mimeMessageHelper.setText(content, true); // Set true for HTML content
 
