@@ -8,7 +8,7 @@ const FlightList = () => {
   const departLoc = new URLSearchParams(location.search).get('depart_loc');
   const destLoc = new URLSearchParams(location.search).get('dest_loc');
   const date = new URLSearchParams(location.search).get('depart_date');
-  const [selectFlight, setSelectFlight] = useState("");
+  const [selectedFlight, setSelectFlight] = useState("");
   const [isDivVisible, setIsDivVisible] = useState(false);
   const [flights, setFlights] = useState([]);
   const toggleDivVisibility = () => {
@@ -88,7 +88,7 @@ const FlightList = () => {
             </div>
           </div>
         </div>
-        {isSeatVisible && <SelectSeat />}
+        {isSeatVisible && <SelectSeat selectedFlight={selectedFlight} />}
       </section>
     </>
   );

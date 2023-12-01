@@ -82,10 +82,10 @@ function App() {
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
           <Route path="/flightList/:paramName" element={<FlightList />} />
-          <Route path="/flights/insurance" element={<Insurance />} />
+          <Route path="flights/insurance/:paramName" element={<Insurance />} />
           <Route path="/registration" element={<Registration updateUserAttributes = {updateUserAttributes} user = {user} />} />
           <Route path="/myFlights" element={<BookedFlights />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route path="/payment/:paramName" element={<Payment />} />
           <Route path="/thankyou" element={<ThankYou />} />
           
         </>

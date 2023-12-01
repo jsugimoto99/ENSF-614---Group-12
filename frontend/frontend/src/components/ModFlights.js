@@ -5,10 +5,13 @@ export default function ModFlights() {
   const [departLoc, setDeparture] = useState("");
   const [destLoc, setDestination] = useState("");
   const [date, setDate] = useState("");
-  const [departTime, setDepartureTime] = useState("00:00");
-  const [arriveTime, setArrivalTime] = useState("00:00");
+  const [departTime, setDepartureTime] = useState("12:00");
+  const [arriveTime, setArrivalTime] = useState("12:00");
+  const [aircraftId, setAircraftId] = useState('');
   const [flights, setFlights] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [aircrafts, setAircrafts] = useState([]);
+
 
   useEffect(() => {
     axios
@@ -47,6 +50,18 @@ export default function ModFlights() {
       });
   }, []); // The empty dependency array ensures the effect runs only once when the component mounts
 
+  useEffect(() => {
+    // Make a GET request to fetch locations
+    axios.get('http://localhost:8081/aircraft/listAllAvailable')
+      .then(response => {
+        // Assuming the response data is an array of locations
+        setAircrafts(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching locations:', error);
+      });
+  }, []); // The empty dependency array ensures the effect runs only once when the component mounts
+
 
 
   const handleClick = (e) => {
@@ -56,15 +71,20 @@ export default function ModFlights() {
       date: new Date(date).toISOString().slice(0, 10),
       departLoc: departLoc,
       departTime: `${departTime}:00`,
-      destLoc: destLoc,
+      destLoc: destLoc
     };
 
+   
     console.log(flight);
     console.log(JSON.flight);
+    const id = aircraftId;
 
-    axios.post("http://localhost:8081/flight/add", flight, {
+    axios.post('http://localhost:8081/flight/add', flight, {
       headers: {
         'Content-Type': 'application/json',
+      },
+      params: {
+        aircraftId: id
       },
     })
       .then((response) => {
@@ -197,6 +217,28 @@ export default function ModFlights() {
                 onChange={(e) => setArrivalTime(e.target.value)}
                 class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
+            </div>
+            <div class="relative mb-4">
+              <label for="depart_loc" class="leading-7 text-sm text-gray-600">
+                From
+              </label>
+
+              <select
+                id="aircraft"
+                name="aircraft"
+                value={aircraftId}
+                onChange={(e) => setAircraftId(e.target.value)}
+                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              >
+                {/* Add default option */}
+                <option value="" disabled selected>Select an aircraft</option>
+                {/* Populate options from the locations state */}
+                {aircrafts.map(aircraft => (
+                  <option key={aircraft.aircraftId} value={aircraft.aircraftId}>
+                    ID: {aircraft.aircraftId}, Model: {aircraft.model}
+                  </option>
+                ))}
+              </select>
             </div>
             <button
               class="text-white bg-gray-500 border-0 py-2 px-20 focus:outline-none hover:bg-gray-600 rounded text-lg"

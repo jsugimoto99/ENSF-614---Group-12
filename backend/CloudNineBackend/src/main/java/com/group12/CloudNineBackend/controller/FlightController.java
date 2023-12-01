@@ -2,6 +2,7 @@ package com.group12.CloudNineBackend.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.group12.CloudNineBackend.boundary.AircraftRepo;
 import com.group12.CloudNineBackend.boundary.FlightRepo;
 import com.group12.CloudNineBackend.domain.Flight;
+import com.group12.CloudNineBackend.domain.Aircraft;
 
 /**
  * 
@@ -26,6 +30,9 @@ public class FlightController {
 
     @Autowired
     private FlightRepo flightRepo;
+    
+    @Autowired
+    private AircraftRepo aircraftRepo;
 
     /**
      * Handles HTTP POST requests to create a new flight.
@@ -34,14 +41,32 @@ public class FlightController {
      * @return A string indicating that the flight has been created.
      */
     @PostMapping("/add")
-    public HttpStatus add(@RequestBody Flight flight) {
-    	flightRepo.save(flight);
-        return HttpStatus.OK;
+    public HttpStatus add(@RequestBody Flight flight, @RequestParam("aircraftId") Long id) {
+        // Retrieve or create the Aircraft based on the provided aircraftId
+        Optional<Aircraft> optionalAircraft = aircraftRepo.findById(id);
+
+        if (optionalAircraft.isPresent()) {
+            // Set the aircraft in the flight
+            Aircraft aircraft = optionalAircraft.get();
+            flight.setAircraft(aircraft);
+            aircraft.setFlight(flight);
+
+            // Save the flight
+            flightRepo.save(flight);
+
+            return HttpStatus.OK;
+        } else {
+            // Handle the case when the aircraft is not found
+            return HttpStatus.NOT_FOUND;
+        }
     }
+
         
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteFlight(@PathVariable("id") Long id) {
         try {
+        	Aircraft aircraft = aircraftRepo.getByFlightId(id);
+        	aircraft.removeFlight();
             flightRepo.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
@@ -102,6 +127,19 @@ public class FlightController {
             return new ResponseEntity<>(responseList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/{flightId}/aircraftId")
+    public ResponseEntity<Long> getAircraftIdByFlightId(@PathVariable Long flightId) {
+        Optional<Flight> optionalFlight = flightRepo.findById(flightId);
+
+        if (optionalFlight.isPresent()) {
+            Flight flight = optionalFlight.get();
+            Long aircraftId = flight.getAircraftId(); // Assuming there's a method like getAircraftId() in your Flight class
+
+            return ResponseEntity.ok(aircraftId);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

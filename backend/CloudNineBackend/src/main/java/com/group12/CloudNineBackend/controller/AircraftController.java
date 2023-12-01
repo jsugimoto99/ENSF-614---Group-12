@@ -1,5 +1,6 @@
 package com.group12.CloudNineBackend.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,20 +41,20 @@ public class AircraftController {
         aircraftRepo.save(aircraft);
 
         // Generate and save seats
-        generateAndSaveSeats(aircraft, 1, 2, 4, "first class");
-        generateAndSaveSeats(aircraft, 3, 2, 4, "business");
-        generateAndSaveSeats(aircraft, 5, 2, 4, "economy");
+        generateAndSaveSeats(aircraft,1, aircraft.getBusinessRows(), aircraft.getBusinessSeatsPerRow(), "Business", new BigDecimal("200.0"));
+        generateAndSaveSeats(aircraft,aircraft.getBusinessRows() + 1, aircraft.getComfortRows(), aircraft.getSeatsPerRow(), "Comfort", new BigDecimal("100.0"));
+        generateAndSaveSeats(aircraft,aircraft.getComfortRows() + aircraft.getBusinessRows() + 1, aircraft.getEconomyRows(), aircraft.getSeatsPerRow(), "Economy", new BigDecimal("50.0"));
 
         response.put("status", "success");
         response.put("message", "Aircraft and seats added to database");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    private void generateAndSaveSeats(Aircraft aircraft, int startRow, int numRows, int seatsPerRow, String type) {
-        for (int row = startRow; row <= startRow + numRows - 1; row++) {
+    private void generateAndSaveSeats(Aircraft aircraft, int startRow, int numRows, int seatsPerRow, String type, BigDecimal price) {
+        for (int row = startRow; row < startRow + numRows; row++) {
             for (char seat = 'A'; seat < 'A' + seatsPerRow; seat++) {
                 String seatId = aircraft.getId() +"-"+ row + "" + seat;    
-                Seat newSeat = new Seat(aircraft, seatId, type);
+                Seat newSeat = new Seat(aircraft, seatId, type, price);
                 seatRepo.save(newSeat);
             }
         }
@@ -69,6 +70,30 @@ public class AircraftController {
                 Map<String, Object> aircraftMap = new HashMap<>();
                 aircraftMap.put("aircraftId", aircraft.getId());
                 aircraftMap.put("model", aircraft.getModel());
+                responseList.add(aircraftMap);
+            }
+
+            return new ResponseEntity<>(responseList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/listAllAvailable")
+    public ResponseEntity<List<Map<String, Object>>> getAllAvailableAircrafts() {
+        try {
+            List<Aircraft> aircrafts = aircraftRepo.findByFlightIdIsNull();;
+            List<Map<String, Object>> responseList = new ArrayList<>();
+
+            for (Aircraft aircraft: aircrafts) {
+                Map<String, Object> aircraftMap = new HashMap<>();
+                aircraftMap.put("aircraftId", aircraft.getId());
+                aircraftMap.put("model", aircraft.getModel());
+                aircraftMap.put("businessSeatsPerRow", aircraft.getBusinessSeatsPerRow());
+                aircraftMap.put("seatsPerRow", aircraft.getSeatsPerRow());
+                aircraftMap.put("businessRows", aircraft.getBusinessRows());
+                aircraftMap.put("comfortRows", aircraft.getBusinessRows());
+                aircraftMap.put("economyRows", aircraft.getBusinessRows());
                 responseList.add(aircraftMap);
             }
 

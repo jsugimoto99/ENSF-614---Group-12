@@ -3,7 +3,11 @@ import axios from "axios";
 
 function ModAircrafts() {
   const [model, setModel] = useState("");
-  const [aircraftId, setId] = useState("");
+  const [bspr, setBspr] = useState("4");
+  const [spr, setSpr] = useState("6");
+  const [br, setBr] = useState("2");
+  const [cr, setCr] = useState("4");
+  const [er, setEr] = useState("6");
   const [aircrafts, setAircrafts] = useState([]);
   const [availModels, setAvailModels] = useState([
     { id: "777", model: 'Boeing 777' },
@@ -38,11 +42,16 @@ function ModAircrafts() {
   const handleClick = (e) => {
     e.preventDefault();
     const aircraft = {
-      model: model
+      model: model,
+      businessSeatsPerRow: bspr,
+	    businessRows: br,
+	    seatsPerRow: spr,
+      comfortRows: cr,
+      economyRows: er
     };
-  
+
     console.log(aircraft);
-  
+
     axios.post("http://localhost:8081/aircraft/add", aircraft, {
       headers: {
         'Content-Type': 'application/json',
@@ -65,15 +74,15 @@ function ModAircrafts() {
     <>
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
-          
-        <div>
+
+          <div>
             <h2 class="text-gray-900 text-lg font-medium title-font mb-5 animate__bounceIn">
               Aircrafts in Database
             </h2>
             <ul>
               {aircrafts.map((aircraft) => (
                 <li key={aircraft.id} class="mb-3">
-                  Aircraft ID: {aircraft.aircraftId}      Aircraft Model: {aircraft.model} 
+                  Aircraft ID: {aircraft.aircraftId}      Aircraft Model: {aircraft.model}
                   <button
                     onClick={() => handleDelete(aircraft.aircraftId)}
                     class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"

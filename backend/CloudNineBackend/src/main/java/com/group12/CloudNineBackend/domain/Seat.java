@@ -1,5 +1,7 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,10 +22,8 @@ public class Seat {
 	@ManyToOne
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
-	
 	private String type;
-	private String user;
-	
+	private BigDecimal price;
     @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
     private Ticket ticket;
 	
@@ -31,10 +31,11 @@ public class Seat {
     	
     }
     
-    public Seat(Aircraft aircraft, String seatId, String type) {
+    public Seat(Aircraft aircraft, String seatId, String type, BigDecimal price) {
 		this.aircraft = aircraft;
 		this.type = type;
 		this.seatId = seatId;
+		this.price = price;
 	}
     
     public String getSeatId() {
@@ -53,12 +54,18 @@ public class Seat {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	public String getUser() {
-		return user;
+
+	/**
+	 * @return the price
+	 */
+	public BigDecimal getPrice() {
+		return price;
 	}
-	
-	public void setUser(String user) {
-		this.user = user;
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 }

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation} from "react-router-dom";
 // import logo from ".components/images/logo.png";
 // axios import remains the same
 
 function Payment() {
+  const location = useLocation();
+  const selectedFlight = new URLSearchParams(location.search).get('selectedFlight');
+  const selectedSeat = new URLSearchParams(location.search).get('selectedSeat');
+  const insurance = new URLSearchParams(location.search).get('insurance');
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,6 +16,7 @@ function Payment() {
   const [expMonth, setExpMonth] = useState("");
   const [expYear, setExpYear] = useState("");
   const [cvv, setCvv] = useState("");
+  const [seatId,setSeatId] = useState("")
   const navigate = useNavigate();
 
   // Error state variables can be added here if needed
@@ -52,7 +57,9 @@ function Payment() {
               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
                 Make a Payment
               </h1>
-              <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Seat:</p>
+              <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+                Seat: {selectedSeat}
+                </p>
               <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
                 Seat Price:
               </p>
