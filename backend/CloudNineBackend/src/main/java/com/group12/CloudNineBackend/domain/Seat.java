@@ -18,13 +18,17 @@ import jakarta.persistence.UniqueConstraint;
 public class Seat {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String seatId;
+	
 	private String type;
 	// Change to Object User and Flight
 	private String user;
 //	private String flight;
 	
+	
+	public String getSeatId() {
+		return seatId;
+	}
 	
 	@ManyToOne
     @JoinColumn(name = "flight_id")
@@ -33,7 +37,11 @@ public class Seat {
     @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
     private Ticket ticket;
 	
-    public void setTicket(Ticket ticket) {
+    public Seat(Long id, String seatId, String type) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void setTicket(Ticket ticket) {
     	this.ticket = ticket;
     	ticket.setSeat(this);
     }

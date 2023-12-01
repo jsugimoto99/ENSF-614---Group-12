@@ -30,9 +30,11 @@ public class Ticket {
 //    private String seat;
     
     @OneToOne
-    @JoinColumn(name = "seat_id")
+    @JoinColumn(name = "seatId")
     private Seat seat;
     
+    
+    //ticket needs one to one w flight and join on flight_id
     
 //    public String getdestination(Flight flight){
 //    	return flight.getDepartLoc();
