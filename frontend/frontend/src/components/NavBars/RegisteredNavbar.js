@@ -54,8 +54,8 @@ const RegisteredNavbar = ({ updateUserAttributes}) => {
             <Link to="/browseFlights">
               <a className="mr-5 hover:text-green-900">Book a Flight</a>
             </Link>
-            <Link to="/myFlights">
-              <a className="mr-5 hover:text-green-900">My Flights</a>
+            <Link to="/manageFlights">
+              <a className="mr-5 hover:text-green-900">Manage Flights</a>
             </Link>
             <Link to="/showPromotions">
               <a className="mr-5 hover:text-green-900">Promotions</a>
