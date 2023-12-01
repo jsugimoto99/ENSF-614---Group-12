@@ -90,7 +90,7 @@ export default function ModFlights() {
         <div class="container px-5 py-24 mx-auto">
           
         <div>
-            <h2 class="text-gray-900 text-lg font-medium title-font mb-5">
+            <h2 class="text-gray-900 text-lg font-medium title-font mb-5 animate__bounceIn">
               Flights List
             </h2>
             <ul>
