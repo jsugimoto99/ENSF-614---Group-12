@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.PromotionRepo;
+import com.group12.CloudNineBackend.boundary.PromotionService;
 import com.group12.CloudNineBackend.domain.Promotion;
 
 import java.util.List;
@@ -17,6 +18,9 @@ public class PromotionController {
 
     @Autowired
     private PromotionRepo promoRepo;
+    
+    @Autowired
+    private PromotionService promotionService;
 
     @GetMapping
     public List<Promotion> getAllPromotions() {
@@ -29,8 +33,9 @@ public class PromotionController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> createPromotion(@RequestBody Promotion promotion) {
-        Promotion savedPromotion = promoRepo.save(promotion);
+    public ResponseEntity<String> addPromotion(@RequestBody Promotion promotion) {
+        System.out.println("check check 1 2");
+    	Promotion savedPromotion = promotionService.addPromotion(promotion);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body("Promotion created with ID: " + savedPromotion.getPromoId());
