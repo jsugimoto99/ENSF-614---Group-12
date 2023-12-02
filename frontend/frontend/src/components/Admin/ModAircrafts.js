@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function ModAircrafts() {
+export default function ModAircrafts() {
   const [model, setModel] = useState("");
   const [bspr, setBspr] = useState("4");
   const [spr, setSpr] = useState("6");
@@ -118,7 +118,7 @@ function ModAircrafts() {
       </section>
       <div>
       <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
-            <h2 class="text-gray-900 text-lg font-medium title-font mb-5 animate__bounceIn">
+            <h2 class="text-gray-900 text-lg font-medium title-font mb-5">
               Aircrafts in Database
             </h2>
             <ul>
@@ -140,4 +140,3 @@ function ModAircrafts() {
   )
 }
 
-export default ModAircrafts

@@ -121,7 +121,6 @@ export default function ModFlights() {
                 <ul class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
                   {flights.map((flight) => (
                     <li key={flight.id} class="mb-3 text-xl text-green-500">
-                      
                       From: {flight.depart_loc}, To: {flight.dest_loc} -{" "}
                       {flight.depart_date}
                       <button
@@ -266,45 +265,29 @@ export default function ModFlights() {
               Add Flight
             </button>
           </div>
-        </div>
-      </section>
-      <section className="text-gray-600 body-font">
-        <div className="container px-5 py-5 mx-auto">
-          <div className="text-center mb-20">
-            <h1 className="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mb-4">
-              Top Quality
-            </h1>
-            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">
-              Flights airline you can count on.
-            </p>
-          </div>
-          <div className="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
-            {/* Map through the services array to generate service cards */}
-            {services.map((service, index) => (
-              <div key={index} className="p-2 sm:w-1/2 w-full">
-                <div className="bg-gray-100 rounded flex p-4 h-full items-center">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="3"
-                    className="text-green-500 w-6 h-6 flex-shrink-0 mr-4"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                    <path d="M22 4L12 14.01l-3-3"></path>
-                  </svg>
-                  <span className="title-font font-medium">
-                    {service.title}
-                  </span>
-                </div>
+          <div>
+            <h2 class="text-gray-900 text-lg font-medium title-font mb-5 mx-auto">
+              Flight List
+            </h2>
+            <div class="text-gray-600 body-font">
+              <div class="container px-5 mx-auto">
+                <ul class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
+                  {flights.map((flight) => (
+                    <li key={flight.id} class="mb-3">
+                      {flight.depart_loc} to {flight.dest_loc} -{" "}
+                      {flight.depart_date}
+                      <button
+                        onClick={() => handleDelete(flight.id)}
+                        class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"
+                      >
+                        Delete
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
+            </div>
           </div>
-          <button className="flex mx-auto mt-16 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">
-            Search
-          </button>
         </div>
       </section>
     </>

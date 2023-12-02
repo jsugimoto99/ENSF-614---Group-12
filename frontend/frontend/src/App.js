@@ -106,7 +106,7 @@ function App() {
           <Route path="/flights" element={<ModFlights />} />
           <Route path="/aircrafts" element={<ModAircrafts />} />
           <Route path="/promo" element={<ModPromo />} />
-          <Route path="/Crew" element={<ModCrew />} />
+          <Route path="/crew" element={<ModCrew />} />
 
         </>
       </Routes>
