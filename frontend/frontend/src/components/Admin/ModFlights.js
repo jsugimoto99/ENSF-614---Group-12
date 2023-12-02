@@ -11,6 +11,8 @@ export default function ModFlights() {
   const [flights, setFlights] = useState([]);
   const [locations, setLocations] = useState([]);
   const [aircrafts, setAircrafts] = useState([]);
+  const [crews, setCrews] = useState([]);
+  const [crewId, setCrewId] = useState();
 
   useEffect(() => {
     axios
@@ -236,7 +238,7 @@ export default function ModFlights() {
             </div>
             <div class="relative mb-4">
               <label for="depart_loc" class="leading-7 text-sm text-gray-600">
-                From
+                Select Aircraft
               </label>
 
               <select
@@ -258,6 +260,29 @@ export default function ModFlights() {
                 ))}
               </select>
             </div>
+            <div class="relative mb-4">
+              <label for="depart_loc" class="leading-7 text-sm text-gray-600">
+                Select Crew
+              </label>
+              <select
+                id="crew"
+                name="crew"
+                value={crewId}
+                onChange={(e) => setCrewId(e.target.value)}
+                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              >
+                {/* Add default option */}
+                <option value="" disabled selected>
+                  Select a Crew
+                </option>
+                {/* Populate options from the locations state */}
+                {crews.map((crew) => (
+                  <option key={crew.crewId} value={crew.crewId}>
+                    ID: {crew.crewId}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button
               class="text-white bg-gray-500 border-0 py-2 px-20 focus:outline-none hover:bg-gray-600 rounded text-lg"
               onClick={handleClick}
@@ -269,9 +294,9 @@ export default function ModFlights() {
             <div class="text-gray-600 body-font">
               <div class="container px-5 p-10 pb-5 mx-auto">
                 <ul class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
-                  <h2 class="text-gray-900 text-lg font-medium title-font mb-5 mx-auto">
-                    Flight List
-                  </h2>
+                    <h2 class="text-gray-900 text-lg font-medium title-font mb-5 mx-auto">
+                  Flight List
+                </h2>
                   {flights.map((flight) => (
                     <li key={flight.id} class="mb-3">
                       {flight.depart_loc} to {flight.dest_loc} -{" "}
@@ -287,7 +312,7 @@ export default function ModFlights() {
                 </ul>
               </div>
             </div>
-          </div>
+  </div>
         </div>
       </section>
     </>

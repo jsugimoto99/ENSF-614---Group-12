@@ -1,6 +1,9 @@
 package com.group12.CloudNineBackend.boundary;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.group12.CloudNineBackend.domain.Crew;
 
 /**
@@ -9,5 +12,7 @@ import com.group12.CloudNineBackend.domain.Crew;
  */
 public interface CrewRepo extends JpaRepository<Crew, Long> {
 	void deleteById(Long id);
+
+	List<Crew> findByCrewIdIsNull();
 
 }
