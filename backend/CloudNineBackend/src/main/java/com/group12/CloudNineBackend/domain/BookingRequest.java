@@ -17,11 +17,22 @@ public class BookingRequest {
     
     @JsonProperty("last_name")
     private String lastName;
+    
+    @JsonProperty("insurance")
+    private String insurance;
 
     // Getters and setters
     
     public BookingRequest() {
     	
+    }
+    
+    public String getInsurance() {
+    	return insurance;
+    }
+    
+    public void setInsurance(String insurance) {
+    	this.insurance = insurance;
     }
     
     public String getSeatId() {
@@ -72,6 +83,7 @@ public class BookingRequest {
                 ", to_email='" + toEmail + '\'' +
                 ", first_name=" + firstName + 
                 ", last_name=" + lastName +
+                ", insurance=" + insurance +
                 '}';
     }
 

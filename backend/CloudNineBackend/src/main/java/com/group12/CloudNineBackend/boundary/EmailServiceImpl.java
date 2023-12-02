@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import com.group12.CloudNineBackend.boundary.EmailService;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import org.springframework.core.io.Resource;
 
@@ -31,7 +32,7 @@ public class EmailServiceImpl implements EmailService{
 	private ResourceLoader resourceLoader;
 	
 	@Override
-	public String sendMail(String to, int ticketId, int price, String destination, String seatId) {
+	public String sendMail(String to, int ticketId, BigDecimal price, String destination, String seatId) {
 		// TODO Auto-generated method stub
 		try {
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();

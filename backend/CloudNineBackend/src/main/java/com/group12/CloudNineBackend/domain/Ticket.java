@@ -1,5 +1,7 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class Ticket {
     private String toEmail;
     private String firstName;
     private String lastName;
+    private String insurance;
     
     @OneToOne
     @JoinColumn(name = "seat_id")
@@ -34,7 +37,7 @@ public class Ticket {
     @JoinColumn(name = "flight_id")
     private Flight flight;
     
-    public int getPrice() {
+    public BigDecimal getPrice() {
     	return this.seat.getPrice();
     }
     
@@ -57,6 +60,14 @@ public class Ticket {
     }
 
     // Getters and setters
+    public String getInsurance() {
+    	return insurance;
+    }
+    
+    public void setInsurance(String insurance) {
+    	this.insurance = insurance;
+    }
+    
     public int getTicketId() {
         return ticketId;
     }

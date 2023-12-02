@@ -44,7 +44,7 @@ public class Seat {
 
 	public void setTicket(Ticket ticket) {
     	this.ticket = ticket;
-    	ticket.setSeat(this);
+//    	ticket.setSeat(this);
     }
 	
 	public String getType() {

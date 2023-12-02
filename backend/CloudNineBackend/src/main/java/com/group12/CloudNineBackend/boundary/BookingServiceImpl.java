@@ -26,8 +26,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Ticket addTicket(BookingRequest request) {
-    	// Convert String IDs to Long
-        String seat_id = request.getSeatId();
+
+    	String seat_id = request.getSeatId();
         long flight_id = request.getFlightId();
         
         // Fetch the Seat and Flight from the repositories
@@ -43,6 +43,7 @@ public class BookingServiceImpl implements BookingService {
         ticket.setToEmail(request.gettoEmail());
         ticket.setFirstName(request.getFirstName());
         ticket.setLastName(request.getLastName());
+        ticket.setInsurance(request.getInsurance());
         // ... set other fields on the ticket
         
         
@@ -69,7 +70,6 @@ public class BookingServiceImpl implements BookingService {
 		// TODO Auto-generated method stub
 		ticketRepository.delete(ticket);
 	}
-	
 	
 
     // Implement other methods defined in the interface
