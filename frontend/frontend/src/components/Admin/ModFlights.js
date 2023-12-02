@@ -266,12 +266,12 @@ export default function ModFlights() {
             </button>
           </div>
           <div>
-            <h2 class="text-gray-900 text-lg font-medium title-font mb-5 mx-auto">
-              Flight List
-            </h2>
             <div class="text-gray-600 body-font">
-              <div class="container px-5 mx-auto">
+              <div class="container px-5 p-10 pb-5 mx-auto">
                 <ul class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
+                  <h2 class="text-gray-900 text-lg font-medium title-font mb-5 mx-auto">
+                    Flight List
+                  </h2>
                   {flights.map((flight) => (
                     <li key={flight.id} class="mb-3">
                       {flight.depart_loc} to {flight.dest_loc} -{" "}
