@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group12.CloudNineBackend.boundary.CrewRepo;
 import com.group12.CloudNineBackend.boundary.FlightRepo;
+import com.group12.CloudNineBackend.domain.Aircraft;
 import com.group12.CloudNineBackend.domain.Crew;
 import com.group12.CloudNineBackend.domain.Flight;
 
@@ -34,20 +35,10 @@ public class CrewController {
     private FlightRepo flightRepo;
     
     
-    @PostMapping("/add/{flightId}")
-    public ResponseEntity<Map<String, Object>> add(@RequestBody Crew crew, @PathVariable Long flightId) {
+    @PostMapping("/add")
+    public ResponseEntity<Map<String, Object>> add(@RequestBody Crew crew){
         Map<String, Object> response = new HashMap<>();
         
-        Optional<Flight> optionalFlight = flightRepo.findById(flightId);
-        if (optionalFlight.isPresent()) {
-            Flight flight = optionalFlight.get();
-            crew.setFlight(flight);
-        }
-        else {
-        	crew.setFlight(null);
-        }
-        
-
         // Save the aircraft to generate its ID
         crewRepo.save(crew);
 
@@ -90,12 +81,35 @@ public class CrewController {
             for (Crew crew : crews) {
                 Map<String, Object> crewMap = new HashMap<>();
                 crewMap.put("id", crew.getId());
-//                crewMap.put("FlightId", crew.getFlight().getId());
+                crewMap.put("FlightId", crew.getFlight().getId());
                 crewMap.put("member1", crew.getMember1());
                 crewMap.put("member2", crew.getMember2());
                 crewMap.put("member3", crew.getMember3());
                 crewMap.put("member4", crew.getMember4());
 
+                responseList.add(crewMap);
+            }
+
+            return new ResponseEntity<>(responseList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/listAllAvailable")
+    public ResponseEntity<List<Map<String, Object>>> getAllAvailableCrew() {
+        try {
+            List<Crew> crews = crewRepo.findByCrewIdIsNull();;
+            List<Map<String, Object>> responseList = new ArrayList<>();
+
+            for (Crew crew: crews) {
+                Map<String, Object> crewMap = new HashMap<>();
+                crewMap.put("id", crew.getId());
+              crewMap.put("FlightId", crew.getFlight().getId());
+              crewMap.put("member1", crew.getMember1());
+              crewMap.put("member2", crew.getMember2());
+              crewMap.put("member3", crew.getMember3());
+              crewMap.put("member4", crew.getMember4());
                 responseList.add(crewMap);
             }
 

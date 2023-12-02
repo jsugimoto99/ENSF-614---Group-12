@@ -56,7 +56,7 @@ export default function ModCrew() {
         member4:crewMember4
       };
       console.log(crew);
-      axios.post(`http://localhost:8081/crew/add/${flightId}`, crew, {
+      axios.post(`http://localhost:8081/crew/add`, crew, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -99,7 +99,7 @@ export default function ModCrew() {
                   onChange={(e) => setFlightId(e.target.value)}
                   class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 >
-                  {/* Add default option */}
+
                   <option value="" disabled selected>Select a Flight</option>
                   {/* Populate options from the locations state */}
                   {flights.map(flight => (
