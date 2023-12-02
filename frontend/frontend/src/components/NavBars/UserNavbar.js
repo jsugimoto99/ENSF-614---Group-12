@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "./images/logo.png";
+import logo from "../images/logo.png";
 
 const UserNavbar = ({ updateUserAttributes }) => {
 
@@ -51,8 +51,8 @@ const UserNavbar = ({ updateUserAttributes }) => {
             <Link to="/browseFlights">
               <a className="mr-5 hover:text-green-900">Browse Flights</a>
             </Link>
-            <Link to="/manageFlights">
-              <a className="mr-5 hover:text-green-900">Manage Flights</a>
+            <Link to="/myBooking">
+              <a className="mr-5 hover:text-green-900">My Bookings</a>
             </Link>
             <Link to="/registration">
               <a className="mr-5 hover:text-green-900">Registration</a>

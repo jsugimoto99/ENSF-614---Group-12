@@ -6,7 +6,8 @@ import AdminLogin from "./components/AdminLogin";
 import UserNavbar from "./components/NavBars/UserNavbar";
 import RegisteredNavbar from "./components/NavBars/RegisteredNavbar"
 import Footer from "./components/Footer";
-import ManageFlights from "./components/ManageFlights/ManageFlights";
+import MyBooking from "./components/ManageBooking/MyBooking";
+import { ManageBooking } from "./components/ManageBooking/ManageBooking";
 import Login from "./components/Login";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
@@ -14,13 +15,14 @@ import SignUp from "./components/SignUp";
 import './App.css';
 import React, { useState } from "react";
 import BrowseFlights from "./components/BrowseFlights/BrowseFlight";
-import Promotions from "./components/Promotions";
+import ModPromo from "./components/Admin/ModPromo";
 import ModFlights from "./components/Admin/ModFlights";
 import FlightList from "./components/BrowseFlights/FlightList";
 import Insurance from "./components/BrowseFlights/Insurance";
 import Payment from "./components/BrowseFlights/Payment";
 import ModAircrafts from "./components/Admin/ModAircrafts";
-import ThankYou from "./components/payments/ThankYou";
+import ThankYou from "./components/BrowseFlights/ThankYou";
+import ModCrew from "./components/Admin/ModCrew";
 
 function App() {
   const [user, setUser] = useState({
@@ -74,32 +76,36 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/browseFlights" element={<BrowseFlights />} />
-        <Route path="/manageFlights" element={<ManageFlights />} />
+        <Route path="/flightList/:paramName" element={<FlightList />} />
+        <Route path="flights/insurance/:paramName" element={<Insurance />} />
+        <Route path="/payment/:paramName" element={<Payment />} />
+        <Route path="/thankyou" element={<ThankYou />} />
+        <Route path="/myBooking" element={<MyBooking />} />
+        <Route path="/manageBooking/:ticketId/:lastName" element={<ManageBooking />} />
         <Route path="/login" element={<Login updateUserAttributes={updateUserAttributes} user = {user} />} />
         <Route path="/signup" element={<SignUp />} />
         {userRole === 'user'}
         <>
-          <Route path="/browseFlights" element={<BrowseFlights />} />
-          <Route path="/flightList/:paramName" element={<FlightList />} />
-          <Route path="flights/insurance/:paramName" element={<Insurance />} />
+          {/* <Route path="/browseFlights" element={<BrowseFlights />} /> */}
           <Route path="/registration" element={<Registration updateUserAttributes = {updateUserAttributes} user = {user} />} />
-          <Route path="/manageFlights" element={<ManageFlights />} />
-          <Route path="/payment/:paramName" element={<Payment />} />
-          <Route path="/thankyou" element={<ThankYou />} />
+          {/* <Route path="/manageFlights" element={<ManageFlights />} /> */}
+          
           
         </>
         {userRole === 'registered user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
-          <Route path="/promotions" element={<Promotions />} />
-          <Route path="/manageFlights" element={<ManageFlights />} />
+          <Route path="/promotions" element={<ModPromo />} />
+          {/* <Route path="/manageFlights" element={<ManageFlights />} /> */}
         </>
         <Route path="/admin" element={<AdminLogin updateUserAttributes = {updateUserAttributes} user = {user} />} />
         {userRole === 'admin'}
         <>
           <Route path="/flights" element={<ModFlights />} />
           <Route path="/aircrafts" element={<ModAircrafts />} />
-          <Route path="/showPromotions" element={<Promotions />} />
+          <Route path="/promo" element={<ModPromo />} />
+          <Route path="/Crew" element={<ModCrew />} />
+
         </>
       </Routes>
       <Footer />

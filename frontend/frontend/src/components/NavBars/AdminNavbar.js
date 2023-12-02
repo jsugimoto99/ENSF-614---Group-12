@@ -1,6 +1,6 @@
 import React from "react";
 import { Link,  useNavigate } from "react-router-dom";
-import logo from "./images/logo.png";
+import logo from "../images/logo.png";
 
 const AdminNavbar = ({ updateUserAttributes }) => {
   const navigate = useNavigate();
@@ -50,13 +50,18 @@ const AdminNavbar = ({ updateUserAttributes }) => {
             <Link to="/flights">
               <a className="mr-5 hover:text-green-900">Flights</a>
             </Link>
+            <Link to="/crew">
             <a className="mr-5 hover:text-green-900">Crew</a>
+            </Link>
+           
 
             <Link to="/aircrafts">
             <a className="mr-5 hover:text-green-900">Aircrafts</a>
             </Link>
-            
+            <Link to="/promo">
             <a className="mr-5 hover:text-green-900">Promotions</a>
+            </Link>
+            
           </nav>
           <Link to="/">
             <button

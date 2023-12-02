@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -78,6 +79,34 @@ public class AircraftController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/getAircraftByFlightId/{flightId}")
+    public ResponseEntity<Map<String, Object>> getAircraftByFlightId(@PathVariable Long flightId) {
+        try {
+            Optional<Aircraft> optionalAircraft = aircraftRepo.findByFlightId(flightId);
+
+            if (optionalAircraft.isPresent()) {
+                Aircraft aircraft = optionalAircraft.get();
+                Map<String, Object> aircraftMap = new HashMap<>();
+                aircraftMap.put("aircraftId", aircraft.getId());
+                aircraftMap.put("model", aircraft.getModel());
+                aircraftMap.put("businessSeatsPerRow", aircraft.getBusinessSeatsPerRow());
+                aircraftMap.put("seatsPerRow", aircraft.getSeatsPerRow());
+                aircraftMap.put("businessRows", aircraft.getBusinessRows());
+                aircraftMap.put("comfortRows", aircraft.getComfortRows());
+                aircraftMap.put("economyRows", aircraft.getEconomyRows());
+                
+                
+
+                return new ResponseEntity<>(aircraftMap, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     
     @GetMapping("/listAllAvailable")
     public ResponseEntity<List<Map<String, Object>>> getAllAvailableAircrafts() {

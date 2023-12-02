@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 const Insurance = () => {
 const location = useLocation();
-const selectedFlight = new URLSearchParams(location.search).get('selectedFlight');
+const flightId = new URLSearchParams(location.search).get('flightId');
 const selectedSeat = new URLSearchParams(location.search).get('selectedSeat');
 const [insurance, setInsurance] = useState(false)
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const [insurance, setInsurance] = useState(false)
   
   const handleClick = () => {
     const paramName = "ticketInfo";
-    navigate(`/payment/${paramName}?selectedFlight=${selectedFlight}&selectedSeat=${selectedSeat}&insurance=${insurance}`);
+    navigate(`/payment/${paramName}?flightId=${flightId}&selectedSeat=${selectedSeat}&insurance=${insurance}`);
   };
   return (
     <>
@@ -50,14 +50,12 @@ const [insurance, setInsurance] = useState(false)
             </div>
           </div>
         </div>
-        <Link to="/payment">
           <button
             onClick={handleClick}
             className="flex mx-auto mt-8 text-white dark:bg-gray-800 border-0 py-2 px-8 focus:outline-none hover:dark:bg-gray-600 rounded-full text-lg"
           >
             Continue to Payment ...
           </button>
-        </Link>
       </section>
     </>
 

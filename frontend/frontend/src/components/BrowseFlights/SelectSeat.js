@@ -1,10 +1,38 @@
 // SelectSeat.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 
-const SelectSeat = ({ selectedFlight }) => {
+const SelectSeat = ({ flightId }) => {
   const navigate = useNavigate();
   const [selectedSeat, setSelectedSeat] = useState([]);
+  const [aircraftData, setAircraftData] = useState(null);
+  const aircraftId = aircraftData?.aircraftId;
+  const model = aircraftData?.model;
+  const businessSeatsPerRow = aircraftData?.businessSeatsPerRow;
+  const seatsPerRow = aircraftData?.seatsPerRow;
+  const businessRows = aircraftData?.businessRows;
+  const comfortRows = aircraftData?.comfortRows;
+  const economyRows = aircraftData?.economyRows;
+  
+  useEffect(() => {
+    const fetchAircraftData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8081/aircraft/getAircraftByFlightId/${Number(flightId)}`);
+        if (response.status === 200) {
+          setAircraftData(response.data);
+          console.log(response.data);
+
+        } else {
+          console.error("Aircraft not found");
+        }
+      } catch (error) {
+        console.error("Error fetching aircraft data:", error);
+      }
+    };
+
+    fetchAircraftData();
+  }, [flightId]);
 
   const handleSeatClick = (seat) => {
     if (selectedSeat.includes(seat)) {
@@ -18,7 +46,7 @@ const SelectSeat = ({ selectedFlight }) => {
 
   const handleClick = () => {
     const paramName = "info";
-    navigate(`/flights/insurance/${paramName}?selectedFlight=${selectedFlight}&selectedSeat=${selectedSeat}`);
+    navigate(`/flights/insurance/${paramName}?flightId=${flightId}&selectedSeat=${selectedSeat}`);
  
   };
   const [isSeatVisible, setSeatVisible] = useState(false);
@@ -26,42 +54,16 @@ const SelectSeat = ({ selectedFlight }) => {
     setSeatVisible(!isSeatVisible);
   };
 
-  const renderSeats = () => {
-    const rows = 4;
-    const seatsPerRow = 6;
 
-    const seatGrid = [];
-
-    for (let row = 1; row <= rows; row++) {
-      for (let seat = 1; seat <= seatsPerRow; seat++) {
-        const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
-        const isSelected = selectedSeat.includes(seatNumber);
-
-        seatGrid.push(
-          <div
-            key={seatNumber}
-            className={`cursor-pointer p-2 border border-gray-300 rounded ${
-              isSelected ? "bg-green-500 text-white" : ""
-            }`}
-            onClick={() => handleSeatClick(seatNumber)}
-          >
-            {seatNumber}
-          </div>
-        );
-      }
-    }
-
-    return seatGrid;
-  };
 
   const renderBusinessSeats = () => {
-    const rows = 2;
-    const seatsPerRow = 4;
+    const rows = businessRows;
+    const seatsPerRow = businessSeatsPerRow;
 
     const seatGrid = [];
 
     for (let row = 1; row <= rows; row++) {
-      for (let seat = 1; seat <= seatsPerRow; seat++) {
+      for (let seat = 1; seat <= businessSeatsPerRow; seat++) {
         const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
         const isSelected = selectedSeat.includes(seatNumber);
 
@@ -83,12 +85,40 @@ const SelectSeat = ({ selectedFlight }) => {
   };
 
   const renderComfortSeats = () => {
-    const rows = 3;
-    const seatsPerRow = 6;
+    const rows = comfortRows;
+    // const seatsPerRow = seatsPerRow;
 
     const seatGrid = [];
 
-    for (let row = 1; row <= rows; row++) {
+    for (let row = businessRows + 1 ; row <= businessRows + rows; row++) {
+      for (let seat = 1; seat <= seatsPerRow; seat++) {
+        const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
+        const isSelected = selectedSeat.includes(seatNumber);
+
+        seatGrid.push(
+          <div
+            key={seatNumber}
+            className={`cursor-pointer p-2 border border-gray-300 rounded ${
+              isSelected ? "bg-green-500 text-white" : ""
+            }`}
+            onClick={() => handleSeatClick(seatNumber)}
+          >
+            {seatNumber}
+          </div>
+        );
+      }
+    }
+
+    return seatGrid;
+  };
+
+  const renderSeats = () => {
+    const rows = economyRows;
+    // const seatsPerRow = seatsPerRow;
+
+    const seatGrid = [];
+
+    for (let row = 1 + businessRows + comfortRows; row <= rows + 1 + businessRows + comfortRows; row++) {
       for (let seat = 1; seat <= seatsPerRow; seat++) {
         const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
         const isSelected = selectedSeat.includes(seatNumber);

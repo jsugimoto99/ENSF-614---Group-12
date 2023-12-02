@@ -19,7 +19,7 @@ public class BookingRequest {
     private String lastName;
     
     @JsonProperty("insurance")
-    private String insurance;
+    private Boolean insurance;
 
     // Getters and setters
     
@@ -27,11 +27,11 @@ public class BookingRequest {
     	
     }
     
-    public String getInsurance() {
+    public Boolean getInsurance() {
     	return insurance;
     }
     
-    public void setInsurance(String insurance) {
+    public void setInsurance(Boolean insurance) {
     	this.insurance = insurance;
     }
     

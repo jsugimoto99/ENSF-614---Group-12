@@ -7,8 +7,10 @@ import java.util.List;
 public interface BookingService {
     public Ticket addTicket(BookingRequest bookingRequest);
     List<Ticket> getAllTickets();
+	public Ticket getByIdAndLastName(Long id, String lastName);
+	boolean deleteByIdAndLastName(Long id, String lastName);
     
-    public void deleteTicket(Ticket ticket);
+    
     
     // Additional methods like updateTicket, deleteTicket, etc.
 }

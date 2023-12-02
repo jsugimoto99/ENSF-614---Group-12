@@ -75,24 +75,7 @@ function ModAircrafts() {
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
 
-          <div>
-            <h2 class="text-gray-900 text-lg font-medium title-font mb-5 animate__bounceIn">
-              Aircrafts in Database
-            </h2>
-            <ul>
-              {aircrafts.map((aircraft) => (
-                <li key={aircraft.id} class="mb-3">
-                  Aircraft ID: {aircraft.aircraftId}      Aircraft Model: {aircraft.model}
-                  <button
-                    onClick={() => handleDelete(aircraft.aircraftId)}
-                    class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"
-                  >
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          
           <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
             <h1 class="title-font font-medium text-3xl text-gray-900">
               Add Aircraft To Database
@@ -133,6 +116,26 @@ function ModAircrafts() {
           </div>
         </div>
       </section>
+      <div>
+      <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
+            <h2 class="text-gray-900 text-lg font-medium title-font mb-5 animate__bounceIn">
+              Aircrafts in Database
+            </h2>
+            <ul>
+              {aircrafts.map((aircraft) => (
+                <li key={aircraft.id} class="mb-3">
+                  Aircraft ID: {aircraft.aircraftId}      Aircraft Model: {aircraft.model}
+                  <button
+                    onClick={() => handleDelete(aircraft.aircraftId)}
+                    class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
     </>
   )
 }

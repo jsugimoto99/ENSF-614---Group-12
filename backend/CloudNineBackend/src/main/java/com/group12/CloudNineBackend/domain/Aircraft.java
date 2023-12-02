@@ -1,5 +1,6 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class Aircraft {
 	private int seatsPerRow;
 	private int comfortRows;
 	private int economyRows;
+	private BigDecimal businessCost;
+	private BigDecimal comfortCost;
+	private BigDecimal economyCost;
+	
 
 	public Long getId() {
 		return aircraftId;
@@ -124,6 +129,48 @@ public class Aircraft {
 	}
 	public void removeFlight() {
 		this.flight = null;
+	}
+
+	/**
+	 * @return the businessCost
+	 */
+	public BigDecimal getBusinessCost() {
+		return businessCost;
+	}
+
+	/**
+	 * @param businessCost the businessCost to set
+	 */
+	public void setBusinessCost(BigDecimal businessCost) {
+		this.businessCost = businessCost;
+	}
+
+	/**
+	 * @return the comfortCost
+	 */
+	public BigDecimal getComfortCost() {
+		return comfortCost;
+	}
+
+	/**
+	 * @param comfortCost the comfortCost to set
+	 */
+	public void setComfortCost(BigDecimal comfortCost) {
+		this.comfortCost = comfortCost;
+	}
+
+	/**
+	 * @return the economyCost
+	 */
+	public BigDecimal getEconomyCost() {
+		return economyCost;
+	}
+
+	/**
+	 * @param economyCost the economyCost to set
+	 */
+	public void setEconomyCost(BigDecimal economyCost) {
+		this.economyCost = economyCost;
 	}
 
 }

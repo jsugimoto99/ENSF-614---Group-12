@@ -1,6 +1,7 @@
 package com.group12.CloudNineBackend.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,29 @@ public class BookingController {
     public ResponseEntity<List<Ticket>> listAllTickets() {
         List<Ticket> tickets = bookingService.getAllTickets();
         return new ResponseEntity<>(tickets, HttpStatus.OK);
+    }
+    @GetMapping("/get/{id}/{lastName}")
+    public ResponseEntity<Ticket> getTicket(@PathVariable("id") Long id, @PathVariable("lastName") String lastName) {
+        // Your logic here to retrieve the ticket using both id and lastName
+        Ticket ticket = bookingService.getByIdAndLastName(id, lastName);
+
+        if (ticket != null) {
+            return new ResponseEntity<>(ticket, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    
+    @DeleteMapping("/delete/{id}/{lastName}")
+    public ResponseEntity<String> deleteTicket(@PathVariable Long id, @PathVariable String lastName) {
+        boolean deleted = bookingService.deleteByIdAndLastName(id, lastName);
+
+        if (deleted) {
+            return new ResponseEntity<>("Ticket deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Ticket not found or could not be deleted", HttpStatus.NOT_FOUND);
+        }
     }
 
     // Additional methods can be added here for other operations like updating or deleting tickets

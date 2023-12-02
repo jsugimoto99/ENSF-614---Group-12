@@ -4,7 +4,7 @@ import logo from "../images/logo.png"
 
 function ThankYou() {
     const [isOpen, setIsOpen] = useState(false);
-    const openModal = () => {
+    const openModel = () => {
       setIsOpen(true);
     };
   

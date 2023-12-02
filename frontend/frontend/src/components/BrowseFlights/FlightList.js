@@ -4,11 +4,11 @@ import axios from "axios";
 import { useLocation } from 'react-router-dom';
 
 const FlightList = () => {
-  const location = useLocation();
+  const location = useLocation(0);
   const departLoc = new URLSearchParams(location.search).get('depart_loc');
   const destLoc = new URLSearchParams(location.search).get('dest_loc');
   const date = new URLSearchParams(location.search).get('depart_date');
-  const [selectedFlight, setSelectFlight] = useState("");
+  const [flightId, setFlightId] = useState();
   const [isDivVisible, setIsDivVisible] = useState(false);
   const [flights, setFlights] = useState([]);
   const toggleDivVisibility = () => {
@@ -74,7 +74,7 @@ const FlightList = () => {
                       <button
                         onClick={(e) => {
                           toggleSeat();
-                          setSelectFlight(flight.id);
+                          setFlightId(flight.id);
                         }}
                         type="button"
                         className="px-6 py-2 font-semibold rounded dark:bg-teal-400 dark:text-gray-900"
@@ -88,7 +88,7 @@ const FlightList = () => {
             </div>
           </div>
         </div>
-        {isSeatVisible && <SelectSeat selectedFlight={selectedFlight} />}
+        {isSeatVisible && <SelectSeat flightId={flightId} />}
       </section>
     </>
   );

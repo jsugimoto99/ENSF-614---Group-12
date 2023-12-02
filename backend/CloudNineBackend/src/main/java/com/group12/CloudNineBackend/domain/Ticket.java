@@ -23,11 +23,12 @@ public class Ticket {
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ticketId;
+    private long ticketId;
+	
     private String toEmail;
     private String firstName;
     private String lastName;
-    private String insurance;
+    private Boolean insurance;
     
     @OneToOne
     @JoinColumn(name = "seat_id")
@@ -60,15 +61,15 @@ public class Ticket {
     }
 
     // Getters and setters
-    public String getInsurance() {
+    public Boolean getInsurance() {
     	return insurance;
     }
     
-    public void setInsurance(String insurance) {
+    public void setInsurance(Boolean insurance) {
     	this.insurance = insurance;
     }
     
-    public int getTicketId() {
+    public Long getTicketId() {
         return ticketId;
     }
 

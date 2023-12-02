@@ -70,9 +70,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
 	@Override
-	public void deleteTicket(Ticket ticket) {
+	public boolean deleteByIdAndLastName(Long id, String lastName) {
+        // Check if the ticket exists
+        if (ticketRepository.existsByTicketIdAndLastName(id, lastName)) {
+            ticketRepository.deleteByTicketId(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+	@Override
+	public Ticket getByIdAndLastName(Long id, String lastName) {
 		// TODO Auto-generated method stub
-		ticketRepository.delete(ticket);
+		return ticketRepository.getByTicketIdAndLastName(id, lastName);
 	}
 	
 

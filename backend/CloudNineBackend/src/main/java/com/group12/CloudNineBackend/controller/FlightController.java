@@ -129,6 +129,33 @@ public class FlightController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/getFlightById/{flightId}")
+    public ResponseEntity<Map<String, Object>> getFlightById(@PathVariable Long flightId) {
+        try {
+            Optional<Flight> optionalFlight = flightRepo.findById(flightId);
+
+            if (optionalFlight.isPresent()) {
+                Flight flight = optionalFlight.get();
+                Map<String, Object> flightMap = new HashMap<>();
+                flightMap.put("id", flight.getId());
+                flightMap.put("departLoc", flight.getDepartLoc());
+                flightMap.put("destLoc", flight.getDestLoc());
+                flightMap.put("date", flight.getDate());
+                flightMap.put("departTime", flight.getDepartTime());
+                flightMap.put("arriveTime", flight.getArriveTime());
+                flightMap.put("aircraftId",flight.getAircraftId());
+
+                return new ResponseEntity<>(flightMap, HttpStatus.OK);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    
     @GetMapping("/{flightId}/aircraftId")
     public ResponseEntity<Long> getAircraftIdByFlightId(@PathVariable Long flightId) {
         Optional<Flight> optionalFlight = flightRepo.findById(flightId);

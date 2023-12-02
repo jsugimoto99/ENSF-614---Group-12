@@ -6,5 +6,13 @@ import com.group12.CloudNineBackend.domain.Ticket;
 
 @Repository
 public interface TicketRepo extends JpaRepository<Ticket, Long> {
-    // You can define custom query methods here if needed
+
+	void deleteByTicketId(Long id);
+
+	Ticket getByTicketId(Long id);
+
+	Ticket getByTicketIdAndLastName(Long id, String lastName);
+
+	boolean existsByTicketIdAndLastName(Long id, String lastName);
+	
 }

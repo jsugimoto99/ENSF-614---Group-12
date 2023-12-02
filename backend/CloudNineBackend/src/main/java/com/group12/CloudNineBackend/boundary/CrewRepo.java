@@ -7,7 +7,7 @@ import com.group12.CloudNineBackend.domain.Crew;
  * @author Jeremy Sugimoto
  *
  */
-public interface CrewRepo extends JpaRepository<Crew, Integer> {
+public interface CrewRepo extends JpaRepository<Crew, Long> {
 	void deleteById(Long id);
 
 }

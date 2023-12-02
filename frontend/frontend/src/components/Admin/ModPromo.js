@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Promotions() {
+function ModPromo() {
   return (
     <div>Promotions</div>
   )
 }
 
-export default Promotions
+export default ModPromo
