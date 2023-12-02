@@ -66,7 +66,6 @@ public class Flight {
     	return tickets;
     }
     
-
     /**
      * Default constructor for Flight class.
      */
