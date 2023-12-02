@@ -163,7 +163,7 @@ export default function ModCrew() {
               </button>
             </div>
             <div class="container px-5 py-24 mx-auto">
-              <h2 class="text-gray-900 text-lg font-medium title-font mb-5 animate__bounceIn">
+              <h2 class="text-gray-900 text-lg font-medium title-font mb-5">
                 Crew List
               </h2>
               <ul>
