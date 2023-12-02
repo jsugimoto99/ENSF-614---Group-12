@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface EmailService {
 
-	String sendMail(String toEmail, int ticketId, BigDecimal price, String destination, String seatId);
+	String sendMail(String toEmail, int ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName);
 
 }

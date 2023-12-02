@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailService{
 	private ResourceLoader resourceLoader;
 	
 	@Override
-	public String sendMail(String to, int ticketId, BigDecimal price, String destination, String seatId) {
+	public String sendMail(String toEmail, int ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName) {
 		// TODO Auto-generated method stub
 		try {
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -40,8 +40,9 @@ public class EmailServiceImpl implements EmailService{
 			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 			
 			mimeMessageHelper.setFrom(fromEmail);
-			mimeMessageHelper.setTo(to);
+			mimeMessageHelper.setTo(toEmail);
 			mimeMessageHelper.setSubject("Your E-Ticket Confirmation");
+			
 			
             Resource resource = resourceLoader.getResource("classpath:ticket2.html");
             
@@ -51,7 +52,11 @@ public class EmailServiceImpl implements EmailService{
             content = content.replace("[ticketId]", String.valueOf(ticketId))
                     .replace("[price]", String.valueOf(price))
                     .replace("[destination]", destination)
-                    .replace("[seat]", (seatId));
+                    .replace("[seat]", seatId)
+                    .replace("[fname]", fName)
+                    .replace("[lname]", lName)
+                    .replace("[departure]", departure); // Note: Make sure the placeholder in HTML matches this key
+
             
             mimeMessageHelper.setText(content, true); // Set true for HTML content
 

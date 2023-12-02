@@ -54,7 +54,11 @@ public class BookingServiceImpl implements BookingService {
         		(savedTicket.getTicketId()),
         		savedTicket.getPrice(),
         		savedTicket.getDestination(),
-        		savedTicket.getSeat().getSeatId());
+        		savedTicket.getDeparture(),
+        		savedTicket.getSeat().getSeatId(),
+        		savedTicket.getFirstName(),
+        		savedTicket.getLastName()
+        		);
         		
         
         return savedTicket;
