@@ -7,11 +7,10 @@ export default function ModFlights() {
   const [date, setDate] = useState("");
   const [departTime, setDepartureTime] = useState("12:00");
   const [arriveTime, setArrivalTime] = useState("12:00");
-  const [aircraftId, setAircraftId] = useState('');
+  const [aircraftId, setAircraftId] = useState("");
   const [flights, setFlights] = useState([]);
   const [locations, setLocations] = useState([]);
   const [aircrafts, setAircrafts] = useState([]);
-
 
   useEffect(() => {
     axios
@@ -40,29 +39,29 @@ export default function ModFlights() {
   // To Implement!!!!!!!!!!!!!!!!!!!
   useEffect(() => {
     // Make a GET request to fetch locations
-    axios.get('http://localhost:8081/location/listAll')
-      .then(response => {
+    axios
+      .get("http://localhost:8081/location/listAll")
+      .then((response) => {
         // Assuming the response data is an array of locations
         setLocations(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching locations:', error);
+      .catch((error) => {
+        console.error("Error fetching locations:", error);
       });
   }, []); // The empty dependency array ensures the effect runs only once when the component mounts
 
   useEffect(() => {
     // Make a GET request to fetch locations
-    axios.get('http://localhost:8081/aircraft/listAllAvailable')
-      .then(response => {
+    axios
+      .get("http://localhost:8081/aircraft/listAllAvailable")
+      .then((response) => {
         // Assuming the response data is an array of locations
         setAircrafts(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching locations:', error);
+      .catch((error) => {
+        console.error("Error fetching locations:", error);
       });
   }, []); // The empty dependency array ensures the effect runs only once when the component mounts
-
-
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -71,48 +70,57 @@ export default function ModFlights() {
       date: new Date(date).toISOString().slice(0, 10),
       departLoc: departLoc,
       departTime: `${departTime}:00`,
-      destLoc: destLoc
+      destLoc: destLoc,
     };
 
-   
     console.log(flight);
     console.log(JSON.flight);
     const id = aircraftId;
 
-    axios.post('http://localhost:8081/flight/add', flight, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      params: {
-        aircraftId: id
-      },
-    })
+    axios
+      .post("http://localhost:8081/flight/add", flight, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: {
+          aircraftId: id,
+        },
+      })
       .then((response) => {
         console.log(response.data); // Axios automatically parses JSON
         return axios.get("http://localhost:8081/flight/listAll");
       })
       .then((response) => {
-        
-        setFlights(response.data)
+        setFlights(response.data);
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
       });
   };
 
+  const services = [
+    { title: "Quality", icon: "...icon path..." },
+    { title: "Communication", icon: "...icon path..." },
+    { title: "Efficiency", icon: "...icon path..." },
+    { title: "Accessibility", icon: "...icon path..." },
+    { title: "Service Name", icon: "...icon path..." },
+    { title: "Safty", icon: "...icon path..." },
+  ];
   return (
     <>
       <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24 mx-auto">
-          
-        <div>
-            <h2 class="text-gray-900 text-lg font-medium title-font mb-5 animate__bounceIn">
-              Flights List
-            </h2>
+        <div class="container px-5 py-10 mx-auto">
+          <div>
+            <h1 class="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-20">
+              Cloud 9 List of Available Flights
+              <br class="hidden sm:block" />
+              Book With Us
+            </h1>
             <ul>
               {flights.map((flight) => (
                 <li key={flight.id} class="mb-3">
-                  {flight.depart_loc} to {flight.dest_loc} - {flight.depart_date}
+                  {flight.depart_loc} to {flight.dest_loc} -{" "}
+                  {flight.depart_date}
                   <button
                     onClick={() => handleDelete(flight.id)}
                     class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"
@@ -145,9 +153,11 @@ export default function ModFlights() {
                 class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               >
                 {/* Add default option */}
-                <option value="" disabled selected>Select a location</option>
+                <option value="" disabled selected>
+                  Select a location
+                </option>
                 {/* Populate options from the locations state */}
-                {locations.map(location => (
+                {locations.map((location) => (
                   <option key={location.code} value={location.city}>
                     {location.city}
                   </option>
@@ -167,9 +177,11 @@ export default function ModFlights() {
                 class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               >
                 {/* Add default option */}
-                <option value="" disabled selected>Select a location</option>
+                <option value="" disabled selected>
+                  Select a location
+                </option>
                 {/* Populate options from the locations state */}
-                {locations.map(location => (
+                {locations.map((location) => (
                   <option key={location.code} value={location.city}>
                     {location.city}
                   </option>
@@ -231,9 +243,11 @@ export default function ModFlights() {
                 class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               >
                 {/* Add default option */}
-                <option value="" disabled selected>Select an aircraft</option>
+                <option value="" disabled selected>
+                  Select an aircraft
+                </option>
                 {/* Populate options from the locations state */}
-                {aircrafts.map(aircraft => (
+                {aircrafts.map((aircraft) => (
                   <option key={aircraft.aircraftId} value={aircraft.aircraftId}>
                     ID: {aircraft.aircraftId}, Model: {aircraft.model}
                   </option>
@@ -247,6 +261,45 @@ export default function ModFlights() {
               Add Flight
             </button>
           </div>
+        </div>
+      </section>
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-5 mx-auto">
+          <div className="text-center mb-20">
+            <h1 className="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mb-4">
+              Top Quality
+            </h1>
+            <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">
+              Flights airline you can count on.
+            </p>
+          </div>
+          <div className="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
+            {/* Map through the services array to generate service cards */}
+            {services.map((service, index) => (
+              <div key={index} className="p-2 sm:w-1/2 w-full">
+                <div className="bg-gray-100 rounded flex p-4 h-full items-center">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="3"
+                    className="text-green-500 w-6 h-6 flex-shrink-0 mr-4"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                    <path d="M22 4L12 14.01l-3-3"></path>
+                  </svg>
+                  <span className="title-font font-medium">
+                    {service.title}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button className="flex mx-auto mt-16 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg">
+            Search
+          </button>
         </div>
       </section>
     </>

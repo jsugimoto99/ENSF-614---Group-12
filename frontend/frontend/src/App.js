@@ -55,7 +55,7 @@ function App() {
     });
   };
   
-  const [userRole, setUserRole] = useState('user');
+  const [userRole, setUserRole] = useState('admin');
   const updateUserRole = (newUserRole) => {
     setUserRole(newUserRole);
   };
