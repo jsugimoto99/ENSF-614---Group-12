@@ -34,7 +34,6 @@ public class PromotionController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addPromotion(@RequestBody Promotion promotion) {
-        System.out.println("check check 1 2");
     	Promotion savedPromotion = promotionService.addPromotion(promotion);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
