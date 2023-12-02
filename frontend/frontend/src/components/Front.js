@@ -8,7 +8,7 @@ function Front() {
   return (
     <>
       <section class="text-gray-600 body-font">
-        <div class="container px-5 py-24 mx-auto">
+        <div class="container px-5 mx-auto">
           <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 animate__heartBeat">
@@ -102,7 +102,7 @@ function Front() {
         </div>
       </section>
       <section class="text-gray-600 body-font">
-        <div class="container px-5 mx-auto flex items-center md:flex-row flex-col">
+        <div class="container px-5 mx-auto py-10 flex items-center md:flex-row flex-col">
           <div class="flex flex-col md:pr-10 md:mb-0 mb-6 pr-0 w-full md:w-auto md:text-left text-center">
             <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
               BOOK ON MOBILE
