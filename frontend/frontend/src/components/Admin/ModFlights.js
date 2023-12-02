@@ -116,20 +116,25 @@ export default function ModFlights() {
               <br class="hidden sm:block" />
               Book With Us
             </h1>
-            <ul>
-              {flights.map((flight) => (
-                <li key={flight.id} class="mb-3">
-                  {flight.depart_loc} to {flight.dest_loc} -{" "}
-                  {flight.depart_date}
-                  <button
-                    onClick={() => handleDelete(flight.id)}
-                    class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"
-                  >
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <div class="text-gray-600 body-font">
+              <div class="container px-5 mx-auto">
+                <ul class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
+                  {flights.map((flight) => (
+                    <li key={flight.id} class="mb-3 text-xl text-green-500">
+                      
+                      From: {flight.depart_loc}, To: {flight.dest_loc} -{" "}
+                      {flight.depart_date}
+                      <button
+                        onClick={() => handleDelete(flight.id)}
+                        class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"
+                      >
+                        Delete
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
             <h1 class="title-font font-medium text-3xl text-gray-900">
