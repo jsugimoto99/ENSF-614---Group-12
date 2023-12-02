@@ -23,6 +23,7 @@ import Payment from "./components/BrowseFlights/Payment";
 import ModAircrafts from "./components/Admin/ModAircrafts";
 import ThankYou from "./components/BrowseFlights/ThankYou";
 import ModCrew from "./components/Admin/ModCrew";
+import Team from "./components/home/Team";
 
 function App() {
   const [user, setUser] = useState({
@@ -81,6 +82,7 @@ function App() {
         <Route path="/payment/:paramName" element={<Payment />} />
         <Route path="/thankyou" element={<ThankYou />} />
         <Route path="/myBooking" element={<MyBooking />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/manageBooking/:ticketId/:lastName" element={<ManageBooking />} />
         <Route path="/login" element={<Login updateUserAttributes={updateUserAttributes} user = {user} />} />
         <Route path="/signup" element={<SignUp />} />

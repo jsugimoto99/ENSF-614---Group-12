@@ -33,6 +33,9 @@ const Navbar = () => {
             <Link to="/myBooking">
               <a className="mr-5 hover:text-green-900">My Bookings</a>
             </Link>
+            <Link to="/team">
+              <a className="mr-5 hover:text-green-900">Team</a>
+            </Link>
           </nav>
           <Link to="login">
             <button
