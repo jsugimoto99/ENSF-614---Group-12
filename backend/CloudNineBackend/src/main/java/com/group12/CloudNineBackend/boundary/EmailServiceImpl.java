@@ -7,6 +7,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import com.group12.CloudNineBackend.boundary.EmailService;
+import com.group12.CloudNineBackend.domain.Promotion;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -69,5 +70,35 @@ public class EmailServiceImpl implements EmailService{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public String sendPromoEmail(String fName, String toEmail, String description, String code) {
+		try {
+			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+			
+			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+			
+			mimeMessageHelper.setFrom(fromEmail);
+			mimeMessageHelper.setTo(toEmail);
+			mimeMessageHelper.setSubject("Here is your CloudNine Promo!");
+			
+			Resource resource = resourceLoader.getResource("classpath:promo.html");
+			
+            String content = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
+            
+            content = content
+                    .replace("[User Name]", fName)
+                    .replace("[Promotion Description]", description)
+                    .replace("[Promo Code]", code); // Note: Make sure the placeholder in HTML matches this key
+			
+            mimeMessageHelper.setText(content, true);
+            
+            javaMailSender.send(mimeMessage);
+            
+			return "mail send";
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 
 }

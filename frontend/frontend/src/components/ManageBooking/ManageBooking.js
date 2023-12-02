@@ -1,54 +1,61 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export const ManageBooking = () => {
-  const { ticketId, lastName } = useParams();  
+  const { ticketId, lastName } = useParams();
   const [ticket, setTicket] = useState([]);
-    
-    useEffect(() => {
-      if (ticketId && lastName) {
-        axios.get(`http://localhost:8081/booking/get/${Number(ticketId)}/${lastName}`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+
+  useEffect(() => {
+    if (ticketId && lastName) {
+      axios
+        .get(
+          `http://localhost:8081/booking/get/${Number(ticketId)}/${lastName}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setTicket(response.data);
+          console.log(response.data);
         })
-          .then((response) => {
-            setTicket(response.data);
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching flights:", error);
-          });
-      }
-    }, [ticketId, lastName]);
-      
-    const handleEditClick = () => {
-      // Add logic for handling edit
-      console.log("Edit clicked");
-    };
-  
-    const handleDeleteClick = () => {
-      // Add logic for handling delete
-      console.log("Delete clicked");
-    
-      // Assuming ticketId and username are available in the component state or props
-      const ticketId = ticket.ticketId;
-      const lastName = ticket.lastName;
-    
-      // Make an Axios DELETE request
-      axios.delete(`http://localhost:8081/booking/delete/${Number(ticketId)}/${lastName}`)
-        .then(response => {
-          console.log("Delete successful:", response.data);
-          // Add any additional logic after a successful delete
-        })
-        .catch(error => {
-          console.error("Error deleting:", error);
-          // Handle errors appropriately
+        .catch((error) => {
+          console.error("Error fetching flights:", error);
         });
-    };
-    return (
-      <div className="container mx-auto mt-8 p-6 border border-gray-300 rounded-lg shadow-lg bg-white flex justify-between">
+    }
+  }, [ticketId, lastName]);
+
+  const handleEditClick = () => {
+    // Add logic for handling edit
+    console.log("Edit clicked");
+  };
+
+  const handleDeleteClick = () => {
+    // Add logic for handling delete
+    console.log("Delete clicked");
+
+    // Assuming ticketId and username are available in the component state or props
+    const ticketId = ticket.ticketId;
+    const lastName = ticket.lastName;
+
+    // Make an Axios DELETE request
+    axios
+      .delete(
+        `http://localhost:8081/booking/delete/${Number(ticketId)}/${lastName}`
+      )
+      .then((response) => {
+        console.log("Delete successful:", response.data);
+        // Add any additional logic after a successful delete
+      })
+      .catch((error) => {
+        console.error("Error deleting:", error);
+        // Handle errors appropriately
+      });
+  };
+  return (
+    <div className="container mx-auto mt-8 p-6 border border-gray-300 rounded-lg shadow-lg bg-white flex justify-between">
       <div>
         <h2 className="text-2xl font-bold mb-4">Manage Booking</h2>
 
@@ -71,7 +78,10 @@ export const ManageBooking = () => {
               <strong>Destination:</strong> {ticket.destination}
             </p>
             <p className="text-lg">
-              <strong>Seat:</strong> {ticket.seat ? `${ticket.seat.type} - ${`${ticket.seat.seatId}`.slice(-2)}` : "Not assigned"}
+              <strong>Seat:</strong>{" "}
+              {ticket.seat
+                ? `${ticket.seat.type} - ${`${ticket.seat.seatId}`.slice(-2)}`
+                : "Not assigned"}
             </p>
             <p className="text-lg">
               <strong>Insurance:</strong> {ticket.insurance ? "Yes" : "No"}
@@ -91,13 +101,15 @@ export const ManageBooking = () => {
         >
           Edit
         </button> */}
-        <button
-          onClick={handleDeleteClick}
-          className="bg-gray-800 text-white px-6 py-4 rounded-md hover:bg-red-600 focus:outline-none"
-        >
-          Cancel Booking
-        </button>
+        <Link to="/">
+          <button
+            onClick={handleDeleteClick}
+            className="bg-gray-800 text-white px-6 py-4 rounded-md hover:bg-red-600 focus:outline-none"
+          >
+            Cancel Booking
+          </button>
+        </Link>
       </div>
     </div>
-  )
-}
+  );
+};
