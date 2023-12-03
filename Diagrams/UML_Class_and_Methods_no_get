@@ -1,4 +1,6 @@
 @startuml
+
+package "Domain" {
 abstract class People
 {
 -name: String
@@ -125,6 +127,62 @@ class Insurance
 {
 -insuranceNumber: int
 }
+}
+
+package "Boundary" 
+{
+
+class UI 
+{
++userOptions(): void
++adminOptions(): void
++staffOptions(): void
+}
+
+class Database
+{
++getInfo(): void
+}
+
+class Email
+{
++sendEmail(): void
+}
+
+class Bank
+{
++processTransaction(): void
+}
+
+}
+
+package "Controller" 
+{
+
+class UserController 
+{
++registerUser(): void
++bookTicket(): void
++cancelTicket(): void
++browseTicket(): void
+}
+
+class AdminController 
+{
++modifyFlight(): void
++modifyCrewMember(): void
++modifyAircraft(): void
++modifyFlightDestination(): void
++browseFlightInfo(): void
+}
+class PaymentController 
+{
++processPayment(): void
++generateInvoice(): void
++verifyPayment(): void
+}
+
+}
 
 
 People "many" <|-- "many" User: is-a
@@ -145,5 +203,18 @@ Admin "1" -- "many" Flight : uses
 Admin "1" -- "many" Crew : uses
 Admin "1" -- "many" Aircraft : uses
 Admin "1" -- "many" RegisteredUser : uses
+
+
+User --> UserController: uses
+Admin --> AdminController: uses
+UserController --> UI: uses
+AdminController --> UI: uses
+UI --> Database: uses
+UI --> Email: uses
+UI --> Bank: uses
+UserController --> PaymentController: uses
+AdminController --> PaymentController: uses
+PaymentController --> Payment: uses
+PaymentController --> Bank: : uses
 
 @enduml
