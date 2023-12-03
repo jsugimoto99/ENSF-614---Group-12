@@ -68,8 +68,6 @@ public class PaymentTransaction {
     	this.name = name;
     }
     
-   
-    
     public void setCardNumber(String cardNumber) {
     	this.cardNumber = cardNumber;
     }
@@ -99,6 +97,4 @@ public class PaymentTransaction {
     	}
     	this.seat.getSeatId();
     }
-    
-
 }

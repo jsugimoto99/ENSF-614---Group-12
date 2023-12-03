@@ -28,16 +28,16 @@ body {
 .header h2 {
     margin: 0;
 }
-.ticket-details {
+.ticket-details, .billing-details {
     padding: 15px;
     background-color: #f7f7f7;
     border-radius: 8px;
     margin-top: 15px;
 }
-.ticket-details h3 {
+.ticket-details h3, .billing-details h3 {
     margin-top: 0;
 }
-.ticket-details p {
+.ticket-details p, .billing-details p {
     margin-bottom: 0;
 }
 </style>
@@ -57,6 +57,12 @@ body {
     <p><strong>Departure:</strong> <span th:text="${departure}">[departure]</span></p>
     <p><strong>Destination:</strong> <span th:text="${destination}">[destination]</span></p>
     <p><strong>Seat:</strong> <span th:text="${seat}">[seat]</span></p>
+  </div>
+
+  <!-- Billing Details Section -->
+  <div class="billing-details">
+    <h3>Billing Details</h3>
+    <p><strong>Transaction ID:</strong> <span th:text="${transactionId}">[transactionId]</span></p>
     <p><strong>Price:</strong> <span th:text="'$' + ${price}">[price]</span></p>
   </div>
   

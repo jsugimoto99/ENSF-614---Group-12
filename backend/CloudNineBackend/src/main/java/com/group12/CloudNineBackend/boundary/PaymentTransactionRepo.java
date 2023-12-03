@@ -7,5 +7,8 @@ import com.group12.CloudNineBackend.domain.PaymentTransaction;
 
 @Repository
 public interface PaymentTransactionRepo extends JpaRepository<PaymentTransaction, Long> {
+
     // Custom query methods can be added here if needed
+
+	PaymentTransaction findBySeat_SeatId(String seatId);
 }

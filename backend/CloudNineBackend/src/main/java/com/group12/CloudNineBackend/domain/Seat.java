@@ -50,6 +50,10 @@ public class Seat {
 //    	ticket.setSeat(this);
     }
 	
+	public Ticket getTicket() {
+		return ticket;
+	}
+	
 	public String getType() {
 		return type;
 	}
