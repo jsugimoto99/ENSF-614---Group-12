@@ -85,6 +85,17 @@ public class BookingServiceImpl implements BookingService {
 		// TODO Auto-generated method stub
 		return ticketRepository.getByTicketIdAndLastName(id, lastName);
 	}
+
+	@Override
+	public List<Ticket> getByFlightId(Long flightId) {
+		// TODO Auto-generated method stub
+		return ticketRepository.findByFlightId(flightId);
+	}
+
+	@Override
+	public Ticket getBySeatId(String seatId) {
+		return ticketRepository.getBySeatSeatId(seatId);
+	}
 	
 
     // Implement other methods defined in the interface

@@ -12,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.AircraftRepo;
+import com.group12.CloudNineBackend.boundary.CrewRepo;
 import com.group12.CloudNineBackend.boundary.FlightRepo;
 import com.group12.CloudNineBackend.domain.Flight;
 import com.group12.CloudNineBackend.domain.Aircraft;
+import com.group12.CloudNineBackend.domain.Crew;
 
 /**
  * 
@@ -33,6 +35,9 @@ public class FlightController {
     
     @Autowired
     private AircraftRepo aircraftRepo;
+    
+    @Autowired 
+    private CrewRepo crewRepo;
 
     /**
      * Handles HTTP POST requests to create a new flight.
@@ -41,15 +46,20 @@ public class FlightController {
      * @return A string indicating that the flight has been created.
      */
     @PostMapping("/add")
-    public HttpStatus add(@RequestBody Flight flight, @RequestParam("aircraftId") Long id) {
+    public HttpStatus add(@RequestBody Flight flight, @RequestParam("crewId") Long crewId,@RequestParam("aircraftId") Long id) {
         // Retrieve or create the Aircraft based on the provided aircraftId
         Optional<Aircraft> optionalAircraft = aircraftRepo.findById(id);
-
+        Optional<Crew> optionalCrew = crewRepo.findById(crewId);
         if (optionalAircraft.isPresent()) {
             // Set the aircraft in the flight
             Aircraft aircraft = optionalAircraft.get();
             flight.setAircraft(aircraft);
             aircraft.setFlight(flight);
+        }
+        if(optionalCrew.isPresent()) {
+        	Crew crew = optionalCrew.get();
+        	flight.setCrew(crew);
+        	crew.setFlight(flight);
 
             // Save the flight
             flightRepo.save(flight);
@@ -66,7 +76,9 @@ public class FlightController {
     public ResponseEntity<HttpStatus> deleteFlight(@PathVariable("id") Long id) {
         try {
         	Aircraft aircraft = aircraftRepo.getByFlightId(id);
+        	Crew crew = crewRepo.getByFlightId(id);
         	aircraft.removeFlight();
+        	crew.removeFlight();
             flightRepo.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {

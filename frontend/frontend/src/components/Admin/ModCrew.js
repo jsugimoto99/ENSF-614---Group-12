@@ -159,7 +159,7 @@ export default function ModCrew() {
                 class="text-white bg-gray-500 border-0 py-2 px-20 focus:outline-none hover:bg-gray-600 rounded text-lg"
                 onClick={handleClick}
               >
-                Add Flight
+                Add Crew
               </button>
             </div>
             <div class="container px-5 py-24 mx-auto">
@@ -170,7 +170,7 @@ export default function ModCrew() {
                 {crews.map((crew) => (
                   <li key={crew.id} class="mb-3">
                     <p>
-                        Crew ID: {crew.id}  Assigned Flight: {crew.flight_id}
+                        Crew ID: {crew.id}  Assigned Flight: {crew.flightId}
                         <br/>
                         Crew Member 1: {crew.member1}
                         <br/>

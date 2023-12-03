@@ -13,6 +13,8 @@ import com.group12.CloudNineBackend.domain.Crew;
 public interface CrewRepo extends JpaRepository<Crew, Long> {
 	void deleteById(Long id);
 
-	List<Crew> findByCrewIdIsNull();
+	List<Crew> findByFlightIdIsNull();
+
+	Crew getByFlightId(Long id);
 
 }

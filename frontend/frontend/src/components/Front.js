@@ -8,10 +8,10 @@ function Front() {
   return (
     <>
       <section class="text-gray-600 body-font">
-        <div class="container px-5 mx-auto">
+        <div class="container px-5 mt-16 mb-16 mx-auto">
           <div class="flex flex-wrap w-full mb-20">
             <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 animate__heartBeat">
+              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
                 Browse our flights
               </h1>
               <div class="h-1 w-20 bg-indigo-500 rounded"></div>

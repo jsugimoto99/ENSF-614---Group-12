@@ -8,6 +8,9 @@ export default function ModAircrafts() {
   const [br, setBr] = useState("2");
   const [cr, setCr] = useState("4");
   const [er, setEr] = useState("6");
+  const [bC,setBc] = useState(200.00)
+  const [cC,setCc] = useState(140.00)
+  const [eC,setEc] = useState(80.00)
   const [aircrafts, setAircrafts] = useState([]);
   const [availModels, setAvailModels] = useState([
     { id: "777", model: 'Boeing 777' },
@@ -47,7 +50,10 @@ export default function ModAircrafts() {
 	    businessRows: br,
 	    seatsPerRow: spr,
       comfortRows: cr,
-      economyRows: er
+      economyRows: er,
+      businessCost: bC,
+      comfortCost: cC,
+      economyCost: eC
     };
 
     console.log(aircraft);

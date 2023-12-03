@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 export const ManageBooking = () => {
   const { ticketId, lastName } = useParams();
   const [ticket, setTicket] = useState([]);
+  const [flight, setFlight] = useState([]);
+  const [flightId] = useState([ticket.flightId]);
 
   useEffect(() => {
     if (ticketId && lastName) {
@@ -22,15 +24,29 @@ export const ManageBooking = () => {
           console.log(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching flights:", error);
+          console.error("Error fetching Ticket:", error);
         });
     }
   }, [ticketId, lastName]);
 
-  const handleEditClick = () => {
-    // Add logic for handling edit
-    console.log("Edit clicked");
-  };
+  useEffect(() => {
+
+    
+
+    axios.get(`http://localhost:8081/flight/getFlightById/${Number(flightId)}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+      .then((response) => {
+        setFlight(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching flights:", error);
+      });
+  }, [flightId]); // Include variables that are used inside the effect in the dependency array
 
   const handleDeleteClick = () => {
     // Add logic for handling delete

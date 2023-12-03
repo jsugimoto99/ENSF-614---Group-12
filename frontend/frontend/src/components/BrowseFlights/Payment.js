@@ -6,25 +6,30 @@ function Payment() {
   const location = useLocation();
   const flightId = new URLSearchParams(location.search).get('flightId');
   const selectedSeat = new URLSearchParams(location.search).get('selectedSeat');
+  const initialPrice = parseFloat(new URLSearchParams(location.search).get('price'));
+  const [price, setPrice] = useState(initialPrice);
   const insuranceParam = new URLSearchParams(location.search).get('insurance');
   const insurance = insuranceParam === 'true';
-  const [ticketInfo, setTicketInfo] = useState({
-    firstName:'',
-    lastName:'',
-    email:''
-  })
-  const [cardInformation, setcardInformation] = useState({
-    nameOnCard: '',
-    creditCardNumber: '',
-    creditCardExp: '',
-    creditCardCvv: ''
-  });
   const [seatId, setSeatId] = useState("")
   const [flight, setFlight] = useState([]);
   const [insuranceCost, setInsuranceCost] = useState(0.00);
-  const [seatCost, setSeatCost] = useState(0.00);
   const [TotalCost, setTotalCost] = useState(0.00);
   const navigate = useNavigate();
+  const [ticketInfo, setTicketInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: ''
+  })
+  const [billingInfo, setBillingInfo] = useState({
+    amount: TotalCost,
+    nameOnCard: '',
+    creditCardNumber: '',
+    creditCardExp: '',
+    creditCardCvv: '',
+    seatId: selectedSeat
+  });
+  console.log(billingInfo)
+  
 
   useEffect(() => {
     axios.get(`http://localhost:8081/flight/getFlightById/${Number(flightId)}`, {
@@ -44,9 +49,9 @@ function Payment() {
 
   useEffect(() => {
     // Calculate the total cost whenever either insuranceCost or seatCost changes
-    const newTotalCost = insuranceCost + seatCost;
+    const newTotalCost = insuranceCost + price;
     setTotalCost(newTotalCost);
-  }, [insuranceCost, seatCost]);
+  }, [insuranceCost, price]);
 
   useEffect(() => {
     // Calculate the total cost whenever either insuranceCost or seatCost changes
@@ -87,7 +92,7 @@ function Payment() {
       first_name: firstName,
       last_name: lastName,
       insurance: insurance
-      }
+    }
     console.log(bookingRequest);
     try {
       const response = await axios.post('http://localhost:8081/booking/add', bookingRequest, {
@@ -95,7 +100,7 @@ function Payment() {
           'Content-Type': 'application/json',
         },
       });
-  
+
       console.log('Booking response:', response.data);
       // Handle success, redirect, or perform other actions
     } catch (error) {
@@ -104,25 +109,25 @@ function Payment() {
     }
   };
 
-    const handleChangeName = (e) => {
-      // Update state for the corresponding form field
-      setcardInformation({ ...cardInformation, nameOnCard: e.target.value });
-    };
+  const handleChangeName = (e) => {
+    // Update state for the corresponding form field
+    setBillingInfo({ ...billingInfo, nameOnCard: e.target.value });
+  };
 
-    const handleChangeFName = (e) => {
-      // Update state for the corresponding form field
-      setTicketInfo({ ...ticketInfo, firstName: e.target.value });
-    };
+  const handleChangeFName = (e) => {
+    // Update state for the corresponding form field
+    setTicketInfo({ ...ticketInfo, firstName: e.target.value });
+  };
 
-    const handleChangeLName = (e) => {
-      // Update state for the corresponding form field
-      setTicketInfo({ ...ticketInfo, lastName: e.target.value });
-    };
+  const handleChangeLName = (e) => {
+    // Update state for the corresponding form field
+    setTicketInfo({ ...ticketInfo, lastName: e.target.value });
+  };
 
-    const handleChangeEmail = (e) => {
-      // Update state for the corresponding form field
-      setTicketInfo({ ...ticketInfo, email: e.target.value});
-    };
+  const handleChangeEmail = (e) => {
+    // Update state for the corresponding form field
+    setTicketInfo({ ...ticketInfo, email: e.target.value });
+  };
 
   const handleChangeDate = (event) => {
     // Get the input value
@@ -140,7 +145,7 @@ function Payment() {
     inputValue = inputValue.slice(0, 5);
 
     // Update the state with the formatted value
-    setcardInformation({ ...cardInformation, creditCardExp: inputValue });
+    setBillingInfo({ ...billingInfo, creditCardExp: inputValue });
   };
 
   const handleChangeCardNumber = (event) => {
@@ -157,9 +162,9 @@ function Payment() {
     inputValue = inputValue.slice(0, 19);
 
     // Update the state with the formatted value
-    setcardInformation({ ...cardInformation, creditCardNumber: inputValue });
+    setBillingInfo({ ...billingInfo, creditCardNumber: inputValue });
   };
-  
+
   const handleChangeCVV = (event) => {
     // Get the input value
     let inputValue = event.target.value;
@@ -171,27 +176,27 @@ function Payment() {
     inputValue = inputValue.slice(0, 3);
 
     // Update the state with the formatted value
-    setcardInformation({ ...cardInformation, creditCardCvv: inputValue });
+    setBillingInfo({ ...billingInfo, creditCardCvv: inputValue });
   };
 
-  const { 
+  const {
     nameOnCard: nameOnCard,
     creditCardNumber: cardNumber,
     creditCardExp: expiryDate,
-    creditCardCvv: cvv} = cardInformation;
+    creditCardCvv: cvv } = billingInfo;
 
-  const{
+  const {
     firstName: firstName,
     lastName: lastName,
     email: email
   } = ticketInfo;
-    
+
   return (
     <>
       <section>
         <section class="text-gray-600 body-font relative">
           <div class="container px-5 py-24 mx-auto">
-            <div class="flex flex-col text-center w-full mb-12">
+            <div class="flex flex-col text-center w-full mb-16">
               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
                 Flight Details
               </h1>
@@ -209,7 +214,7 @@ function Payment() {
                 Seat: {selectedSeat}
               </p>
               <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-                Seat Price: {formatAmount(seatCost)}
+                Seat Price: {formatAmount(price)}
               </p>
               <div>
                 <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
@@ -236,9 +241,9 @@ function Payment() {
                       id="firstName"
                       className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Enter your first name"
-                      required = {true}
+                      required={true}
                       value={firstName}
-                      onChange={handleChangeFName}/>
+                      onChange={handleChangeFName} />
                   </div>
                 </div>
                 <div class="p-2 w-1/2">
@@ -247,14 +252,14 @@ function Payment() {
                       Name On Card
                     </label>
                     <input
-                       type="text"
-                       name="nameOnCard"
-                       id="nameOnCard"
-                       className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       placeholder="Enter the name on your card"
-                       required = {true}
-                       value={nameOnCard}
-                       onChange={handleChangeName}/>
+                      type="text"
+                      name="nameOnCard"
+                      id="nameOnCard"
+                      className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Enter the name on your card"
+                      required={true}
+                      value={nameOnCard}
+                      onChange={handleChangeName} />
                   </div>
                 </div>
               </div>
@@ -267,14 +272,14 @@ function Payment() {
                       Last Name
                     </label>
                     <input
-                       type="text"
-                       name="lastName"
-                       id="lastName"
-                       className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       placeholder="Enter your last name"
-                       required = {true}
-                       value={lastName}
-                       onChange={handleChangeLName}/>
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Enter your last name"
+                      required={true}
+                      value={lastName}
+                      onChange={handleChangeLName} />
                   </div>
                 </div>
                 <div class="p-2 w-1/2">
@@ -283,14 +288,14 @@ function Payment() {
                       Credit Card
                     </label>
                     <input
-                     type="text"
-                     name="cardNumber"
-                     id="cardNumber"
-                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder="Enter your card number"
-                     required = {true}
-                     value={cardNumber}
-                     onChange={handleChangeCardNumber}/>
+                      type="text"
+                      name="cardNumber"
+                      id="cardNumber"
+                      className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Enter your card number"
+                      required={true}
+                      value={cardNumber}
+                      onChange={handleChangeCardNumber} />
                   </div>
                 </div>
               </div>
@@ -303,14 +308,14 @@ function Payment() {
                       Email
                     </label>
                     <input
-                     type="email"
-                     name="email"
-                     id="email"
-                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                     placeholder="name@company.com"
-                     required = {true}
-                     value={email}
-                     onChange={handleChangeEmail}/>
+                      type="email"
+                      name="email"
+                      id="email"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="name@company.com"
+                      required={true}
+                      value={email}
+                      onChange={handleChangeEmail} />
                   </div>
                 </div>
                 <div class="p-2 w-1/2 relative">
@@ -325,9 +330,9 @@ function Payment() {
                         id="expiryDate"
                         className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="MM/YY"
-                        required = {true}
+                        required={true}
                         value={expiryDate}
-                        onChange={handleChangeDate}/>
+                        onChange={handleChangeDate} />
                     </div>
                     <div class="relative pr-">
                       <label for="name" class="leading-7 text-sm text-gray-600">
@@ -339,17 +344,31 @@ function Payment() {
                         id="cvv"
                         className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Enter CVV"
-                        required = {true}
+                        required={true}
                         value={cvv}
-                        onChange={handleChangeCVV}/>
+                        onChange={handleChangeCVV} />
                     </div>
                   </div>
                 </div>
+                <div>
+                    <div class="p-2 w-1/3relative">
+                      <label for="name" class="leading-7 text-sm text-gray-600">
+                        Discount Code
+                      </label>
+                      <input
+                        type="discountCode"
+                        name="discountCode"
+                        id="discountCode"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Code"
+                        required />
+                    </div>
+                  </div>
               </div>
             </div>
           </div>
         </section>
-        <Link to="/thankyou">
+        <Link to={`/thankyou/${seatId}/${flightId}`}>
           <button
             onClick={handleBooking}
             class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"

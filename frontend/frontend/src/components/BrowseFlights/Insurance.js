@@ -8,6 +8,7 @@ const Insurance = () => {
 const location = useLocation();
 const flightId = new URLSearchParams(location.search).get('flightId');
 const selectedSeat = new URLSearchParams(location.search).get('selectedSeat');
+const price = new URLSearchParams(location.search).get('price');
 const [insurance, setInsurance] = useState(false)
   const navigate = useNavigate();
   
@@ -17,7 +18,7 @@ const [insurance, setInsurance] = useState(false)
   
   const handleClick = () => {
     const paramName = "ticketInfo";
-    navigate(`/payment/${paramName}?flightId=${flightId}&selectedSeat=${selectedSeat}&insurance=${insurance}`);
+    navigate(`/payment/${paramName}?flightId=${flightId}&selectedSeat=${selectedSeat}&insurance=${insurance}&price=${Number(price)}`);
   };
   return (
     <>

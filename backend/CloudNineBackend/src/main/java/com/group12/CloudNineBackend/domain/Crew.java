@@ -1,5 +1,6 @@
 package com.group12.CloudNineBackend.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +19,9 @@ public class Crew {
 	String member2;
 	String member3;
 	String member4;
-	@OneToOne
-    @JoinColumn(name = "flightId")
-    private Flight flight;
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "flight_id")
+	Flight flight;
 	
 	public void setFlight(Flight flight) {
 		this.flight = flight;
@@ -69,6 +70,11 @@ public class Crew {
 
 	public void setMember4(String member4) {
 		this.member4 = member4;
+	}
+
+	public void removeFlight() {
+		this.flight = null;
+		
 	}
 	
 	

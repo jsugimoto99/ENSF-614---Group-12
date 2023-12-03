@@ -1,18 +1,60 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link , useParams} from "react-router-dom";
 import logo from "../images/logo.png"
+import axios from "axios";
 
 function ThankYou() {
-    const [isOpen, setIsOpen] = useState(false);
-    const openModel = () => {
+  const {flightId, seatId} = useParams();
+  const [isOpen, setIsOpen] = useState(false);
+  const [flight, setFlight] = useState([]);
+  const [ticket, setTicket] = useState([]);
+  
+  useEffect(() => {
+      axios
+        .get(
+          `http://localhost:8081/booking/get/${seatId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setTicket(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching Ticket:", error);
+        });
+    }, [seatId]);
+  
+  useEffect(() => {
+    axios.get(`http://localhost:8081/flight/getFlightById/${Number(flightId)}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+      .then((response) => {
+        setFlight(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching flights:", error);
+      });
+  }, [flightId]); // Include variables that are used inside the effect in the dependency array
+  
+  
+  
+  const openModel = () => {
       setIsOpen(true);
     };
+
   
     const closeModal = () => {
       setIsOpen(false);
     };
-    const textArray = ['Ticket number', 'Departure', 'Destination', 'Seat Number', 'Flight Number'];
-  return (
+     return (
     <>
       <section class="text-gray-500 body-font">
         <div class="container px-5 py-10 mx-auto flex flex-wrap flex-col">
@@ -42,12 +84,24 @@ function ThankYou() {
               <h2 className="text-3xl font-semibold leadi tracki">
                 Thank you for flying with us!
               </h2>
-              {textArray.map((text, index) =>(
-              <p key={index} className="flex-1 text-center dark:text-gray-400 text-2xl">
-                {text}: 
-              </p>
 
-              ))}
+              <p className="flex-1 text-center dark:text-gray-400 text-2xl">
+              Ticket number: {ticket.ticketId} 
+              </p>
+              <p className="flex-1 text-center dark:text-gray-400 text-2xl">
+              Departure: {flight.departLoc}
+              </p>
+              <p className="flex-1 text-center dark:text-gray-400 text-2xl">
+              Destination: {flight.destLoc}
+              </p>
+              <p className="flex-1 text-center dark:text-gray-400 text-2xl">
+              Seat Number: {seatId.slice(-2)}
+              </p>
+              <p className="flex-1 text-center dark:text-gray-400 text-2xl">
+              Flight Number: {flightId}
+              </p>
+             
+
               <Link to="/">
               <button
                 type="button"

@@ -6,9 +6,8 @@ import Featured from "./home/Featured";
 function Home() {
   return (
     <>
-      <First />
       <Front />
-      <Featured />
+      {/* <Featured /> */}
     </>
   );
 }

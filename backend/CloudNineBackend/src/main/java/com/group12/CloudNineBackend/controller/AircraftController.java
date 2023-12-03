@@ -42,9 +42,9 @@ public class AircraftController {
         aircraftRepo.save(aircraft);
 
         // Generate and save seats
-        generateAndSaveSeats(aircraft,1, aircraft.getBusinessRows(), aircraft.getBusinessSeatsPerRow(), "Business", new BigDecimal("200.0"));
-        generateAndSaveSeats(aircraft,aircraft.getBusinessRows() + 1, aircraft.getComfortRows(), aircraft.getSeatsPerRow(), "Comfort", new BigDecimal("100.0"));
-        generateAndSaveSeats(aircraft,aircraft.getComfortRows() + aircraft.getBusinessRows() + 1, aircraft.getEconomyRows(), aircraft.getSeatsPerRow(), "Economy", new BigDecimal("50.0"));
+        generateAndSaveSeats(aircraft,1, aircraft.getBusinessRows(), aircraft.getBusinessSeatsPerRow(), "Business", aircraft.getBusinessCost());
+        generateAndSaveSeats(aircraft,aircraft.getBusinessRows() + 1, aircraft.getComfortRows(), aircraft.getSeatsPerRow(), "Comfort", aircraft.getComfortCost());
+        generateAndSaveSeats(aircraft,aircraft.getComfortRows() + aircraft.getBusinessRows() + 1, aircraft.getEconomyRows(), aircraft.getSeatsPerRow(), "Economy", aircraft.getEconomyCost());
 
         response.put("status", "success");
         response.put("message", "Aircraft and seats added to database");
@@ -133,10 +133,10 @@ public class AircraftController {
     }
     
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Map<String, Object>> delete(@PathVariable("id") int id) {
+	public ResponseEntity<Map<String, Object>> delete(@PathVariable("id") Long id) {
 		try {
             aircraftRepo.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
