@@ -26,6 +26,9 @@ public class Seat {
 	private BigDecimal price;
     @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
     private Ticket ticket;
+    
+    @OneToOne(mappedBy = "seat")
+    private PaymentTransaction paymentTransaction;
 	
     public Seat() {
     	
@@ -68,4 +71,12 @@ public class Seat {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+	
+	public PaymentTransaction getPaymentTransaction() {
+        return paymentTransaction;
+    }
+
+    public void setPaymentTransaction(PaymentTransaction paymentTransaction) {
+        this.paymentTransaction = paymentTransaction;
+    }
 }

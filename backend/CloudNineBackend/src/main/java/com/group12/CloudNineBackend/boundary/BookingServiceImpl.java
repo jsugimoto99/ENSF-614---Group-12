@@ -55,7 +55,7 @@ public class BookingServiceImpl implements BookingService {
         // Save the ticket
         Ticket savedTicket = ticketRepository.save(ticket);
         
-        emailService.sendMail(savedTicket.getToEmail(),
+        emailService.sendTicketMail(savedTicket.getToEmail(),
         		(savedTicket.getTicketId()),
         		savedTicket.getPrice(),
         		savedTicket.getDestination(),

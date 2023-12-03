@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService{
 	private ResourceLoader resourceLoader;
 	
 	@Override
-	public String sendMail(String toEmail, Long ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName) {
+	public String sendTicketMail(String toEmail, Long ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName) {
 		// TODO Auto-generated method stub
 		try {
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -98,7 +98,9 @@ public class EmailServiceImpl implements EmailService{
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+		
 	}
+	
 
 
 }

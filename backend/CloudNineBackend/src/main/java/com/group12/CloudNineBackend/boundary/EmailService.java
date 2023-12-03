@@ -6,8 +6,9 @@ import com.group12.CloudNineBackend.domain.Promotion;
 
 public interface EmailService {
 
-	String sendMail(String toEmail, Long ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName);
+	String sendTicketMail(String toEmail, Long ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName);
 
 	String sendPromoEmail(String fName, String toEmail, String description, String code);
 
+	
 }
