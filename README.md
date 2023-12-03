@@ -22,7 +22,3 @@ More information can be seen in the project description document.
 
 ## Project Design
 Diagrams from the design phase of the project can be found in our [Design Phase Documentation](./Diagrams). These diagrams include: a use-case diagram, use-case scenarios based off the use-case diagram, an activity diagram, sequence diagram, state transition diagrams, a system domain diagram, domain classes, boundary classes, controller classes, a package diagram, and a deployment diagram.
-
-
-## Temporary Link to report
-https://docs.google.com/document/d/1DheaMTXT5O_JS61H2KQo5qsVAPnoGt1Na17iMjFbh_s/edit?pli=1#heading=h.vyzwnr380us3
