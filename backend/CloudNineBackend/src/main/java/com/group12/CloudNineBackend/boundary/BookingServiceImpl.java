@@ -90,9 +90,9 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public List<Ticket> getByFlightId(Long flightId) {
+	public List<Ticket> getAllByFlightId(Long flightId) {
 		// TODO Auto-generated method stub
-		return ticketRepository.findAllByFlightId(flightId);
+		return ticketRepository.getAllByFlightFlightId(flightId);
 	}
 
 	

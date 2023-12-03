@@ -2,7 +2,7 @@ package com.group12.CloudNineBackend.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +14,8 @@ import com.group12.CloudNineBackend.boundary.TicketRepo;
 import com.group12.CloudNineBackend.boundary.TicketService;
 import com.group12.CloudNineBackend.domain.BookingRequest;
 import com.group12.CloudNineBackend.domain.Ticket;
+
+import jakarta.transaction.Transactional;
 
 /**
  * Controller class for handling HTTP requests related to tickets.
@@ -27,6 +29,9 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+    
+    @Autowired
+    private TicketRepo ticketRepo;
     
     @Autowired
     private TicketService ticketService;
@@ -81,21 +86,15 @@ public class BookingController {
     }
     
     @GetMapping("/getByFlightId/{flightId}")
-    public ResponseEntity<Map<String, Object>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
-        List<Ticket> tickets = bookingService.getByFlightId(flightId);
-
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<List<Ticket>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
+        List<Ticket> tickets = bookingService.getAllByFlightId(flightId);
 
         if (!tickets.isEmpty()) {
-            response.put("tickets", tickets);
-            response.put("message", "Tickets found for flight ID: " + flightId);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(tickets, HttpStatus.OK);
         } else {
-            response.put("message", "No tickets found for flight ID: " + flightId);
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     
 

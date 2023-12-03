@@ -84,7 +84,29 @@ function Payment() {
   //   expYear,
   //   cvv,
 
-  const handleBooking = async () => {
+  const handleBooking = async() => {
+    const billingInfo = {
+      amount: TotalCost,
+      name: nameOnCard,
+      cardNumber: cardNumber,
+      expiryDate: expiryDate,
+      cvv: cvv,
+      seat_id: seatId
+    }
+    try {
+      const response = await axios.post('http://localhost:8081/payment/process', billingInfo, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Booking response:', response.data);
+      // Handle success, redirect, or perform other actions
+    } catch (error) {
+      console.error('Error creating booking:', error.response ? error.response.data : error.message);
+      // Handle error, display a message, etc.
+    }
+    
     const bookingRequest = {
       seat_id: seatId,
       flight_id: flightId,
@@ -111,27 +133,7 @@ function Payment() {
       console.error('Error creating booking');
       // Handle error, display a message, etc.
     }
-    const billingInfo = {
-      amount: TotalCost,
-      name: nameOnCard,
-      cardNumber: cardNumber,
-      expiryDate: expiryDate,
-      cvv: cvv,
-      seat_id: seatId
-    }
-    try {
-      const response = await axios.post('http://localhost:8081/payment/process', billingInfo, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log('Booking response:', response.data);
-      // Handle success, redirect, or perform other actions
-    } catch (error) {
-      console.error('Error creating booking:', error.response ? error.response.data : error.message);
-      // Handle error, display a message, etc.
-    }
+    
 
 
   };

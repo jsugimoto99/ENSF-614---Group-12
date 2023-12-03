@@ -9,7 +9,7 @@ public interface BookingService {
     List<Ticket> getAllTickets();
 	public Ticket getByIdAndLastName(Long id, String lastName);
 	public Ticket getBySeatId(String id);
-	public List<Ticket> getByFlightId(Long flightId);
+	public List<Ticket> getAllByFlightId(Long flightId);
     
     // Additional methods like updateTicket, deleteTicket, etc.
 }

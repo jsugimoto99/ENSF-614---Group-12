@@ -33,9 +33,10 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
 	@Modifying
     @Query("DELETE FROM Ticket t WHERE t.ticketId = :ticketId AND t.lastName = :lastName")
     void deleteByTicketIdAndLastName(@Param("ticketId") Long ticketId, @Param("lastName") String lastName);
-
-	List<Ticket> findAllByFlightId(Long flightId);
+	
 
 	Ticket findBySeatSeatId(String id);
+
+	List<Ticket> getAllByFlightFlightId(Long flightId);
 	
 }
