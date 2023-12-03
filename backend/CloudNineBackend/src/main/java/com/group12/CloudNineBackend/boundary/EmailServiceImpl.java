@@ -7,6 +7,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import com.group12.CloudNineBackend.boundary.EmailService;
+import com.group12.CloudNineBackend.domain.PaymentTransactionRequest;
 import com.group12.CloudNineBackend.domain.Promotion;
 
 import java.math.BigDecimal;
@@ -35,8 +36,9 @@ public class EmailServiceImpl implements EmailService{
 	@Autowired
 	private PaymentTransactionService paymentTransactionService;
 	
+	
 	@Override
-	public String sendTicketMail(String toEmail, Long ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName) {
+	public String sendTicketMail(String toEmail, Long ticketId, String destination, String departure, String seatId, String fName, String lName) {
 		// TODO Auto-generated method stub
 		try {
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -47,13 +49,14 @@ public class EmailServiceImpl implements EmailService{
 			mimeMessageHelper.setTo(toEmail);
 			mimeMessageHelper.setSubject("Your E-Ticket Confirmation");
 			
+	        BigDecimal price = paymentTransactionService.getPriceBySeatId(seatId); // Fetch price using seatId
+			
 			Long transactionId = paymentTransactionService.getTransactionIdBySeatId(seatId);
 			
             Resource resource = resourceLoader.getResource("classpath:ticket2.html");
             
             String content = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
-	   
-
+          
             content = content.replace("[ticketId]", String.valueOf(ticketId))
                     .replace("[price]", String.valueOf(price))
                     .replace("[destination]", destination)
@@ -61,7 +64,8 @@ public class EmailServiceImpl implements EmailService{
                     .replace("[fname]", fName)
                     .replace("[lname]", lName)
                     .replace("[departure]", departure)
-                    .replace("[transactionId]", String.valueOf(transactionId)); // Note: Make sure the placeholder in HTML matches this key
+                    .replace("[transactionId]", String.valueOf(transactionId))
+                    ; // Note: Make sure the placeholder in HTML matches this key
 
             
             mimeMessageHelper.setText(content, true); // Set true for HTML content

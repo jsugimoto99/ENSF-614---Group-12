@@ -57,7 +57,6 @@ public class BookingServiceImpl implements BookingService {
         
         emailService.sendTicketMail(savedTicket.getToEmail(),
         		(savedTicket.getTicketId()),
-        		savedTicket.getPrice(),
         		savedTicket.getDestination(),
         		savedTicket.getDeparture(),
         		savedTicket.getSeat().getSeatId(),

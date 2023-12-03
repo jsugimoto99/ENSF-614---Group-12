@@ -1,5 +1,7 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PaymentTransactionRequest {
@@ -18,6 +20,9 @@ public class PaymentTransactionRequest {
 	
 	@JsonProperty("seat_id")
     private String seatId;
+	
+	@JsonProperty("amount")
+	private BigDecimal amount;
 
     // No-args constructor
     public PaymentTransactionRequest() {
@@ -34,7 +39,14 @@ public class PaymentTransactionRequest {
 //    }
 
     // Getters and setters
+
+    public BigDecimal getAmount() {
+    	return amount;
+    }
     
+    public void setAmount(BigDecimal amount) {
+    	this.amount = amount;
+    }
 
     public String getName() {
         return name;
