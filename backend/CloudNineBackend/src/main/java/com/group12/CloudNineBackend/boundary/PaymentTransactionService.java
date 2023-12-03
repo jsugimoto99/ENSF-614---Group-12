@@ -1,5 +1,7 @@
 package com.group12.CloudNineBackend.boundary;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,7 @@ public class PaymentTransactionService {
         transaction.setExpiryDate(request.getExpiryDate());
         transaction.setName(request.getName());
         transaction.setSeat(seat);
+        transaction.setAmount(request.getAmount());
         // Set properties of transaction from the request
         // e.g., transaction.setAmount(calculateAmount(ticket, request));
         // ...
@@ -53,6 +56,10 @@ public class PaymentTransactionService {
         return transaction;
     }
 
+    public BigDecimal getPriceBySeatId(String seatId) {
+        PaymentTransaction paymentTransactionRequest = paymentTransactionRepo.findBySeat_SeatId(seatId);// method to retrieve PaymentTransactionRequest by seatId
+        return paymentTransactionRequest != null ? paymentTransactionRequest.getAmount() : null;
+    }
  
     // Additional service methods can be added here
 }

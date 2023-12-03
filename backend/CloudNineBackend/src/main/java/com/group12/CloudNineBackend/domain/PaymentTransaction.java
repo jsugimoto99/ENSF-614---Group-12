@@ -1,6 +1,8 @@
 package com.group12.CloudNineBackend.domain;
 
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ public class PaymentTransaction {
     private String cardNumber;
     private String expiryDate;
     private int cvv;
+    private BigDecimal amount;
     
     @OneToOne
     @JoinColumn(name = "seat_id")
@@ -38,6 +41,14 @@ public class PaymentTransaction {
     }
 
     // Getters and setters
+    
+    public BigDecimal getAmount() {
+    	return amount;
+    }
+    
+    public void setAmount(BigDecimal amount) {
+    	this.amount = amount;
+    }
 
     public Long getTransactionId() {
         return transactionId;
