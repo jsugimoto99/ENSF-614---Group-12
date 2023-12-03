@@ -1,8 +1,8 @@
 package com.group12.CloudNineBackend.controller;
 
 import java.util.List;
+import java.util.*;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,12 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.BookingService;
-import com.group12.CloudNineBackend.boundary.TicketRepo;
 import com.group12.CloudNineBackend.boundary.TicketService;
 import com.group12.CloudNineBackend.domain.BookingRequest;
 import com.group12.CloudNineBackend.domain.Ticket;
-
-import jakarta.transaction.Transactional;
 
 /**
  * Controller class for handling HTTP requests related to tickets.
@@ -30,8 +27,8 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
     
-    @Autowired
-    private TicketRepo ticketRepo;
+//    @Autowired
+//    private TicketRepo ticketRepo;
     
     @Autowired
     private TicketService ticketService;
@@ -57,44 +54,123 @@ public class BookingController {
      * @return A list of Ticket objects representing all booked tickets.
      */
     @GetMapping("/getAll")
-    public ResponseEntity<List<Ticket>> listAllTickets() {
-        List<Ticket> tickets = bookingService.getAllTickets();
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
-    }
+    public ResponseEntity<List<Map<String, Object>>> getAllTickets() {
+       try {
+    	List<Ticket> tickets = bookingService.getAllTickets();
+    	List<Map<String,Object>> responseList = new ArrayList<>(); 
+    	
+    	for (Ticket ticket: tickets) {
+    		Map<String, Object> ticketMap = new HashMap<>();
+    		ticketMap.put("ticketId", ticket.getTicketId());
+    		ticketMap.put("toEmail", ticket.getToEmail());
+    		ticketMap.put("firstName", ticket.getFirstName());
+    		ticketMap.put("lastName", ticket.getLastName());
+    		ticketMap.put("insurance", ticket.getInsurance());
+    		ticketMap.put("getPrice", ticket.getPrice());
+    		ticketMap.put("seatId", ticket.getSeatId());
+    		ticketMap.put("class", ticket.getSeatClass());
+    		ticketMap.put("departure", ticket.getDeparture());
+    		ticketMap.put("destination", ticket.getDestination());
+    		responseList.add(ticketMap);
+    	}
+    	return new ResponseEntity<>(responseList, HttpStatus.OK);
+    	
+       } catch (Exception e) {
+           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+       }
+   }
+    
+    
     @GetMapping("/get/{id}/{lastName}")
-    public ResponseEntity<Ticket> getTicket(@PathVariable("id") Long id, @PathVariable("lastName") String lastName) {
+    public ResponseEntity<Map<String, Object>> getTicket(@PathVariable("id") Long id, @PathVariable("lastName") String lastName) {
         // Your logic here to retrieve the ticket using both id and lastName
         Ticket ticket = bookingService.getByIdAndLastName(id, lastName);
-
         if (ticket != null) {
-            return new ResponseEntity<>(ticket, HttpStatus.OK);
+        Map<String, Object> ticketMap = new HashMap<>();
+		ticketMap.put("ticketId", ticket.getTicketId());
+		ticketMap.put("toEmail", ticket.getToEmail());
+		ticketMap.put("firstName", ticket.getFirstName());
+		ticketMap.put("lastName", ticket.getLastName());
+		ticketMap.put("insurance", ticket.getInsurance());
+		ticketMap.put("getPrice", ticket.getPrice());
+		ticketMap.put("seatId", ticket.getSeatId());
+		ticketMap.put("class", ticket.getSeatClass());
+		ticketMap.put("departure", ticket.getDeparture());
+		ticketMap.put("destination", ticket.getDestination());
+        
+           return new ResponseEntity<>(ticketMap, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     
     @GetMapping("/get/{seatId}")
-    public ResponseEntity<Ticket> getTicket(@PathVariable("seatId") String seatId) {
+    public ResponseEntity<Map<String, Object>> getTicket(@PathVariable("seatId") String seatId) {
         // Your logic here to retrieve the ticket using both id and lastName
         Ticket ticket = bookingService.getBySeatId(seatId);
-
         if (ticket != null) {
-            return new ResponseEntity<>(ticket, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            Map<String, Object> ticketMap = new HashMap<>();
+    		ticketMap.put("ticketId", ticket.getTicketId());
+    		ticketMap.put("toEmail", ticket.getToEmail());
+    		ticketMap.put("firstName", ticket.getFirstName());
+    		ticketMap.put("lastName", ticket.getLastName());
+    		ticketMap.put("insurance", ticket.getInsurance());
+    		ticketMap.put("getPrice", ticket.getPrice());
+    		ticketMap.put("seatId", ticket.getSeatId());
+    		ticketMap.put("class", ticket.getSeatClass());
+    		ticketMap.put("departure", ticket.getDeparture());
+    		ticketMap.put("destination", ticket.getDestination());
+            
+               return new ResponseEntity<>(ticketMap, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
-    }
     
     @GetMapping("/getByFlightId/{flightId}")
-    public ResponseEntity<List<Ticket>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
-        List<Ticket> tickets = bookingService.getAllByFlightId(flightId);
-
-        if (!tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<List<Map<String, Object>>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
+    	try {
+    	List<Ticket> tickets = bookingService.getAllByFlightId(flightId);
+        List<Map<String,Object>> responseList = new ArrayList<>(); 
+    	
+    	for (Ticket ticket: tickets) {
+    		Map<String, Object> ticketMap = new HashMap<>();
+    		ticketMap.put("ticketId", ticket.getTicketId());
+    		ticketMap.put("toEmail", ticket.getToEmail());
+    		ticketMap.put("firstName", ticket.getFirstName());
+    		ticketMap.put("lastName", ticket.getLastName());
+    		ticketMap.put("insurance", ticket.getInsurance());
+    		ticketMap.put("getPrice", ticket.getPrice());
+    		ticketMap.put("seatId", ticket.getSeatId());
+    		ticketMap.put("class", ticket.getSeatClass());
+    		ticketMap.put("departure", ticket.getDeparture());
+    		ticketMap.put("destination", ticket.getDestination());
+    		responseList.add(ticketMap);
+    	}
+    	return new ResponseEntity<>(responseList, HttpStatus.OK);
+    	
+       } catch (Exception e) {
+           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);       
+           }
     }
+
+    @GetMapping("/getSeatsByFlightId/{flightId}")
+    public ResponseEntity<List <String>> getBookedSeatsByFlightId(@PathVariable("flightId") Long flightId) {
+    	try {
+    	List<Ticket> tickets = bookingService.getAllByFlightId(flightId);
+        List<String> seatList = new ArrayList<>(); 
+    	
+    	for (Ticket ticket: tickets) {
+    		
+    		seatList.add((ticket.getSeatId()).substring(ticket.getSeatId().length()-2));
+    	}
+    	return new ResponseEntity<>(seatList, HttpStatus.OK);
+    	
+       } catch (Exception e) {
+           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);       
+           }
+    }
+   
 
     
 

@@ -54,7 +54,7 @@ public class AircraftController {
     private void generateAndSaveSeats(Aircraft aircraft, int startRow, int numRows, int seatsPerRow, String type, BigDecimal price) {
         for (int row = startRow; row < startRow + numRows; row++) {
             for (char seat = 'A'; seat < 'A' + seatsPerRow; seat++) {
-                String seatId = aircraft.getId() +" "+ row + seat;    
+                String seatId = aircraft.getId() +"-"+ row + seat;    
                 Seat newSeat = new Seat(aircraft, seatId, type, price);
                 seatRepo.save(newSeat);
             }

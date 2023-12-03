@@ -38,6 +38,12 @@ public class Ticket {
     @JoinColumn(name = "flight_id")
     private Flight flight;
     
+    public String getSeatId() {
+    	return this.seat.getSeatId();
+    }
+    public String getSeatClass() {
+    	return this.seat.getType();
+    }
     
     public BigDecimal getPrice() {
     	return this.seat.getPrice();

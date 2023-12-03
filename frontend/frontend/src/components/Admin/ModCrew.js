@@ -89,28 +89,6 @@ export default function ModCrew() {
               </h2>
               <div class="relative mb-4">
                 <label for="depart_loc" class="leading-7 text-sm text-gray-600">
-                  Flight
-                </label>
-  
-                <select
-                  id="flight"
-                  name="flight"
-                  value={flightId}
-                  onChange={(e) => setFlightId(e.target.value)}
-                  class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                >
-
-                  <option value="" disabled selected>Select a Flight</option>
-                  {/* Populate options from the locations state */}
-                  {flights.map(flight => (
-                    <option key={flight.id} value={flight.id}>
-                      {flight.id}: {flight.depart_loc}-{flight.dest_loc}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div class="relative mb-4">
-                <label for="depart_loc" class="leading-7 text-sm text-gray-600">
                   Crew Member 1
                 </label>
                 <input

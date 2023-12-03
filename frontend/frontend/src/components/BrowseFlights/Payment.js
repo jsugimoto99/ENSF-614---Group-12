@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
 function Payment() {
@@ -77,14 +77,7 @@ function Payment() {
     }).format(amount);
   };
 
-  // paymentDetails: {
-  //   nameOnCard,
-  //   creditCard,
-  //   expMonth,
-  //   expYear,
-  //   cvv,
-
-  const handleBooking = async() => {
+  const handleBooking = async () => {
     const billingInfo = {
       amount: TotalCost,
       name: nameOnCard,
@@ -103,7 +96,7 @@ function Payment() {
       console.log('Booking response:', response.data);
       // Handle success, redirect, or perform other actions
     } catch (error) {
-      console.error('Error creating booking:', error.response ? error.response.data : error.message);
+      console.error('Error with payment:', error.response ? error.response.data : error.message);
       // Handle error, display a message, etc.
     }
     
@@ -117,25 +110,25 @@ function Payment() {
     }
 
     
+    
     console.log(bookingRequest);
     try {
       const response = await axios.post('http://localhost:8081/booking/add', bookingRequest, {
         headers: {
           'Content-Type': 'application/json',
         },
-      });
-
-      console.log('Ticket has been successfully created with ID:', response.data);
-      setTicketId = response.data;
-
-      // Handle success, redirect, or perform other actions
+      })
+      .then((response) => {
+        setTicketId(response.data);
+        console.log('Ticket has been successfully created with ID:', response.data);
+      })
+      .then(() => {
+        navigate(`/thankyou/${seatId}/${flightId}`);
+      })
     } catch (error) {
       console.error('Error creating booking');
       // Handle error, display a message, etc.
     }
-    
-
-
   };
 
   const handleChangeName = (e) => {
@@ -224,8 +217,8 @@ function Payment() {
     <>
       <section>
         <section class="text-gray-600 body-font relative">
-          <div class="container px-5 py-24 mx-auto">
-            <div class="flex flex-col text-center w-full mb-16">
+          <div class="container px-5 py-10 mx-auto">
+            <div class="flex flex-col text-center w-full mb-10">
               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
                 Flight Details
               </h1>
@@ -277,27 +270,7 @@ function Payment() {
                 </div>
                 <div class="p-2 w-1/2">
                   <div class="relative">
-                    <label for="name" class="leading-7 text-sm text-gray-600">
-                      Name On Card
-                    </label>
-                    <input
-                      type="text"
-                      name="nameOnCard"
-                      id="nameOnCard"
-                      className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Enter the name on your card"
-                      required={true}
-                      value={nameOnCard}
-                      onChange={handleChangeName} />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="lg:w-1/2 md:w-2/3 mx-auto">
-              <div class="flex flex-wrap -m-2">
-                <div class="p-2 w-1/2">
-                  <div class="relative">
-                    <label for="name" class="leading-7 text-sm text-gray-600">
+                  <label for="name" class="leading-7 text-sm text-gray-600">
                       Last Name
                     </label>
                     <input
@@ -309,6 +282,26 @@ function Payment() {
                       required={true}
                       value={lastName}
                       onChange={handleChangeLName} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+              <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-1/2">
+                  <div class="relative">
+                  <label for="name" class="leading-7 text-sm text-gray-600">
+                      Name On Card
+                    </label>
+                    <input
+                      type="text"
+                      name="nameOnCard"
+                      id="nameOnCard"
+                      className="w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Enter the name on your card"
+                      required={true}
+                      value={nameOnCard}
+                      onChange={handleChangeName} />
                   </div>
                 </div>
                 <div class="p-2 w-1/2">
@@ -397,14 +390,14 @@ function Payment() {
             </div>
           </div>
         </section>
-        <Link to={`/thankyou/${seatId}/${flightId}/${ticketId}`}>
+        
           <button
             onClick={handleBooking}
-            class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
+            class="flex mx-auto text-white  mb-16 bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
           >
-            Book Flight
+             Book Flight
           </button>
-        </Link>
+        
       </section>
     </>
   );

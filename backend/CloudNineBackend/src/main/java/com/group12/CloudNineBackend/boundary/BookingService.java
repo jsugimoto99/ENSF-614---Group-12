@@ -11,5 +11,4 @@ public interface BookingService {
 	public Ticket getBySeatId(String id);
 	public List<Ticket> getAllByFlightId(Long flightId);
     
-    // Additional methods like updateTicket, deleteTicket, etc.
 }

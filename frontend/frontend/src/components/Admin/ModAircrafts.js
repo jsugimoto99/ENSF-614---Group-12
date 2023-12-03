@@ -80,8 +80,6 @@ export default function ModAircrafts() {
     <>
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
-
-          
           <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
             <h1 class="title-font font-medium text-3xl text-gray-900">
               Add Aircraft To Database
@@ -123,7 +121,7 @@ export default function ModAircrafts() {
         </div>
       </section>
       <div>
-      <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
+      <div class="container mx-auto mb-16 lg:w-3/4 md:w-4/5 sm:w-full px-10">
             <h2 class="text-gray-900 text-lg font-medium title-font mb-5">
               Aircrafts in Database
             </h2>

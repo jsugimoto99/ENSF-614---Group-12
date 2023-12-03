@@ -80,9 +80,12 @@ export default function ModFlights() {
 
   const handleClick = (e) => {
     e.preventDefault();
+
+    const localDate = new Date(date + "T00:00:00");
+
     const flight = {
       arriveTime: `${arriveTime}:00`,
-      date: new Date(date).toISOString().slice(0, 10),
+      date: localDate.toISOString().slice(0, 10),
       departLoc: departLoc,
       departTime: `${departTime}:00`,
       destLoc: destLoc,
@@ -108,6 +111,15 @@ export default function ModFlights() {
       })
       .then((response) => {
         setFlights(response.data);
+        axios.get("http://localhost:8081/aircraft/listAllAvailable")
+      })
+      .then((response) => {
+        setAircrafts(response.data);
+        axios.get("http://localhost:8081/crew/listAllAvailable")
+      })
+      .then((response) => {
+        setCrews(response.data);
+        
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);

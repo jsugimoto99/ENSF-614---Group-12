@@ -78,8 +78,8 @@ export const ManageBooking = () => {
             </p>
             <p className="text-lg">
               <strong>Seat:</strong>{" "}
-              {ticket.seat
-                ? `${ticket.seat.type} - ${`${ticket.seat.seatId}`.slice(-2)}`
+              {ticket
+                ? `${ticket.class} - ${`${ticket.seatId}`.slice(-2)}`
                 : "Not assigned"}
             </p>
             <p className="text-lg">

@@ -6,8 +6,8 @@ function Footer() {
   return (
     <>
       <footer className="text-gray-600 body-font dark:bg-gray-900 fixed bottom-0 w-full">
-        <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
-          <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <div className="container px-5 py-1 mx-auto flex items-center sm:flex-row flex-col">
+          <a className="flex title-font font-medium items-center text-gray-900 mb-0 md:mb-0">
             <img
               src={logo}
               alt="logo"
