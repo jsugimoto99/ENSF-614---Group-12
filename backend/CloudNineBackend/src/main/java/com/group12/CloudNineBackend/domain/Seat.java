@@ -1,80 +1,86 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.math.BigDecimal;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+
+
 
 @Entity
-@Table(name = "seat", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"seatId"}),
-})
-public class Seat {
+@Table(name = "seat")
 
+public class Seat {
 	@Id
-    private String seatId;
-	private String type;
-	// Change to Object User and Flight
-	private String user;
-	private Long aircraftId;
+	private String seatId;
 	
-	public Seat(Long aircraft, String seatId, String type) {
-		this.seatId = seatId;
+	@ManyToOne
+    @JoinColumn(name = "aircraft_id")
+    private Aircraft aircraft;
+	private String type;
+	private BigDecimal price;
+    @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Ticket ticket;
+    
+    @OneToOne(mappedBy = "seat")
+    private PaymentTransaction paymentTransaction;
+	
+    public Seat() {
+    	
+    }
+    
+    public Seat(Aircraft aircraft, String seatId, String type, BigDecimal price) {
+		this.aircraft = aircraft;
 		this.type = type;
-		this.aircraftId = aircraft;
+		this.seatId = seatId;
+		this.price = price;
+	}
+    
+    public String getSeatId() {
+		return seatId;
+	}
+
+	public void setTicket(Ticket ticket) {
+    	this.ticket = ticket;
+//    	ticket.setSeat(this);
+    }
+	
+	public Ticket getTicket() {
+		return ticket;
 	}
 	
-	
-	/**
-	 * @return the type
-	 */
 	public String getType() {
 		return type;
 	}
-	/**
-	 * @param type the type to set
-	 */
+	
 	public void setType(String type) {
 		this.type = type;
 	}
-	/**
-	 * @return the user
-	 */
-	/**
-	 * @return the user
-	 */
-	public String getUser() {
-		return user;
-	}
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(String user) {
-		this.user = user;
-	}
-	/**
-	 * @return the flight
-	 */
-
 
 	/**
-	 * @return the aircraft
+	 * @return the price
 	 */
-	public long getAircraftId() {
-		return aircraftId;
+	public BigDecimal getPrice() {
+		return price;
 	}
-
 
 	/**
-	 * @param aircraft the aircraft to set
+	 * @param price the price to set
 	 */
-	public void setAircraftId(Long aircraft) {
-		this.aircraftId = aircraft;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 	
-	
-	
-	
+	public PaymentTransaction getPaymentTransaction() {
+        return paymentTransaction;
+    }
+
+    public void setPaymentTransaction(PaymentTransaction paymentTransaction) {
+        this.paymentTransaction = paymentTransaction;
+    }
 }

@@ -1,43 +1,185 @@
 // SelectSeat.js
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from "react-router-dom";
 
-const SelectSeat = () => {
-  const [selectedSeats, setSelectedSeats] = useState([]);
+const SelectSeat = ({ flightId }) => {
+  const navigate = useNavigate();
+  const [selectedSeat, setSelectedSeat] = useState([]);
+  const [aircraftData, setAircraftData] = useState(null);
+  const [price,setPrice]=useState();
+  const aircraftId = aircraftData?.aircraftId;
+  const model = aircraftData?.model;
+  const businessSeatsPerRow = aircraftData?.businessSeatsPerRow;
+  const seatsPerRow = aircraftData?.seatsPerRow;
+  const businessRows = aircraftData?.businessRows;
+  const comfortRows = aircraftData?.comfortRows;
+  const economyRows = aircraftData?.economyRows;
+  const [bookedSeats, setBookedSeats]= useState([]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8081/booking/getSeatsByFlightId/${Number(flightId)}`)
+      .then((response) => {
+        setBookedSeats(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching seats:", error);
+      });
+  }, []);
+
+
+  const prices= (
+    {business: 200.00,
+    comfort: 130.00,
+  economy: 60.00}
+  )
+  // const prices= (
+  //   {business: aircraftData?.businessCost,
+  //   comfort: aircraftData?.comfortCost,
+  // economy: aircraftData?.economyCost}
+  // )
+  
+  useEffect(() => {
+    const fetchAircraftData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8081/aircraft/getAircraftByFlightId/${Number(flightId)}`);
+        if (response.status === 200) {
+          setAircraftData(response.data);
+          console.log(response.data);
+
+        } else {
+          console.error("Aircraft not found");
+        }
+      } catch (error) {
+        console.error("Error fetching aircraft data:", error);
+      }
+    };
+
+    fetchAircraftData();
+  }, [flightId]);
 
   const handleSeatClick = (seat) => {
-    if (selectedSeats.includes(seat)) {
-      setSelectedSeats(
-        selectedSeats.filter((selectedSeat) => selectedSeat !== seat)
+    if (selectedSeat.includes(seat)) {
+      setSelectedSeat(
+        selectedSeat.filter((selectedSeat) => selectedSeat !== seat)
       );
     } else {
-      setSelectedSeats([...selectedSeats, seat]);
+      setSelectedSeat([seat]);
     }
   };
 
+  const handleClick = () => {
+    const paramName = "info";
+    navigate(`/flights/insurance/${paramName}?flightId=${flightId}&selectedSeat=${selectedSeat}&price=${Number(price)}`);
+ 
+  };
   const [isSeatVisible, setSeatVisible] = useState(false);
   const toggleSeat = () => {
     setSeatVisible(!isSeatVisible);
   };
 
-  const renderSeats = () => {
-    const rows = 6;
-    const seatsPerRow = 2;
+  const renderLegend = () => {
+    return (
+      <div className="mt-4 mb-4">
+        <p className="text-gray-600">
+          <span className="legend-item p-2 border border-gray-300 rounded bg-green-500 text-white">Selected</span>
+          <span className="legend-item p-2 border border-gray-300 rounded bg-gray-400 text-gray-600 ml-4">Booked</span>
+        </p>
+      </div>
+    );
+  };
+
+  const renderBusinessSeats = () => {
+    const rows = businessRows;
 
     const seatGrid = [];
 
     for (let row = 1; row <= rows; row++) {
-      for (let seat = 1; seat < seatsPerRow; seat++) {
+      for (let seat = 1; seat <= businessSeatsPerRow; seat++) {
         const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
-        const isSelected = selectedSeats.includes(seatNumber);
+        const isSelected = selectedSeat.includes(seatNumber);
+        const isBooked = bookedSeats.includes(seatNumber);
 
         seatGrid.push(
           <div
             key={seatNumber}
             className={`cursor-pointer p-2 border border-gray-300 rounded ${
-              isSelected ? "bg-green-500 text-white" : ""
+              isSelected ? "bg-green-500 text-white" : isBooked ? "bg-gray-400 text-grey" : ""
             }`}
-            onClick={() => handleSeatClick(seatNumber)}
+            onClick={() => { 
+              if (!isBooked) {
+                handleSeatClick(seatNumber);
+                setPrice(prices.business);
+              }
+            }}
+          >
+            {seatNumber}
+          </div>
+        );
+      }
+    }
+
+    return seatGrid;
+  };
+
+  const renderComfortSeats = () => {
+    const rows = comfortRows;
+    // const seatsPerRow = seatsPerRow;
+
+    const seatGrid = [];
+
+    for (let row = businessRows + 1 ; row <= businessRows + rows; row++) {
+      for (let seat = 1; seat <= seatsPerRow; seat++) {
+        const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
+        const isSelected = selectedSeat.includes(seatNumber);
+        const isBooked = bookedSeats.includes(seatNumber);
+
+        seatGrid.push(
+          <div
+            key={seatNumber}
+            className={`cursor-pointer p-2 border border-gray-300 rounded ${
+              isSelected ? "bg-green-500 text-white" : isBooked ? "bg-gray-400 text-grey" : ""
+            }`}
+            onClick={() => { 
+              if (!isBooked) {
+                handleSeatClick(seatNumber);
+                setPrice(prices.comfort);
+              }
+            }}
+          >
+            {seatNumber}
+          </div>
+        );
+      }
+    }
+
+    return seatGrid;
+  };
+
+  const renderSeats = () => {
+    const rows = economyRows;
+    // const seatsPerRow = seatsPerRow;
+
+    const seatGrid = [];
+
+    for (let row = 1 + businessRows + comfortRows; row <= rows + 1 + businessRows + comfortRows; row++) {
+      for (let seat = 1; seat <= seatsPerRow; seat++) {
+        const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
+        const isSelected = selectedSeat.includes(seatNumber);
+        const isBooked = bookedSeats.includes(seatNumber);
+
+        seatGrid.push(
+          <div
+            key={seatNumber}
+            className={`cursor-pointer p-2 border border-gray-300 rounded ${
+              isSelected ? "bg-green-500 text-white" : isBooked ? "bg-gray-400 text-grey" : ""
+            }`}
+            onClick={() => { 
+              if (!isBooked) {
+                handleSeatClick(seatNumber);
+                setPrice(prices.economy);
+              }
+            }}
           >
             {seatNumber}
           </div>
@@ -49,21 +191,29 @@ const SelectSeat = () => {
   };
 
   return (
+    
     <div className="text-center">
       <h2 className="text-2xl font-bold mb-4">Select Your Seat</h2>
-      <h3 className="text-1xl font-bold mb-4">Business Class</h3>
+      {renderLegend()}
+      <h3 className="text-1xl font-bold mb-4">Business: ${prices.business}</h3>
+      <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
+        {renderBusinessSeats()}
+      </div>
+      <h3 className="text-1xl font-bold mb-4">Comfort: $ {prices.comfort}</h3>
+      <div className="grid grid-cols-6 gap-4 max-w-md mx-auto">
+        {renderComfortSeats()}
+      </div>
+      <h3 className="text-1xl font-bold mb-4">Economy$ {prices.economy}</h3>
       <div className="grid grid-cols-6 gap-4 max-w-md mx-auto">
         {renderSeats()}
       </div>
-      <p className="mt-4">Selected Seats: {selectedSeats.join(", ")}</p>
-      <Link to='/flights/insurance'>
+      <p className="mt-4">Selected Seat: {selectedSeat}</p>
         <button
-          
-          class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
+          onClick={handleClick}
+          class="flex mx-auto text-white mb-16 bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
         >
-          Continue ...
+          Continue
         </button>
-      </Link>
     </div>
   );
 };

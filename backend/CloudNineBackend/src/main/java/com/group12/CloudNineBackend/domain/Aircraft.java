@@ -1,31 +1,176 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Aircraft {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;	
+    private Long aircraftId;
+	@OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seats = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
+	private String model;
+	private int businessSeatsPerRow;
+	private int businessRows;
+	private int seatsPerRow;
+	private int comfortRows;
+	private int economyRows;
+	private BigDecimal businessCost;
+	private BigDecimal comfortCost;
+	private BigDecimal economyCost;
 	
-	public Aircraft() {
-		generateSeatIDs(id, 1, 2, 2,"first");
-		generateSeatIDs(id, 3, 2, 2,"business");
-		generateSeatIDs(id, 5, 2, 2,"economy");
+
+	public Long getId() {
+		return aircraftId;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public String getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model the model to set
+	 */
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	/**
+	 * @return the businessSeatsPerRow
+	 */
+	public int getBusinessSeatsPerRow() {
+		return businessSeatsPerRow;
+	}
+
+	/**
+	 * @param businessSeatsPerRow the businessSeatsPerRow to set
+	 */
+	public void setBusinessSeatsPerRow(int businessSeatsPerRow) {
+		this.businessSeatsPerRow = businessSeatsPerRow;
+	}
+
+	/**
+	 * @return the businessRows
+	 */
+	public int getBusinessRows() {
+		return businessRows;
+	}
+
+	/**
+	 * @param businessRows the businessRows to set
+	 */
+	public void setBusinessRows(int businessRows) {
+		this.businessRows = businessRows;
+	}
+
+	/**
+	 * @return the seatsPerRow
+	 */
+	public int getSeatsPerRow() {
+		return seatsPerRow;
+	}
+
+	/**
+	 * @param seatsPerRow the seatsPerRow to set
+	 */
+	public void setSeatsPerRow(int seatsPerRow) {
+		this.seatsPerRow = seatsPerRow;
+	}
+
+	/**
+	 * @return the comfortRows
+	 */
+	public int getComfortRows() {
+		return comfortRows;
+	}
+
+	/**
+	 * @param comfortRows the comfortRows to set
+	 */
+	public void setComfortRows(int comfortRows) {
+		this.comfortRows = comfortRows;
+	}
+
+	/**
+	 * @return the economyRows
+	 */
+	public int getEconomyRows() {
+		return economyRows;
+	}
+
+	/**
+	 * @param economyRows the economyRows to set
+	 */
+	public void setEconomyRows(int economyRows) {
+		this.economyRows = economyRows;
+	}
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
 		
 	}
-	public static void generateSeatIDs(Long id, int startRow, int numRows, int seatsPerRow, String type) {
-        for (int row = startRow; row <= numRows; row++) {
-            for (char seat = 'A'; seat < 'A' + seatsPerRow; seat++) {
-                String seatId = row + "" + seat;
-                new Seat(id,seatId, type);
-                //seatRepo.save(seat);
-            }
-            System.out.println(); // Move to the next row
-        }
+	public void removeFlight() {
+		this.flight = null;
+	}
+
+	/**
+	 * @return the businessCost
+	 */
+	public BigDecimal getBusinessCost() {
+		return businessCost;
+	}
+
+	/**
+	 * @param businessCost the businessCost to set
+	 */
+	public void setBusinessCost(BigDecimal businessCost) {
+		this.businessCost = businessCost;
+	}
+
+	/**
+	 * @return the comfortCost
+	 */
+	public BigDecimal getComfortCost() {
+		return comfortCost;
+	}
+
+	/**
+	 * @param comfortCost the comfortCost to set
+	 */
+	public void setComfortCost(BigDecimal comfortCost) {
+		this.comfortCost = comfortCost;
+	}
+
+	/**
+	 * @return the economyCost
+	 */
+	public BigDecimal getEconomyCost() {
+		return economyCost;
+	}
+
+	/**
+	 * @param economyCost the economyCost to set
+	 */
+	public void setEconomyCost(BigDecimal economyCost) {
+		this.economyCost = economyCost;
 	}
 
 }

@@ -2,11 +2,17 @@ package com.group12.CloudNineBackend.domain;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 /**
  * Entity class representing a Flight.
@@ -21,22 +27,57 @@ public class Flight {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+    private Long flightId;
 
     private String departLoc;
     private String destLoc;
     private Date date;
     private Time departTime;
     private Time arriveTime;
+    @OneToOne
+    @JoinColumn(name = "aircraftId")
+    private Aircraft aircraft;
+    @OneToOne
+    @JoinColumn(name = "crewId")
+    private Crew crew;
 
+    
+    //Change Seats to Tickets
+    // One-to-many relationship with Seat
+//    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Seat> seats = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
+    
+    // Method to add a ticket to the flight
+    public void addTicket(Ticket ticket) {
+        if (ticket != null && !tickets.contains(ticket)) {
+            tickets.add(ticket);
+//            ticket.setFlight(this); // Ensuring the bidirectional relationship is maintained
+        }
+    }
+
+    // Method to remove a ticket from the flight
+    public void removeTicket(Ticket ticket) {
+        tickets.remove(ticket);
+//        tickets.setFlight(null);
+    }
+    
+    public List<Ticket> getTickets() {
+    	return tickets;
+    }
+    
     /**
      * Default constructor for Flight class.
      */
     public Flight() {
     }
 
+
     public Long getId() {
-    	return id;
+    	return flightId;
     }
     /**
      * Gets the departure location of the flight.
@@ -127,4 +168,19 @@ public class Flight {
     public void setArriveTime(Time arrive_time) {
         this.arriveTime = arrive_time;
     }
+
+	public Long getAircraftId() {
+		// TODO Auto-generated method stub
+		return aircraft.getId();
+	}
+
+	public void setAircraft(Aircraft aircraft) {
+		this.aircraft = aircraft;
+		
+	}
+
+	public void setCrew(Crew crew) {
+		this.crew = crew;
+		
+	}
 }

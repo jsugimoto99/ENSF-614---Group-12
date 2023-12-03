@@ -1,6 +1,8 @@
 package com.group12.CloudNineBackend.controller;
 
 import java.util.List;
+import java.util.*;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.BookingService;
+import com.group12.CloudNineBackend.boundary.TicketService;
+import com.group12.CloudNineBackend.domain.BookingRequest;
 import com.group12.CloudNineBackend.domain.Ticket;
 
 /**
@@ -22,6 +26,12 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+    
+//    @Autowired
+//    private TicketRepo ticketRepo;
+    
+    @Autowired
+    private TicketService ticketService;
 
     /**
      * Handles HTTP POST requests to create a new ticket.
@@ -30,9 +40,12 @@ public class BookingController {
      * @return A ResponseEntity indicating the result of the operation.
      */
     @PostMapping("/add")
-    public ResponseEntity<String> addTicket(@RequestBody Ticket ticket) {
-        bookingService.addTicket(ticket);
-        return new ResponseEntity<>("Ticket has been successfully created.", HttpStatus.CREATED);
+    public ResponseEntity<Long> addTicket(@RequestBody BookingRequest bookingRequest) {
+        
+        System.out.println("Received booking request: " + bookingRequest);
+    	
+    	Ticket createdTicket = bookingService.addTicket(bookingRequest);
+            return new ResponseEntity<>(createdTicket.getTicketId(), HttpStatus.CREATED);
     }
 
     /**
@@ -41,11 +54,147 @@ public class BookingController {
      * @return A list of Ticket objects representing all booked tickets.
      */
     @GetMapping("/getAll")
-    public ResponseEntity<List<Ticket>> listAllTickets() {
-        List<Ticket> tickets = bookingService.getAllTickets();
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+    public ResponseEntity<List<Map<String, Object>>> getAllTickets() {
+       try {
+    	List<Ticket> tickets = bookingService.getAllTickets();
+    	List<Map<String,Object>> responseList = new ArrayList<>(); 
+    	
+    	for (Ticket ticket: tickets) {
+    		Map<String, Object> ticketMap = new HashMap<>();
+    		ticketMap.put("ticketId", ticket.getTicketId());
+    		ticketMap.put("toEmail", ticket.getToEmail());
+    		ticketMap.put("firstName", ticket.getFirstName());
+    		ticketMap.put("lastName", ticket.getLastName());
+    		ticketMap.put("insurance", ticket.getInsurance());
+    		ticketMap.put("getPrice", ticket.getPrice());
+    		ticketMap.put("seatId", ticket.getSeatId());
+    		ticketMap.put("class", ticket.getSeatClass());
+    		ticketMap.put("departure", ticket.getDeparture());
+    		ticketMap.put("destination", ticket.getDestination());
+    		responseList.add(ticketMap);
+    	}
+    	return new ResponseEntity<>(responseList, HttpStatus.OK);
+    	
+       } catch (Exception e) {
+           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+       }
+   }
+    
+    
+    @GetMapping("/get/{id}/{lastName}")
+    public ResponseEntity<Map<String, Object>> getTicket(@PathVariable("id") Long id, @PathVariable("lastName") String lastName) {
+        // Your logic here to retrieve the ticket using both id and lastName
+        Ticket ticket = bookingService.getByIdAndLastName(id, lastName);
+        if (ticket != null) {
+        Map<String, Object> ticketMap = new HashMap<>();
+		ticketMap.put("ticketId", ticket.getTicketId());
+		ticketMap.put("toEmail", ticket.getToEmail());
+		ticketMap.put("firstName", ticket.getFirstName());
+		ticketMap.put("lastName", ticket.getLastName());
+		ticketMap.put("insurance", ticket.getInsurance());
+		ticketMap.put("getPrice", ticket.getPrice());
+		ticketMap.put("seatId", ticket.getSeatId());
+		ticketMap.put("class", ticket.getSeatClass());
+		ticketMap.put("departure", ticket.getDeparture());
+		ticketMap.put("destination", ticket.getDestination());
+        
+           return new ResponseEntity<>(ticketMap, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @GetMapping("/get/{seatId}")
+    public ResponseEntity<Map<String, Object>> getTicket(@PathVariable("seatId") String seatId) {
+        // Your logic here to retrieve the ticket using both id and lastName
+        Ticket ticket = bookingService.getBySeatId(seatId);
+        if (ticket != null) {
+            Map<String, Object> ticketMap = new HashMap<>();
+    		ticketMap.put("ticketId", ticket.getTicketId());
+    		ticketMap.put("toEmail", ticket.getToEmail());
+    		ticketMap.put("firstName", ticket.getFirstName());
+    		ticketMap.put("lastName", ticket.getLastName());
+    		ticketMap.put("insurance", ticket.getInsurance());
+    		ticketMap.put("getPrice", ticket.getPrice());
+    		ticketMap.put("seatId", ticket.getSeatId());
+    		ticketMap.put("class", ticket.getSeatClass());
+    		ticketMap.put("departure", ticket.getDeparture());
+    		ticketMap.put("destination", ticket.getDestination());
+            
+               return new ResponseEntity<>(ticketMap, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+    
+    @GetMapping("/getByFlightId/{flightId}")
+    public ResponseEntity<List<Map<String, Object>>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
+    	try {
+    	List<Ticket> tickets = bookingService.getAllByFlightId(flightId);
+        List<Map<String,Object>> responseList = new ArrayList<>(); 
+    	
+    	for (Ticket ticket: tickets) {
+    		Map<String, Object> ticketMap = new HashMap<>();
+    		ticketMap.put("ticketId", ticket.getTicketId());
+    		ticketMap.put("toEmail", ticket.getToEmail());
+    		ticketMap.put("firstName", ticket.getFirstName());
+    		ticketMap.put("lastName", ticket.getLastName());
+    		ticketMap.put("insurance", ticket.getInsurance());
+    		ticketMap.put("getPrice", ticket.getPrice());
+    		ticketMap.put("seatId", ticket.getSeatId());
+    		ticketMap.put("class", ticket.getSeatClass());
+    		ticketMap.put("departure", ticket.getDeparture());
+    		ticketMap.put("destination", ticket.getDestination());
+    		responseList.add(ticketMap);
+    	}
+    	return new ResponseEntity<>(responseList, HttpStatus.OK);
+    	
+       } catch (Exception e) {
+           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);       
+           }
     }
 
-    // Additional methods can be added here for other operations like updating or deleting tickets
+    @GetMapping("/getSeatsByFlightId/{flightId}")
+    public ResponseEntity<List <String>> getBookedSeatsByFlightId(@PathVariable("flightId") Long flightId) {
+    	try {
+    	List<Ticket> tickets = bookingService.getAllByFlightId(flightId);
+        List<String> seatList = new ArrayList<>(); 
+    	
+    	for (Ticket ticket: tickets) {
+    		
+    		seatList.add((ticket.getSeatId()).substring(ticket.getSeatId().length()-2));
+    	}
+    	return new ResponseEntity<>(seatList, HttpStatus.OK);
+    	
+       } catch (Exception e) {
+           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);       
+           }
+    }
+   
 
+    
+
+   
+    @DeleteMapping("/delete/{ticketId}/{lastName}")
+    public ResponseEntity<String> deleteTicket(@PathVariable Long ticketId, @PathVariable String lastName) {
+        try {
+            // Use the service layer to delete the ticket
+            boolean isDeleted = ticketService.deleteByTicketIdAndLastName(ticketId, lastName);
+
+            // Return the appropriate response entity based on the deletion result
+            if (isDeleted) {
+                return new ResponseEntity<>("Ticket deleted successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            // In case of any exception, return an internal server error response
+            return new ResponseEntity<>("Error occurred during ticket deletion", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    
+
+    // Additional methods can be added here for other operations like updating or deleting tickets
+    
 }

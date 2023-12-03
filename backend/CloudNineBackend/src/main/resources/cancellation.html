@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+.email-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header {
+    background-color: #d9534f;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: 2px solid #c9302c;
+    color: white;
+}
+.header h2 {
+    margin: 0;
+}
+.cancellation-details {
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+.cancellation-details h3 {
+    margin-top: 0;
+}
+.cancellation-details p {
+    margin-bottom: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="email-container">
+  <div class="header">
+    <h2>Flight Ticket Cancellation Notice</h2>
+  </div>
+  
+  <div class="cancellation-details">
+    <h3>Ticket Cancellation Details</h3>
+    <p><strong>First Name:</strong> <span th:text="${firstName}">[First Name]</span></p>
+    <p><strong>Last Name:</strong> <span th:text="${lastName}">[Last Name]</span></p>
+    <p><strong>Ticket ID:</strong> <span th:text="${ticketId}">[Ticket ID]</span></p>
+    <p><strong>Status:</strong> Your ticket has been cancelled.</p>
+  </div>
+  
+  <p>If you have any questions or concerns, please contact our customer support.</p>
+</div>
+
+</body>
+</html>

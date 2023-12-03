@@ -27,10 +27,10 @@ public class SeatController {
         return HttpStatus.OK;
     }
         
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteSeat(@PathVariable("id") Long id) {
+    @DeleteMapping("/delete/{seatId}")
+    public ResponseEntity<HttpStatus> deleteSeat(@PathVariable("seatId") String seatId) {
         try {
-            seatRepo.deleteById(id);
+            seatRepo.deleteById(seatId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

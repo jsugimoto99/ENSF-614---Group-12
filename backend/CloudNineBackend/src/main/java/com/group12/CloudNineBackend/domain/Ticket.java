@@ -1,9 +1,14 @@
 package com.group12.CloudNineBackend.domain;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 /**
  * Entity class representing a Ticket.
@@ -18,29 +23,61 @@ public class Ticket {
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ticketId;
+    private long ticketId;
 	
     private String toEmail;
-    private String price;
-    private String departure;
-    private String destination;
-    private String seat;
+    private String firstName;
+    private String lastName;
+    private Boolean insurance;
+    
+    @OneToOne
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
+    
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
+    
+    public String getSeatId() {
+    	return this.seat.getSeatId();
+    }
+    public String getSeatClass() {
+    	return this.seat.getType();
+    }
+    
+    public BigDecimal getPrice() {
+    	return this.seat.getPrice();
+    }
+    
+    public String getDeparture(){
+    	return this.flight.getDepartLoc();
+    }
+    
+    public String getDestination() {
+    	return this.flight.getDestLoc();
+    }
+    
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+        seat.setTicket(this); // This line ensures the bidirectional relationship is maintained.
+    }
     
     // Default constructor
     public Ticket() {
+    	
     }
 
-    // Constructor with all fields
-//    public Ticket(String ticketId, String toEmail, String price, String destination, String seat) {
-//        this.ticketId = ticketId;
-//        this.toEmail = toEmail;
-//        this.price = price;
-//        this.destination = destination;
-//        this.seat = seat;
-//    }
-
     // Getters and setters
-    public int getTicketId() {
+    
+    public Boolean getInsurance() {
+    	return insurance;
+    }
+    
+    public void setInsurance(Boolean insurance) {
+    	this.insurance = insurance;
+    }
+    
+    public Long getTicketId() {
         return ticketId;
     }
 
@@ -56,53 +93,65 @@ public class Ticket {
         this.toEmail = toEmail;
     }
 
-    public String getPrice() {
-        return price;
+    public Seat getSeat() {
+        return this.seat;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public String getFirstName() {
+    	return firstName;
     }
-
-    public String getDestination() {
-        return destination;
+    
+    public String getLastName() {
+    	return lastName;
     }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
+    
+    public void setFirstName(String fName) {
+    	this.firstName = fName;
     }
-
-    public String getSeat() {
-        return seat;
+    
+    public void setLastName(String lName) {
+    	this.lastName = lName;
     }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
-    }
+//    public void setSeat(Seat seat) {
+//        this.seat = seat;
+//        if (seat != null && seat.getTicket() != this) {
+//            seat.setTicket(this); // This line maintains the bidirectional relationship.
+//        }
+//    }
 
     // Optional: Override the toString method for debugging
     @Override
     public String toString() {
         return "Ticket{" +
+        		"firstName=" + firstName +
+        		"lastName=" + lastName+
                 "ticketId='" + ticketId + '\'' +
                 ", toEmail='" + toEmail + '\'' +
-                ", price='" + price + '\'' +
-                ", destination='" + destination + '\'' +
-                ", seat='" + seat + '\'' +
+                ", price='" + seat.getPrice() + '\'' +
+                ", destination='" + flight.getDestLoc() + '\'' +
+                ", seat='" + seat.getSeatId() + '\'' +
                 '}';
     }
 
-	/**
-	 * @return the departure
-	 */
-	public String getDeparture() {
-		return departure;
+	public void setFlight(Flight flight) {
+	    this.flight = flight;
+	    // If you need to maintain bidirectionality and the flight should be aware of the ticket:
+	    if (flight != null && !flight.getTickets().contains(this)) {
+	        flight.getTickets().add(this);
+	    }
 	}
 
-	/**
-	 * @param departure the departure to set
-	 */
-	public void setDeparture(String departure) {
-		this.departure = departure;
+
+	public void remove() {
+	    if (this.flight != null) {
+	        this.flight.getTickets().remove(this);
+	        this.flight = null;
+	    }
+	    // Assuming there is a bidirectional relationship with Seat as well:
+	    if (this.seat != null) {
+	        this.seat.setTicket(null);
+	        this.seat = null;
+	    }
 	}
+
 }

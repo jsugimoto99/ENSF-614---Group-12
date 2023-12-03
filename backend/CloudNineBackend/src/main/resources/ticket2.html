@@ -9,37 +9,38 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
-  }
-  .email-container {
+}
+.email-container {
     max-width: 600px;
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  .header {
+}
+.header {
     background-color: #f7f7f7;
     padding: 10px;
     border-radius: 8px;
     text-align: center;
     border-bottom: 2px solid #eeeeee;
-  }
-  .header h2 {
+}
+.header h2 {
     margin: 0;
-  }
-  .ticket-details {
+}
+.ticket-details, .billing-details {
     padding: 15px;
     background-color: #f7f7f7;
     border-radius: 8px;
     margin-top: 15px;
-  }
-  .ticket-details h3 {
+}
+.ticket-details h3, .billing-details h3 {
     margin-top: 0;
-  }
-  .ticket-details p {
+}
+.ticket-details p, .billing-details p {
     margin-bottom: 0;
-  }</style>
+}
+</style>
 </head>
 <body>
 
@@ -51,9 +52,18 @@ body {
   <div class="ticket-details">
     <h3>Booking Details</h3>
     <p><strong>Ticket ID:</strong> <span th:text="${ticketId}">[ticketId]</span></p>
-    <p><strong>Price:</strong> <span th:text="'$' + ${price}">[price]</span></p>
+    <p><strong>First Name:</strong> <span th:text="${fname}">[fname]</span></p>
+    <p><strong>Last Name:</strong> <span th:text="${lname}">[lname]</span></p>
+    <p><strong>Departure:</strong> <span th:text="${departure}">[departure]</span></p>
     <p><strong>Destination:</strong> <span th:text="${destination}">[destination]</span></p>
     <p><strong>Seat:</strong> <span th:text="${seat}">[seat]</span></p>
+  </div>
+
+  <!-- Billing Details Section -->
+  <div class="billing-details">
+    <h3>Billing Details</h3>
+    <p><strong>Transaction ID:</strong> <span th:text="${transactionId}">[transactionId]</span></p>
+    <p><strong>Price:</strong> <span th:text="'$' + ${price}">[price]</span></p>
   </div>
   
   <p>Thank you for booking with us!</p>
