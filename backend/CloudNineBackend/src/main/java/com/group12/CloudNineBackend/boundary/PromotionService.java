@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.group12.CloudNineBackend.domain.Promotion;
-import com.group12.CloudNineBackend.domain.User;
+import com.group12.CloudNineBackend.domain.RegisteredUser;
 
 @Service
 public class PromotionService {
@@ -23,9 +23,9 @@ public class PromotionService {
 		
 		Promotion savedPromotion = promotionRepo.save(promotion);
 		
-		List<User> usersToNotify = userRepo.findAll();
+		List<RegisteredUser> usersToNotify = userRepo.findAll();
 		
-		for(User user: usersToNotify) {
+		for(RegisteredUser user: usersToNotify) {
 			emailService.sendPromoEmail(user.getfName(),
 					user.getEmail(), 
 					savedPromotion.getDescription(),

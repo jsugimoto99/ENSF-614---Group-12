@@ -29,7 +29,7 @@ export default function ModFlights() {
     axios
       .delete(`http://localhost:8081/flight/delete/${flightId}`)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         // Update the flights state after deleting a flight
         setFlights(flights.filter((flight) => flight.id !== flightId));
       })
@@ -61,7 +61,7 @@ export default function ModFlights() {
         setCrews(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching locations:", error);
+        console.error("Error fetching crew:", error);
       });
   }, []); // The empty dependency array ensures the effect runs only once when the component mounts
 
@@ -74,14 +74,14 @@ export default function ModFlights() {
         setAircrafts(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching locations:", error);
+        console.error("Error fetching aircrafts:", error);
       });
   }, []); 
 
   const handleClick = (e) => {
     e.preventDefault();
 
-    const localDate = new Date(date + "T00:00:00");
+    const localDate = new Date(date + "T00:10:00");
 
     const flight = {
       arriveTime: `${arriveTime}:00`,
@@ -95,8 +95,7 @@ export default function ModFlights() {
     console.log(JSON.flight);
     const id = aircraftId;
 
-    axios
-      .post("http://localhost:8081/flight/add", flight, {
+    axios.post("http://localhost:8081/flight/add", flight, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -106,20 +105,7 @@ export default function ModFlights() {
         },
       })
       .then((response) => {
-        console.log(response.data); // Axios automatically parses JSON
-        return axios.get("http://localhost:8081/flight/listAll");
-      })
-      .then((response) => {
-        setFlights(response.data);
-        axios.get("http://localhost:8081/aircraft/listAllAvailable")
-      })
-      .then((response) => {
-        setAircrafts(response.data);
-        axios.get("http://localhost:8081/crew/listAllAvailable")
-      })
-      .then((response) => {
-        setCrews(response.data);
-        
+        window.location.reload();
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);

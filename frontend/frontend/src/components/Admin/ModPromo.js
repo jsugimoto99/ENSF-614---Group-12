@@ -21,12 +21,13 @@ export default function ModPromo() {
       .delete(`http://localhost:8081/promotions/${Number(promoId)}`)
       .then((response) => {
         console.log(response.data);
-        // Fetch the updated list of aircrafts
+
         return axios.get("http://localhost:8081/promotions");
       })
       .then((response) => {
-        // Update the state with the new list of aircrafts
+      
         setPromos(response.data);
+        setPromoDescription("");
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
@@ -48,11 +49,9 @@ export default function ModPromo() {
     })
       .then((response) => {
         console.log(response.data);
-        // Fetch the updated list of aircrafts
         return axios.get("http://localhost:8081/promotions");
       })
       .then((response) => {
-        // Update the state with the new list of aircrafts
         setPromos(response.data);
       })
       .catch((error) => {
