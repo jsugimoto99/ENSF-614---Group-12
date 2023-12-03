@@ -49,9 +49,9 @@ public class EmailServiceImpl implements EmailService{
 			mimeMessageHelper.setTo(toEmail);
 			mimeMessageHelper.setSubject("Your E-Ticket Confirmation");
 			
-	        BigDecimal price = paymentTransactionService.getPriceBySeatId(seatId); // Fetch price using seatId
+	        BigDecimal price = paymentTransactionService.getPriceByTicketId(ticketId); // Fetch price using seatId
 			
-			Long transactionId = paymentTransactionService.getTransactionIdBySeatId(seatId);
+			Long transactionId = paymentTransactionService.getTransactionIdByTicketId(ticketId);
 			
             Resource resource = resourceLoader.getResource("classpath:ticket2.html");
             

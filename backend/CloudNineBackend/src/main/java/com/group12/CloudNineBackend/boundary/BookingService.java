@@ -10,5 +10,6 @@ public interface BookingService {
 	public Ticket getByIdAndLastName(Long id, String lastName);
 	public Ticket getBySeatId(String id);
 	public List<Ticket> getAllByFlightId(Long flightId);
+	public void sendEmail(Ticket ticket);
     
 }

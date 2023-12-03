@@ -52,6 +52,7 @@ export const ManageBooking = () => {
         console.error("Error deleting:", error);
         // Handle errors appropriately
       });
+      
   };
   return (
     <div className="container mx-auto mt-8 p-6 border border-gray-300 rounded-lg shadow-lg bg-white flex justify-between">
@@ -79,7 +80,7 @@ export const ManageBooking = () => {
             <p className="text-lg">
               <strong>Seat:</strong>{" "}
               {ticket
-                ? `${ticket.class} - ${`${ticket.seatId}`.slice(-2)}`
+                ? `${ticket.class} - ${`${ticket.seatId}`}`
                 : "Not assigned"}
             </p>
             <p className="text-lg">

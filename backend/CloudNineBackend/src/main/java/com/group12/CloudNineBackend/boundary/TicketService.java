@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 
+import com.group12.CloudNineBackend.domain.PaymentTransaction;
 import com.group12.CloudNineBackend.domain.Ticket;
 
 import jakarta.mail.internet.MimeMessage;
@@ -33,22 +34,27 @@ public class TicketService {
     @Transactional
     public boolean deleteByTicketIdAndLastName(Long ticketId, String lastName) {
         try {
-            // First check if the ticket exists
-            Optional<Ticket> ticketOptional = ticketRepo.findByTicketIdAndLastName(ticketId, lastName);
+        	System.out.println("Try\n");
+        	Optional<Ticket> ticketOptional = ticketRepo.findByTicketIdAndLastName(ticketId, lastName);
+        	System.out.println("Ticket is Available\n");
             if (ticketOptional.isPresent()) {
-                // Delete the ticket using the repository method
-                ticketRepo.deleteByTicketIdAndLastName(ticketId, lastName);
+                Ticket ticket = ticketOptional.get();
 
-                // Now send an email notification
-                sendDeletionEmail(ticketOptional.get());
+                ticketRepo.deleteByTicketIdAndLastName(ticketId, lastName);
+                System.out.println("Ticket Deleted");
+
+                sendDeletionEmail(ticket);
                 return true;
             }
             return false;
+            
         } catch (Exception e) {
-            // Handle the exception
+            // Log the exception for debugging
+            System.out.println("Error deleting ticket: "+ e);
             return false;
         }
     }
+
 
     private void sendDeletionEmail(Ticket ticket) {
         try {

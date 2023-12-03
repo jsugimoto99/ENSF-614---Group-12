@@ -66,8 +66,8 @@ export default function ModCrew() {
           return axios.get("http://localhost:8081/crew/listAll");
         })
         .then((response) => {
-          
           setCrews(response.data)
+          window.location.reload();
         })
         .catch((error) => {
           console.error("There was a problem with the fetch operation:", error);

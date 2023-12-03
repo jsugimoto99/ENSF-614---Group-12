@@ -56,7 +56,7 @@ function SignUp({}){
         
         }
       } else {
-        console.log("Sign up failed");
+        console.log("Sign up failed: Username or Email is already registered.");
         // Handle login failure, show error message, etc.
       }
     } catch (error) {

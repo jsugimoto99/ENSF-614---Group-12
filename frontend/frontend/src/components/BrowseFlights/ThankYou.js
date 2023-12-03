@@ -5,7 +5,6 @@ import axios from "axios";
 
 function ThankYou() {
   const {flightId, seatId} = useParams();
-  const [isOpen, setIsOpen] = useState(false);
   const [flight, setFlight] = useState([]);
   const [ticket, setTicket] = useState([]);
   
@@ -43,17 +42,6 @@ function ThankYou() {
         console.error("Error fetching flights:", error);
       });
   }, [flightId]); // Include variables that are used inside the effect in the dependency array
-  
-  
-  
-  const openModel = () => {
-      setIsOpen(true);
-    };
-
-  
-    const closeModal = () => {
-      setIsOpen(false);
-    };
      return (
     <>
       <section class="text-gray-500 body-font">
@@ -98,7 +86,7 @@ function ThankYou() {
               Destination: {flight.destLoc}
               </p>
               <p className="flex-1 text-center dark:text-gray-400 text-2xl">
-              Seat Number: {seatId.slice(-2)}
+              Seat Number: {seatId.split("-")[1]}
               </p>
               <p className="flex-1 text-center dark:text-gray-400 text-2xl">
               Flight Number: {flightId}

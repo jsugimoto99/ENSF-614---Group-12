@@ -1,8 +1,6 @@
 package com.group12.CloudNineBackend.controller;
 
-import java.util.List;
 import java.util.*;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.BookingService;
+import com.group12.CloudNineBackend.boundary.PaymentTransactionRepo;
 import com.group12.CloudNineBackend.boundary.TicketService;
 import com.group12.CloudNineBackend.domain.BookingRequest;
+import com.group12.CloudNineBackend.domain.PaymentTransaction;
 import com.group12.CloudNineBackend.domain.Ticket;
 
 /**
@@ -27,9 +27,8 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
     
-//    @Autowired
-//    private TicketRepo ticketRepo;
-    
+    @Autowired
+    private PaymentTransactionRepo transactionRepo;    
     @Autowired
     private TicketService ticketService;
 
@@ -43,9 +42,24 @@ public class BookingController {
     public ResponseEntity<Long> addTicket(@RequestBody BookingRequest bookingRequest) {
         
         System.out.println("Received booking request: " + bookingRequest);
-    	
-    	Ticket createdTicket = bookingService.addTicket(bookingRequest);
-            return new ResponseEntity<>(createdTicket.getTicketId(), HttpStatus.CREATED);
+        Optional<PaymentTransaction> transactionOptional = transactionRepo.findByTransactionId(bookingRequest.getTransactionId());
+
+        if (transactionOptional.isPresent()) {
+            // Value is present, get the PaymentTransaction
+            PaymentTransaction transaction = transactionOptional.get();
+            Ticket createdTicket = bookingService.addTicket(bookingRequest);
+            transaction.setTicket(createdTicket);
+            transaction.setTicketId(createdTicket);
+            transactionRepo.save(transaction);
+            bookingService.sendEmail(createdTicket);
+            
+            
+                return new ResponseEntity<>(createdTicket.getTicketId(), HttpStatus.CREATED);
+        
+            
+        } else {
+            throw new NoSuchElementException("PaymentTransaction not found for ID: " + bookingRequest.getTransactionId());
+        }
     }
 
     /**
@@ -161,8 +175,7 @@ public class BookingController {
         List<String> seatList = new ArrayList<>(); 
     	
     	for (Ticket ticket: tickets) {
-    		
-    		seatList.add((ticket.getSeatId()).substring(ticket.getSeatId().length()-2));
+    		seatList.add(ticket.getSeatId().substring(ticket.getSeatId().lastIndexOf('-') + 1));
     	}
     	return new ResponseEntity<>(seatList, HttpStatus.OK);
     	

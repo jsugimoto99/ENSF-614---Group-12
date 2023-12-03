@@ -18,11 +18,9 @@ public class PaymentTransactionRequest {
 	@JsonProperty("cvv")
     private int cvv;
 	
-	@JsonProperty("seat_id")
-    private String seatId;
-	
 	@JsonProperty("amount")
 	private BigDecimal amount;
+	
 
     // No-args constructor
     public PaymentTransactionRequest() {
@@ -80,13 +78,6 @@ public class PaymentTransactionRequest {
         this.cvv = cvv;
     }
 
-    public String getSeatId() {
-        return seatId;
-    }
-
-    public void setSeatId(String seatId) {
-        this.seatId = seatId;
-    }
 
     // toString method for debugging purposes
     @Override
@@ -96,8 +87,7 @@ public class PaymentTransactionRequest {
                 ", lName='" + name + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expiryDate='" + expiryDate + '\'' +
-                ", cvv=" + cvv +
-                ", seatId='" + seatId + '\'' +
+                ", cvv=" + cvv + '\'' +
                 '}';
     }
 }

@@ -1,9 +1,5 @@
 package com.group12.CloudNineBackend.boundary;
 
-import java.math.BigDecimal;
-
-import com.group12.CloudNineBackend.domain.Promotion;
-
 public interface EmailService {
 
 	String sendTicketMail(String toEmail, Long ticketId, String destination, String departure, String seatId, String fName, String lName);

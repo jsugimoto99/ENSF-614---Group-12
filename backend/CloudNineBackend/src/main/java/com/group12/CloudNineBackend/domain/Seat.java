@@ -27,8 +27,7 @@ public class Seat {
     @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
     private Ticket ticket;
     
-    @OneToOne(mappedBy = "seat")
-    private PaymentTransaction paymentTransaction;
+    
 	
     public Seat() {
     	
@@ -76,11 +75,5 @@ public class Seat {
 		this.price = price;
 	}
 	
-	public PaymentTransaction getPaymentTransaction() {
-        return paymentTransaction;
-    }
-
-    public void setPaymentTransaction(PaymentTransaction paymentTransaction) {
-        this.paymentTransaction = paymentTransaction;
-    }
+	
 }

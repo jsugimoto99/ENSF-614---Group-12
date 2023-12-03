@@ -71,6 +71,7 @@ export default function ModAircrafts() {
       .then((response) => {
         // Update the state with the new list of aircrafts
         setAircrafts(response.data);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);

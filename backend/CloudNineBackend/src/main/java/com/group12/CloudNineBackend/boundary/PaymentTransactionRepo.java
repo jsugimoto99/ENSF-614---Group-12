@@ -1,5 +1,7 @@
 package com.group12.CloudNineBackend.boundary;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,9 @@ public interface PaymentTransactionRepo extends JpaRepository<PaymentTransaction
 
     // Custom query methods can be added here if needed
 
-	PaymentTransaction findBySeat_SeatId(String seatId);
+	PaymentTransaction findByTicket_TicketId(Long TicketId);
+
+	Optional<PaymentTransaction> findByTransactionId(Long transactionId);
 
 	
 }

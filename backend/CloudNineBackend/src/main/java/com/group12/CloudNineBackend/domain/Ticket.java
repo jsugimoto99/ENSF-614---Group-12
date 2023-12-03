@@ -2,6 +2,7 @@ package com.group12.CloudNineBackend.domain;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +35,9 @@ public class Ticket {
     @JoinColumn(name = "seat_id")
     private Seat seat;
     
+    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PaymentTransaction paymentTransaction;
+    
     @ManyToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
@@ -65,6 +69,16 @@ public class Ticket {
     // Default constructor
     public Ticket() {
     	
+    }
+    public PaymentTransaction getPaymentTransaction() {
+        return paymentTransaction;
+    }
+
+    public void setPaymentTransaction(PaymentTransaction paymentTransaction) {
+        this.paymentTransaction = paymentTransaction;
+    }
+    public void removePaymentTransaction() {
+        this.paymentTransaction = null;
     }
 
     // Getters and setters
@@ -111,6 +125,8 @@ public class Ticket {
     
     public void setLastName(String lName) {
     	this.lastName = lName;
+    	
+    	
     }
 //    public void setSeat(Seat seat) {
 //        this.seat = seat;

@@ -32,6 +32,7 @@ function StaffPassengerList() {
       )
       .then((response) => {
         console.log(lastName,"'s Booking:", response.data);
+        window.location.reload();
         // Add any additional logic after a successful delete
       })
       .catch((error) => {

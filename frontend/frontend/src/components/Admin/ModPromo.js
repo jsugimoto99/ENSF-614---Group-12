@@ -25,7 +25,6 @@ export default function ModPromo() {
         return axios.get("http://localhost:8081/promotions");
       })
       .then((response) => {
-      
         setPromos(response.data);
         setPromoDescription("");
       })

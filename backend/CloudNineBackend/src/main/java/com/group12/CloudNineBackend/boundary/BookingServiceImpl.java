@@ -20,25 +20,29 @@ public class BookingServiceImpl implements BookingService {
     private TicketRepo ticketRepository;
     
     @Autowired
-    private EmailService emailService;
-    
-    @Autowired
     private SeatRepo seatRepository;
     
     @Autowired
     private FlightRepo flightRepository;
     
+    @Autowired
+    private EmailService emailService;
+    
+    @Autowired
+    private PaymentTransactionService transaction;
+    
 
+    
     @Override
     public Ticket addTicket(BookingRequest request) {
 
     	String seat_id = request.getSeatId();
-        long flight_id = request.getFlightId();
+        Long flight_id = request.getFlightId();
         
         // Fetch the Seat and Flight from the repositories
-        Seat seat = seatRepository.findById(seat_id)
+        Seat seat = seatRepository.getBySeatId(seat_id)
                         .orElseThrow();
-        Flight flight = flightRepository.findById(flight_id)
+        Flight flight = flightRepository.getByFlightId(flight_id)
                         .orElseThrow();
         
         
@@ -50,21 +54,11 @@ public class BookingServiceImpl implements BookingService {
         ticket.setLastName(request.getLastName());
         ticket.setInsurance(request.getInsurance());
         // ... set other fields on the ticket
-        
+        ticket.setPaymentTransaction(transaction.paymentTransactionByTicketId(ticket.getTicketId()));
         
         // Save the ticket
         Ticket savedTicket = ticketRepository.save(ticket);
-        
-        emailService.sendTicketMail(savedTicket.getToEmail(),
-        		(savedTicket.getTicketId()),
-        		savedTicket.getDestination(),
-        		savedTicket.getDeparture(),
-        		savedTicket.getSeat().getSeatId(),
-        		savedTicket.getFirstName(),
-        		savedTicket.getLastName()
-        		);
         		
-        
         return savedTicket;
     }
 
@@ -92,6 +86,19 @@ public class BookingServiceImpl implements BookingService {
 	public List<Ticket> getAllByFlightId(Long flightId) {
 		// TODO Auto-generated method stub
 		return ticketRepository.getAllByFlightFlightId(flightId);
+	}
+
+	@Override
+	public void sendEmail(Ticket ticket) {
+		emailService.sendTicketMail(ticket.getToEmail(),
+        		(ticket.getTicketId()),
+        		ticket.getDestination(),
+        		ticket.getDeparture(),
+        		ticket.getSeat().getSeatId(),
+        		ticket.getFirstName(),
+        		ticket.getLastName()
+        		);
+		
 	}
 
 	

@@ -17,21 +17,16 @@ public class PaymentTransactionService {
     private PaymentTransactionRepo paymentTransactionRepo;
 
     @Autowired
-    private SeatRepo seatRepository;
+   private TicketRepo ticketRepo;
     
-    public Long getTransactionIdBySeatId(String seatId) {
-    	PaymentTransaction paymentTransaction = paymentTransactionRepo.findBySeat_SeatId(seatId);
+    public Long getTransactionIdByTicketId(Long ticketId) {
+    	PaymentTransaction paymentTransaction = paymentTransactionRepo.findByTicket_TicketId(ticketId);
         return paymentTransaction != null ? paymentTransaction.getTransactionId() : null;
     }
 
     public PaymentTransaction processPaymentTransaction(PaymentTransactionRequest request) {
         // Example of fetching a ticket based on the ticketId from the request
         // and performing some validation or business logic
-        String seat_id = request.getSeatId();
-
-        Seat seat = seatRepository.findById(seat_id)
-        		.orElseThrow();
-        System.out.println(seat.getSeatId()+ " HI");
         
         // Create a new PaymentTransaction object
         PaymentTransaction transaction = new PaymentTransaction();
@@ -39,7 +34,6 @@ public class PaymentTransactionService {
         transaction.setCvv(request.getCvv());
         transaction.setExpiryDate(request.getExpiryDate());
         transaction.setName(request.getName());
-        transaction.setSeat(seat);
         transaction.setAmount(request.getAmount());
         // Set properties of transaction from the request
         // e.g., transaction.setAmount(calculateAmount(ticket, request));
@@ -56,10 +50,15 @@ public class PaymentTransactionService {
         return transaction;
     }
 
-    public BigDecimal getPriceBySeatId(String seatId) {
-        PaymentTransaction paymentTransactionRequest = paymentTransactionRepo.findBySeat_SeatId(seatId);// method to retrieve PaymentTransactionRequest by seatId
+    public BigDecimal getPriceByTicketId(Long ticketId) {
+        PaymentTransaction paymentTransactionRequest = paymentTransactionRepo.findByTicket_TicketId(ticketId);// method to retrieve PaymentTransactionRequest by seatId
         return paymentTransactionRequest != null ? paymentTransactionRequest.getAmount() : null;
     }
  
+    public PaymentTransaction paymentTransactionByTicketId(Long ticketId) {
+    PaymentTransaction paymentTransactionRequest = paymentTransactionRepo.findByTicket_TicketId(ticketId);// method to retrieve PaymentTransactionRequest by seatId
+    return paymentTransactionRequest != null ? paymentTransactionRequest : null;
+    }
+    
     // Additional service methods can be added here
 }

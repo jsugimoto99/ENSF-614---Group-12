@@ -20,10 +20,21 @@ public class BookingRequest {
     
     @JsonProperty("insurance")
     private Boolean insurance;
+    
+    @JsonProperty("transaction_id")
+    private Long transactionId;
 
     // Getters and setters
     
-    public BookingRequest() {
+    public Long getTransactionId() {
+		return transactionId;
+	}
+
+	public void setTransactionId(Long transactionId) {
+		this.transactionId = transactionId;
+	}
+
+	public BookingRequest() {
     	
     }
     

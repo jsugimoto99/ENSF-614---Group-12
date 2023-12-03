@@ -26,7 +26,7 @@ function Payment() {
     creditCardNumber: '',
     creditCardExp: '',
     creditCardCvv: '',
-    seatId: selectedSeat
+    ticketId: ticketId
   });
   console.log(billingInfo)
   
@@ -78,57 +78,59 @@ function Payment() {
   };
 
   const handleBooking = async () => {
-    const billingInfo = {
-      amount: TotalCost,
-      name: nameOnCard,
-      cardNumber: cardNumber,
-      expiryDate: expiryDate,
-      cvv: cvv,
-      seat_id: seatId
-    }
-    try {
-      const response = await axios.post('http://localhost:8081/payment/process', billingInfo, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log('Booking response:', response.data);
-      // Handle success, redirect, or perform other actions
-    } catch (error) {
-      console.error('Error with payment:', error.response ? error.response.data : error.message);
-      // Handle error, display a message, etc.
-    }
-    
     const bookingRequest = {
       seat_id: seatId,
       flight_id: flightId,
       to_email: email,
       first_name: firstName,
       last_name: lastName,
-      insurance: insurance
+      insurance: insurance,
+      transaction_id: null
+    };
+  
+    const paymentInfo = {
+      amount: TotalCost,
+      name: nameOnCard,
+      cardNumber: cardNumber,
+      expiryDate: expiryDate,
+      cvv: cvv
+    };
+  
+    console.log(paymentInfo);
+    try {
+      const response = await axios.post('http://localhost:8081/payment/process', paymentInfo, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Booking response:', response.data);
+      bookingRequest.transaction_id = response.data.split(":")[1].trim();
+      // Handle success, redirect, or perform other actions
+    } catch (error) {
+      console.error('Error with payment:', error.response ? error.response.data : error.message);
+      // Handle error, display a message, etc.
     }
-
-    
-    
     console.log(bookingRequest);
     try {
       const response = await axios.post('http://localhost:8081/booking/add', bookingRequest, {
         headers: {
           'Content-Type': 'application/json',
         },
-      })
-      .then((response) => {
-        setTicketId(response.data);
-        console.log('Ticket has been successfully created with ID:', response.data);
-      })
-      .then(() => {
-        navigate(`/thankyou/${seatId}/${flightId}`);
-      })
+      });
+  
+      // Update ticketId in paymentInfo
+      const ticketId = response.data;
+      setTicketId(ticketId);
+  
+      console.log('Ticket has been successfully created with ID:', ticketId);
     } catch (error) {
       console.error('Error creating booking');
       // Handle error, display a message, etc.
+      return; // Exit the function if there's an error in the booking request
     }
+    navigate(`/thankyou/${seatId}/${flightId}`);
+  
+    
   };
 
   const handleChangeName = (e) => {

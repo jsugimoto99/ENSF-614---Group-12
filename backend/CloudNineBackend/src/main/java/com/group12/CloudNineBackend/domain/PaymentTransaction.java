@@ -32,8 +32,8 @@ public class PaymentTransaction {
     private BigDecimal amount;
     
     @OneToOne
-    @JoinColumn(name = "seat_id")
-    private Seat seat;
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
     // Default constructor
     public PaymentTransaction() {
@@ -90,22 +90,22 @@ public class PaymentTransaction {
     public void setCvv(int cvv) {
     	this.cvv = cvv;
     }
-    public Seat getSeat() {
-        return seat;
+    public Ticket getTicket() {
+        return ticket;
     }
     
-    public String getSeatId() {
-    	return seat.getSeatId();
+    public Long getTicketId() {
+    	return ticket.getTicketId();
     }
     
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
     
-    public void setSeatId(Seat seatId) {
-    	if(this.seat == null) {
-    		this.seat = new Seat();
+    public void setTicketId(Ticket ticket) {
+    	if(this.ticket == null) {
+    		this.ticket = new Ticket();
     	}
-    	this.seat.getSeatId();
+    	this.ticket.getTicketId();
     }
 }

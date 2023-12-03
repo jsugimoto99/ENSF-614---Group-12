@@ -13,7 +13,7 @@ export default function StaffLogin({ updateUserAttributes }) {
   return (
     <>
       <section class="bg-gray-50">
-        <div class="flex flex-col  mt-16 px-6 py-8 mx-auto lg:py-0">
+        <div class="flex items-center flex-col mt-16 px-6 py-8 mx-auto lg:py-0">
           <a
             href="#"
             class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"

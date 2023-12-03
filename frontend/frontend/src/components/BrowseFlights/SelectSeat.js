@@ -162,7 +162,7 @@ const SelectSeat = ({ flightId }) => {
 
     const seatGrid = [];
 
-    for (let row = 1 + businessRows + comfortRows; row <= rows + 1 + businessRows + comfortRows; row++) {
+    for (let row = 1 + businessRows + comfortRows; row <= rows + businessRows + comfortRows; row++) {
       for (let seat = 1; seat <= seatsPerRow; seat++) {
         const seatNumber = `${row}${String.fromCharCode(64 + seat)}`;
         const isSelected = selectedSeat.includes(seatNumber);
