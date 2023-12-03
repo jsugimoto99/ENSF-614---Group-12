@@ -23,8 +23,7 @@ public class PaymentTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long transactionId;
 
-    private String fName;
-    private String lName;
+    private String name;
     private String cardNumber;
     private String expiryDate;
     private int cvv;
@@ -48,12 +47,9 @@ public class PaymentTransaction {
         this.transactionId = transactionId;
     }
     
-    public String getFirstName() {
-    	return fName;
-    }
     
-    public String getLastName() {
-    	return lName;
+    public String getName() {
+    	return name;
     }
     
     public String getCardNumber() {
@@ -68,13 +64,11 @@ public class PaymentTransaction {
     	return cvv;
     }
 
-    public void setFirstName(String fName) {
-    	this.fName = fName;
+    public void setName(String name) {
+    	this.name = name;
     }
     
-    public void setLastName(String lName) {
-    	this.lName = lName;
-    }
+   
     
     public void setCardNumber(String cardNumber) {
     	this.cardNumber = cardNumber;

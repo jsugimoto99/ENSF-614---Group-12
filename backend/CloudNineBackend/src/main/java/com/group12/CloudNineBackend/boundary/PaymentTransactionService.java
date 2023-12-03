@@ -16,6 +16,7 @@ public class PaymentTransactionService {
 
     @Autowired
     private SeatRepo seatRepository;
+    
 
     public PaymentTransaction processPaymentTransaction(PaymentTransactionRequest request) {
         // Example of fetching a ticket based on the ticketId from the request
@@ -31,8 +32,7 @@ public class PaymentTransactionService {
         transaction.setCardNumber(request.getCardNumber());
         transaction.setCvv(request.getCvv());
         transaction.setExpiryDate(request.getExpiryDate());
-        transaction.setFirstName(request.getFName());
-        transaction.setLastName(request.getLName());
+        transaction.setName(request.getName());
         transaction.setSeat(seat);
         // Set properties of transaction from the request
         // e.g., transaction.setAmount(calculateAmount(ticket, request));
@@ -44,6 +44,8 @@ public class PaymentTransactionService {
         // Additional business logic as required
         // ...
 
+//        emailService.sendMail
+        
         return transaction;
     }
 

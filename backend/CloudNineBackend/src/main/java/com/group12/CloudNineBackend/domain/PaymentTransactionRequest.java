@@ -4,11 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PaymentTransactionRequest {
 
-	@JsonProperty("fName")
-    private String fName;
-	
-	@JsonProperty("lName")
-    private String lName;
+	@JsonProperty("name")
+    private String name;
 	
 	@JsonProperty("cardNumber")
     private String cardNumber;
@@ -37,20 +34,14 @@ public class PaymentTransactionRequest {
 //    }
 
     // Getters and setters
-    public String getFName() {
-        return fName;
+    
+
+    public String getName() {
+        return name;
     }
 
-    public void setFName(String fName) {
-        this.fName = fName;
-    }
-
-    public String getLName() {
-        return lName;
-    }
-
-    public void setLName(String lName) {
-        this.lName = lName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCardNumber() {
@@ -89,8 +80,8 @@ public class PaymentTransactionRequest {
     @Override
     public String toString() {
         return "PaymentTransactionRequest{" +
-                "fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
+                "fName='" + name + '\'' +
+                ", lName='" + name + '\'' +
                 ", cardNumber='" + cardNumber + '\'' +
                 ", expiryDate='" + expiryDate + '\'' +
                 ", cvv=" + cvv +
