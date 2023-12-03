@@ -54,11 +54,6 @@ public class CrewController {
 
 		if (optionalCrew.isPresent()) {
 			Crew crew = optionalCrew.get();
-
-			// Optional: Handle relationships (e.g., unset associations) before deleting
-			// For example, if Crew has relationships, unset them before deleting
-			// crew.setSomeRelationship(null);
-
 			crewRepo.delete(crew);
 
 			response.put("status", "success");

@@ -24,10 +24,8 @@ public class PromotionService {
 		Promotion savedPromotion = promotionRepo.save(promotion);
 		
 		List<User> usersToNotify = userRepo.findAll();
-		System.out.println("Number of users to notify: " + usersToNotify.size());
 		
 		for(User user: usersToNotify) {
-            System.out.println("Sending email to: " + user.getEmail());
 			emailService.sendPromoEmail(user.getfName(),
 					user.getEmail(), 
 					savedPromotion.getDescription(),
