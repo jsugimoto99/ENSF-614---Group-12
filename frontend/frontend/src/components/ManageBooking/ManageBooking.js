@@ -29,24 +29,7 @@ export const ManageBooking = () => {
     }
   }, [ticketId, lastName]);
 
-  useEffect(() => {
 
-    
-
-    axios.get(`http://localhost:8081/flight/getFlightById/${Number(flightId)}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-      .then((response) => {
-        setFlight(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching flights:", error);
-      });
-  }, [flightId]); // Include variables that are used inside the effect in the dependency array
 
   const handleDeleteClick = () => {
     // Add logic for handling delete

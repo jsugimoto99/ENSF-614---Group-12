@@ -8,6 +8,8 @@ public interface BookingService {
     public Ticket addTicket(BookingRequest bookingRequest);
     List<Ticket> getAllTickets();
 	public Ticket getByIdAndLastName(Long id, String lastName);
+	public Ticket getBySeatId(String id);
+	public List<Ticket> getByFlightId(Long flightId);
     
     // Additional methods like updateTicket, deleteTicket, etc.
 }

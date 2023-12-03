@@ -74,9 +74,9 @@ public class BookingController {
     }
     
     @GetMapping("/get/{seatId}")
-    public ResponseEntity<Ticket> getTicket(@PathVariable("seatId") String id) {
+    public ResponseEntity<Ticket> getTicket(@PathVariable("seatId") String seatId) {
         // Your logic here to retrieve the ticket using both id and lastName
-        Ticket ticket = bookingService.getBySeatId(id);
+        Ticket ticket = bookingService.getBySeatId(seatId);
 
         if (ticket != null) {
             return new ResponseEntity<>(ticket, HttpStatus.OK);

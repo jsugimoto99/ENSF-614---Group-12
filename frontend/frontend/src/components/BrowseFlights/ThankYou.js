@@ -86,7 +86,7 @@ function ThankYou() {
               </h2>
 
               <p className="flex-1 text-center dark:text-gray-400 text-2xl">
-              Ticket number: {ticket.ticketId} 
+              Ticket number: {ticket.d} 
               </p>
               <p className="flex-1 text-center dark:text-gray-400 text-2xl">
               Departure: {flight.departLoc}
