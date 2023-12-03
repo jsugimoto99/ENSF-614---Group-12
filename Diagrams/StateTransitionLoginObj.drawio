@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net" modified="2023-12-03T18:35:06.911Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="U7ZRo9vrrI4bGtkVQV9S" version="22.1.5" type="device">
+  <diagram name="Page-1" id="FtAtuvV_cNXTq7TPDuKK">
+    <mxGraphModel dx="1290" dy="542" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-2" target="Wsm-90ErGkhxQhU-Rkpq-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=none;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="60" y="485" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-4" target="Wsm-90ErGkhxQhU-Rkpq-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-4" value="Login" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="470" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-5" value="Username and Password Entered" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="470" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-5" target="Wsm-90ErGkhxQhU-Rkpq-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="500" as="sourcePoint" />
+            <mxPoint x="600" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-10" target="Wsm-90ErGkhxQhU-Rkpq-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-10" target="Wsm-90ErGkhxQhU-Rkpq-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-10" value="System Verification" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="470" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-12" target="Wsm-90ErGkhxQhU-Rkpq-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-12" value="Denied Verification" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="575" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-17" value="User logs into portal" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-18" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;container=0;" vertex="1" parent="1">
+          <mxGeometry x="620.0013071895426" y="485" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-19" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;container=0;" vertex="1" parent="1">
+          <mxGeometry x="623.8811183732753" y="488.8798111837327" width="22.240377632534493" height="22.240377632534493" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-19" target="Wsm-90ErGkhxQhU-Rkpq-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Wsm-90ErGkhxQhU-Rkpq-17" target="Wsm-90ErGkhxQhU-Rkpq-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-22" value="Login Detail" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="240" y="530" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-23" value="System Verifies Details" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="530" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-24" value="Details verified" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="563.88" y="470" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-26" value="Details not verified" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="535" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Wsm-90ErGkhxQhU-Rkpq-27" value="Ask user to re-enter information" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="470" y="660" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

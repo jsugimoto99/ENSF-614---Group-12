@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" modified="2023-12-03T20:31:19.779Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="s2M9gX8x518kR3Oo8v9u" version="22.1.5" type="device">
+  <diagram name="Page-1" id="ea6zZCIc9monIfhDBaEH">
+    <mxGraphModel dx="803" dy="811" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0-Fdb70XN8P0v6M-6uxU-1" target="0-Fdb70XN8P0v6M-6uxU-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0-Fdb70XN8P0v6M-6uxU-1" target="0-Fdb70XN8P0v6M-6uxU-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-1" value="Flight Reservation Server" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="350" y="50" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-2" value="Email Server" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="20" y="50" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-3" value="Database Server" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="70" y="300" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-4" value="User Interface Server" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="350" y="300" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-5" value="Payment Server" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="680" y="50" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=55;exitDy=0;exitPerimeter=0;entryX=0.457;entryY=0.996;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="0-Fdb70XN8P0v6M-6uxU-1" target="0-Fdb70XN8P0v6M-6uxU-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-12" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;entryX=0;entryY=0;entryDx=0;entryDy=85;entryPerimeter=0;" edge="1" parent="1" target="0-Fdb70XN8P0v6M-6uxU-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="220" y="300" as="targetPoint" />
+            <mxPoint x="350" y="170" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-13" value="&amp;lt;&amp;lt;local network&amp;gt;&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="70" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-15" value="&amp;lt;&amp;lt;local network&amp;gt;&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="190" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-16" value="&amp;lt;&amp;lt;Internet&amp;gt;&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="425" y="210" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0-Fdb70XN8P0v6M-6uxU-17" value="&amp;lt;&amp;lt;Internet&amp;gt;&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="70" width="150" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

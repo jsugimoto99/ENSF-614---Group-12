@@ -1,0 +1,13 @@
+@startuml
+package "Domain" {
+}
+
+package "Boundary" {
+}
+
+package "Controller" {
+}
+
+Domain --> Controller: uses
+Boundary --> Controller: uses
+@enduml
