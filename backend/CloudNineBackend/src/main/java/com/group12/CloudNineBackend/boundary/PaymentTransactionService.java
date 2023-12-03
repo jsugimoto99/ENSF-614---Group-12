@@ -17,6 +17,10 @@ public class PaymentTransactionService {
     @Autowired
     private SeatRepo seatRepository;
     
+    public Long getTransactionIdBySeatId(String seatId) {
+    	PaymentTransaction paymentTransaction = paymentTransactionRepo.findBySeat_SeatId(seatId);
+        return paymentTransaction != null ? paymentTransaction.getTransactionId() : null;
+    }
 
     public PaymentTransaction processPaymentTransaction(PaymentTransactionRequest request) {
         // Example of fetching a ticket based on the ticketId from the request
@@ -49,5 +53,6 @@ public class PaymentTransactionService {
         return transaction;
     }
 
+ 
     // Additional service methods can be added here
 }

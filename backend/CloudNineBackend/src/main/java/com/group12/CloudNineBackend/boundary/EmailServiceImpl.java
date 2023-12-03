@@ -32,6 +32,9 @@ public class EmailServiceImpl implements EmailService{
 	@Autowired
 	private ResourceLoader resourceLoader;
 	
+	@Autowired
+	private PaymentTransactionService paymentTransactionService;
+	
 	@Override
 	public String sendTicketMail(String toEmail, Long ticketId, BigDecimal price, String destination, String departure, String seatId, String fName, String lName) {
 		// TODO Auto-generated method stub
@@ -44,6 +47,7 @@ public class EmailServiceImpl implements EmailService{
 			mimeMessageHelper.setTo(toEmail);
 			mimeMessageHelper.setSubject("Your E-Ticket Confirmation");
 			
+			Long transactionId = paymentTransactionService.getTransactionIdBySeatId(seatId);
 			
             Resource resource = resourceLoader.getResource("classpath:ticket2.html");
             
@@ -56,7 +60,8 @@ public class EmailServiceImpl implements EmailService{
                     .replace("[seat]", seatId)
                     .replace("[fname]", fName)
                     .replace("[lname]", lName)
-                    .replace("[departure]", departure); // Note: Make sure the placeholder in HTML matches this key
+                    .replace("[departure]", departure)
+                    .replace("[transactionId]", String.valueOf(transactionId)); // Note: Make sure the placeholder in HTML matches this key
 
             
             mimeMessageHelper.setText(content, true); // Set true for HTML content
