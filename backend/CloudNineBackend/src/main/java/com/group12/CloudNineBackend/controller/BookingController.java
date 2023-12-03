@@ -72,6 +72,31 @@ public class BookingController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
+    @GetMapping("/get/{seatId}")
+    public ResponseEntity<Ticket> getTicket(@PathVariable("seatId") String id) {
+        // Your logic here to retrieve the ticket using both id and lastName
+        Ticket ticket = bookingService.getBySeatId(id);
+
+        if (ticket != null) {
+            return new ResponseEntity<>(ticket, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @GetMapping("/getByFlightId/{flightId}")
+    public ResponseEntity<List<Ticket>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
+        List<Ticket> tickets = bookingService.getByFlightId(flightId);
+
+        if (!tickets.isEmpty()) {
+            return new ResponseEntity<>(tickets, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    
 
    
     @DeleteMapping("/delete/{ticketId}/{lastName}")

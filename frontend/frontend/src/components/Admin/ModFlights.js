@@ -55,6 +55,19 @@ export default function ModFlights() {
   useEffect(() => {
     // Make a GET request to fetch locations
     axios
+      .get("http://localhost:8081/crew/listAllAvailable")
+      .then((response) => {
+        // Assuming the response data is an array of locations
+        setCrews(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching locations:", error);
+      });
+  }, []); // The empty dependency array ensures the effect runs only once when the component mounts
+
+  useEffect(() => {
+    // Make a GET request to fetch locations
+    axios
       .get("http://localhost:8081/aircraft/listAllAvailable")
       .then((response) => {
         // Assuming the response data is an array of locations
@@ -63,7 +76,7 @@ export default function ModFlights() {
       .catch((error) => {
         console.error("Error fetching locations:", error);
       });
-  }, []); // The empty dependency array ensures the effect runs only once when the component mounts
+  }, []); 
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -86,6 +99,7 @@ export default function ModFlights() {
         },
         params: {
           aircraftId: id,
+          crewId: crewId
         },
       })
       .then((response) => {
@@ -114,28 +128,8 @@ export default function ModFlights() {
         <div class="container px-5 py-10 mx-auto">
           <div>
             <h1 class="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-20">
-              Cloud 9 List of Available Flights
-              <br class="hidden sm:block" />
-              Book With Us
+              Manage Flights
             </h1>
-            <div class="text-gray-600 body-font">
-              <div class="container px-5 mx-auto">
-                <ul class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
-                  {flights.map((flight) => (
-                    <li key={flight.id} class="mb-3 text-xl text-green-500">
-                      From: {flight.depart_loc}, To: {flight.dest_loc} -{" "}
-                      {flight.depart_date}
-                      <button
-                        onClick={() => handleDelete(flight.id)}
-                        class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"
-                      >
-                        Delete
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
           </div>
           <div class="container mx-auto lg:w-3/4 md:w-4/5 sm:w-full px-5">
             <h1 class="title-font font-medium text-3xl text-gray-900">
@@ -277,8 +271,8 @@ export default function ModFlights() {
                 </option>
                 {/* Populate options from the locations state */}
                 {crews.map((crew) => (
-                  <option key={crew.crewId} value={crew.crewId}>
-                    ID: {crew.crewId}
+                  <option key={crew.id} value= {crew.id}>
+                    ID: {crew.id}
                   </option>
                 ))}
               </select>
@@ -294,13 +288,13 @@ export default function ModFlights() {
             <div class="text-gray-600 body-font">
               <div class="container px-5 p-10 pb-5 mx-auto">
                 <ul class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
-                    <h2 class="text-gray-900 text-lg font-medium title-font mb-5 mx-auto">
+                    <h1 class="text-gray-900 text-xl font-medium title-font mb-5 mx-auto">
                   Flight List
-                </h2>
-                  {flights.map((flight) => (
-                    <li key={flight.id} class="mb-3">
-                      {flight.depart_loc} to {flight.dest_loc} -{" "}
-                      {flight.depart_date}
+                </h1>
+                {flights.map((flight) => (
+                    <li key={flight.id} class="mb-3 text-xl text-black-500">
+                      From: {flight.depart_loc}, To: {flight.dest_loc} -{" "}
+                      Date: {flight.depart_date}
                       <button
                         onClick={() => handleDelete(flight.id)}
                         class="ml-3 text-white bg-red-500 border-0 py-1 px-2 focus:outline-none hover:bg-red-600 rounded text-sm"

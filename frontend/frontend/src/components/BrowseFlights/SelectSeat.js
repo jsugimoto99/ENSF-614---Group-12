@@ -7,6 +7,7 @@ const SelectSeat = ({ flightId }) => {
   const navigate = useNavigate();
   const [selectedSeat, setSelectedSeat] = useState([]);
   const [aircraftData, setAircraftData] = useState(null);
+  const [price,setPrice]=useState();
   const aircraftId = aircraftData?.aircraftId;
   const model = aircraftData?.model;
   const businessSeatsPerRow = aircraftData?.businessSeatsPerRow;
@@ -14,6 +15,17 @@ const SelectSeat = ({ flightId }) => {
   const businessRows = aircraftData?.businessRows;
   const comfortRows = aircraftData?.comfortRows;
   const economyRows = aircraftData?.economyRows;
+
+  const prices= (
+    {business: 200.00,
+    comfort: 130.00,
+  economy: 60.00}
+  )
+  // const prices= (
+  //   {business: aircraftData?.businessCost,
+  //   comfort: aircraftData?.comfortCost,
+  // economy: aircraftData?.economyCost}
+  // )
   
   useEffect(() => {
     const fetchAircraftData = async () => {
@@ -46,7 +58,7 @@ const SelectSeat = ({ flightId }) => {
 
   const handleClick = () => {
     const paramName = "info";
-    navigate(`/flights/insurance/${paramName}?flightId=${flightId}&selectedSeat=${selectedSeat}`);
+    navigate(`/flights/insurance/${paramName}?flightId=${flightId}&selectedSeat=${selectedSeat}&price=${Number(price)}`);
  
   };
   const [isSeatVisible, setSeatVisible] = useState(false);
@@ -73,7 +85,8 @@ const SelectSeat = ({ flightId }) => {
             className={`cursor-pointer p-2 border border-gray-300 rounded ${
               isSelected ? "bg-green-500 text-white" : ""
             }`}
-            onClick={() => handleSeatClick(seatNumber)}
+            onClick={() => {handleSeatClick(seatNumber) 
+                            setPrice(prices.business)}}
           >
             {seatNumber}
           </div>
@@ -101,8 +114,9 @@ const SelectSeat = ({ flightId }) => {
             className={`cursor-pointer p-2 border border-gray-300 rounded ${
               isSelected ? "bg-green-500 text-white" : ""
             }`}
-            onClick={() => handleSeatClick(seatNumber)}
-          >
+            onClick={() => {handleSeatClick(seatNumber) 
+              setPrice(prices.comfort)}}
+>
             {seatNumber}
           </div>
         );
@@ -129,8 +143,9 @@ const SelectSeat = ({ flightId }) => {
             className={`cursor-pointer p-2 border border-gray-300 rounded ${
               isSelected ? "bg-green-500 text-white" : ""
             }`}
-            onClick={() => handleSeatClick(seatNumber)}
-          >
+            onClick={() => {handleSeatClick(seatNumber) 
+              setPrice(prices.economy)}}
+>
             {seatNumber}
           </div>
         );
@@ -141,24 +156,25 @@ const SelectSeat = ({ flightId }) => {
   };
 
   return (
+    
     <div className="text-center">
       <h2 className="text-2xl font-bold mb-4">Select Your Seat</h2>
-      <h3 className="text-1xl font-bold mb-4">Business</h3>
+      <h3 className="text-1xl font-bold mb-4">Business: ${prices.business}</h3>
       <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
         {renderBusinessSeats()}
       </div>
-      <h3 className="text-1xl font-bold mb-4">Comfort</h3>
+      <h3 className="text-1xl font-bold mb-4">Comfort: $ {prices.comfort}</h3>
       <div className="grid grid-cols-6 gap-4 max-w-md mx-auto">
         {renderComfortSeats()}
       </div>
-      <h3 className="text-1xl font-bold mb-4">Economy</h3>
+      <h3 className="text-1xl font-bold mb-4">Economy$ {prices.economy}</h3>
       <div className="grid grid-cols-6 gap-4 max-w-md mx-auto">
         {renderSeats()}
       </div>
       <p className="mt-4">Selected Seat: {selectedSeat}</p>
         <button
           onClick={handleClick}
-          class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
+          class="flex mx-auto text-white mb-16 bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"
         >
           Continue
         </button>

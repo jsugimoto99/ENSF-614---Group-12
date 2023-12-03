@@ -38,6 +38,9 @@ public class Flight {
     @OneToOne
     @JoinColumn(name = "aircraftId")
     private Aircraft aircraft;
+    @OneToOne
+    @JoinColumn(name = "crewId")
+    private Crew crew;
 
     
     //Change Seats to Tickets
@@ -173,6 +176,11 @@ public class Flight {
 
 	public void setAircraft(Aircraft aircraft) {
 		this.aircraft = aircraft;
+		
+	}
+
+	public void setCrew(Crew crew) {
+		this.crew = crew;
 		
 	}
 }

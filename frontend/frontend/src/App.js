@@ -24,6 +24,11 @@ import ModAircrafts from "./components/Admin/ModAircrafts";
 import ThankYou from "./components/BrowseFlights/ThankYou";
 import ModCrew from "./components/Admin/ModCrew";
 import Team from "./components/home/Team";
+import StaffNavbar from "./components/NavBars/StaffNavbar";
+import StaffLogin from "./components/StaffLogin";
+import StaffFlightList from "./components/Staff/StaffFlightList";
+import StaffPassengerList from "./components/Staff/StaffPassengerList";
+import Promotions from "./components/Promotions";
 
 function App() {
   const [user, setUser] = useState({
@@ -66,6 +71,8 @@ function App() {
         return <AdminNavbar updateUserAttributes={updateUserAttributes} />;
       case 'registered user':
         return <RegisteredNavbar updateUserAttributes={updateUserAttributes} />;
+      case 'staff':
+          return <StaffNavbar updateUserAttributes={updateUserAttributes} />;
       case 'user':
         return <UserNavbar updateUserAttributes={updateUserAttributes} />;
       default:
@@ -80,7 +87,7 @@ function App() {
         <Route path="/flightList/:paramName" element={<FlightList />} />
         <Route path="flights/insurance/:paramName" element={<Insurance />} />
         <Route path="/payment/:paramName" element={<Payment />} />
-        <Route path="/thankyou" element={<ThankYou />} />
+        <Route path="/thankyou/:seatId/:flightId" element={<ThankYou />} />
         <Route path="/myBooking" element={<MyBooking />} />
         <Route path="/team" element={<Team />} />
         <Route path="/manageBooking/:ticketId/:lastName" element={<ManageBooking />} />
@@ -97,7 +104,7 @@ function App() {
         {userRole === 'registered user'}
         <>
           <Route path="/browseFlights" element={<BrowseFlights />} />
-          <Route path="/promotions" element={<ModPromo />} />
+          <Route path="/promotions" element={<Promotions />} />
           {/* <Route path="/manageFlights" element={<ManageFlights />} /> */}
         </>
         <Route path="/admin" element={<AdminLogin updateUserAttributes = {updateUserAttributes} user = {user} />} />
@@ -107,7 +114,12 @@ function App() {
           <Route path="/aircrafts" element={<ModAircrafts />} />
           <Route path="/promo" element={<ModPromo />} />
           <Route path="/crew" element={<ModCrew />} />
-
+        </>
+        <Route path="/staff" element={<StaffLogin updateUserAttributes = {updateUserAttributes} user = {user} />} />
+        {userRole === 'staff'}
+        <>
+        <Route path="/staffFlightList" element={<StaffFlightList />} />
+        <Route path="/staffPassengerList/:flightId" element={<StaffPassengerList />} />
         </>
       </Routes>
       <Footer />

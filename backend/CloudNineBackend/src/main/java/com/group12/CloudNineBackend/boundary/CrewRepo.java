@@ -15,4 +15,6 @@ public interface CrewRepo extends JpaRepository<Crew, Long> {
 
 	List<Crew> findByFlightIdIsNull();
 
+	Crew getByFlightId(Long id);
+
 }

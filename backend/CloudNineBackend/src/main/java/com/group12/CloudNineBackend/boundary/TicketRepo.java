@@ -1,5 +1,6 @@
 package com.group12.CloudNineBackend.boundary;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +21,9 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
 
 	boolean existsByTicketIdAndLastName(Long id, String lastName);
 
+	List<Ticket> findByFlightId(Long flightId);
+
+	Ticket getBySeatSeatId(String seatId);
 	Optional<Ticket> findByTicketIdAndLastName(Long ticketId, String lastName);
 	
 	@Modifying
