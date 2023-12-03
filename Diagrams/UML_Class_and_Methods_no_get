@@ -58,8 +58,13 @@ class Flight
 
 class Promo
 {
--promoNumber: int
+  -promoNumber: int
+  -static instance: Promo
+  +getInstance(): Promo
+  {static} +getInstance(): Promo
 }
+Promo -right- Promo: instance
+Promo .up.> Promo: getInstance()
 
 class RegisteredUser
 {
@@ -72,9 +77,22 @@ class Seat
 -seatNumber: int
 }
 
+interface PaymentObserver 
+{
+updatePaymentStatus(): void
+}
+
+interface PaymentSubject 
+{
++attach(observer: Observer): void
++detach(observer: Observer): void
++notifyObservers(): void
+}
+
 class Ticket
 {
 -ticketNumber: int
+-paymentObserverList: List<PaymentObserver>
 +selectFlight(): void
 +selectSeat(): void
 +selectInsurance(): void
@@ -82,7 +100,21 @@ class Ticket
 +makePayment():void
 +passengerList(passenger: List<int>)
 +bookingConfirmation():void
++attach(observer: PaymentObserver): void
++detach(observer: PaymentObserver): void
++notifyPaymentStatus(): void
+{static} -notifyPaymentStatus(): void
 }
+
+class Payment
+{
+-cardNumber: int
++updatePaymentStatus(): void
+}
+
+Ticket -right- PaymentObserver: uses
+PaymentObserver <|.. Payment: implements
+PaymentSubject <|.. Ticket: implements
 
 class Payment
 {
