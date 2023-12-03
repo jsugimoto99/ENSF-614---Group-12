@@ -2,6 +2,7 @@ package com.group12.CloudNineBackend.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.group12.CloudNineBackend.boundary.BookingService;
+import com.group12.CloudNineBackend.boundary.TicketRepo;
+import com.group12.CloudNineBackend.boundary.TicketService;
 import com.group12.CloudNineBackend.domain.BookingRequest;
 import com.group12.CloudNineBackend.domain.Ticket;
+
+import jakarta.transaction.Transactional;
 
 /**
  * Controller class for handling HTTP requests related to tickets.
@@ -24,6 +29,12 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+    
+    @Autowired
+    private TicketRepo ticketRepo;
+    
+    @Autowired
+    private TicketService ticketService;
 
     /**
      * Handles HTTP POST requests to create a new ticket.
@@ -62,19 +73,27 @@ public class BookingController {
         }
     }
 
-    
-    @DeleteMapping("/delete/{id}/{lastName}")
-    public ResponseEntity<String> deleteTicket(@PathVariable Long id, @PathVariable String lastName) {
-        boolean deleted = bookingService.deleteByIdAndLastName(id, lastName);
+   
+    @DeleteMapping("/delete/{ticketId}/{lastName}")
+    public ResponseEntity<String> deleteTicket(@PathVariable Long ticketId, @PathVariable String lastName) {
+        try {
+            // Use the service layer to delete the ticket
+            boolean isDeleted = ticketService.deleteByTicketIdAndLastName(ticketId, lastName);
 
-        if (deleted) {
-            return new ResponseEntity<>("Ticket deleted successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Ticket not found or could not be deleted", HttpStatus.NOT_FOUND);
+            // Return the appropriate response entity based on the deletion result
+            if (isDeleted) {
+                return new ResponseEntity<>("Ticket deleted successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            // In case of any exception, return an internal server error response
+            return new ResponseEntity<>("Error occurred during ticket deletion", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // Additional methods can be added here for other operations like updating or deleting tickets
+    
 
+    // Additional methods can be added here for other operations like updating or deleting tickets
     
 }

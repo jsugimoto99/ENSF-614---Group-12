@@ -61,6 +61,7 @@ public class Ticket {
     }
 
     // Getters and setters
+    
     public Boolean getInsurance() {
     	return insurance;
     }
@@ -121,7 +122,7 @@ public class Ticket {
                 ", toEmail='" + toEmail + '\'' +
                 ", price='" + seat.getPrice() + '\'' +
                 ", destination='" + flight.getDestLoc() + '\'' +
-                ", seat='" + seat + '\'' +
+                ", seat='" + seat.getSeatId() + '\'' +
                 '}';
     }
 

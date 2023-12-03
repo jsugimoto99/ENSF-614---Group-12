@@ -99,7 +99,7 @@ public class CrewController {
     @GetMapping("/listAllAvailable")
     public ResponseEntity<List<Map<String, Object>>> getAllAvailableCrew() {
         try {
-            List<Crew> crews = crewRepo.findByCrewIdIsNull();;
+            List<Crew> crews = crewRepo.findByFlightIdIsNull();;
             List<Map<String, Object>> responseList = new ArrayList<>();
 
             for (Crew crew: crews) {
