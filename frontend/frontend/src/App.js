@@ -87,7 +87,7 @@ function App() {
         <Route path="/flightList/:paramName" element={<FlightList />} />
         <Route path="flights/insurance/:paramName" element={<Insurance />} />
         <Route path="/payment/:paramName" element={<Payment />} />
-        <Route path="/thankyou/:seatId/:flightId" element={<ThankYou />} />
+        <Route path="/thankyou/:seatId/:flightId/:ticketId" element={<ThankYou />} />
         <Route path="/myBooking" element={<MyBooking />} />
         <Route path="/team" element={<Team />} />
         <Route path="/manageBooking/:ticketId/:lastName" element={<ManageBooking />} />

@@ -2,7 +2,7 @@ package com.group12.CloudNineBackend.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +14,6 @@ import com.group12.CloudNineBackend.boundary.TicketRepo;
 import com.group12.CloudNineBackend.boundary.TicketService;
 import com.group12.CloudNineBackend.domain.BookingRequest;
 import com.group12.CloudNineBackend.domain.Ticket;
-
-import jakarta.transaction.Transactional;
 
 /**
  * Controller class for handling HTTP requests related to tickets.
@@ -31,9 +29,6 @@ public class BookingController {
     private BookingService bookingService;
     
     @Autowired
-    private TicketRepo ticketRepo;
-    
-    @Autowired
     private TicketService ticketService;
 
     /**
@@ -43,12 +38,12 @@ public class BookingController {
      * @return A ResponseEntity indicating the result of the operation.
      */
     @PostMapping("/add")
-    public ResponseEntity<String> addTicket(@RequestBody BookingRequest bookingRequest) {
+    public ResponseEntity<Long> addTicket(@RequestBody BookingRequest bookingRequest) {
         
         System.out.println("Received booking request: " + bookingRequest);
     	
     	Ticket createdTicket = bookingService.addTicket(bookingRequest);
-            return new ResponseEntity<>("Ticket has been successfully created with ID: " + createdTicket.getTicketId(), HttpStatus.CREATED);
+            return new ResponseEntity<>(createdTicket.getTicketId(), HttpStatus.CREATED);
     }
 
     /**
@@ -86,15 +81,21 @@ public class BookingController {
     }
     
     @GetMapping("/getByFlightId/{flightId}")
-    public ResponseEntity<List<Ticket>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
+    public ResponseEntity<Map<String, Object>> getTicketsByFlightId(@PathVariable("flightId") Long flightId) {
         List<Ticket> tickets = bookingService.getByFlightId(flightId);
 
+        Map<String, Object> response = new HashMap<>();
+
         if (!tickets.isEmpty()) {
-            return new ResponseEntity<>(tickets, HttpStatus.OK);
+            response.put("tickets", tickets);
+            response.put("message", "Tickets found for flight ID: " + flightId);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            response.put("message", "No tickets found for flight ID: " + flightId);
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
+
 
     
 

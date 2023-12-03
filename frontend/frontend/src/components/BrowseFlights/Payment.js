@@ -10,6 +10,7 @@ function Payment() {
   const [price, setPrice] = useState(initialPrice);
   const insuranceParam = new URLSearchParams(location.search).get('insurance');
   const insurance = insuranceParam === 'true';
+  const [ticketId, setTicketId] =useState("");
   const [seatId, setSeatId] = useState("")
   const [flight, setFlight] = useState([]);
   const [insuranceCost, setInsuranceCost] = useState(0.00);
@@ -21,7 +22,6 @@ function Payment() {
     email: ''
   })
   const [billingInfo, setBillingInfo] = useState({
-    amount: TotalCost,
     nameOnCard: '',
     creditCardNumber: '',
     creditCardExp: '',
@@ -93,9 +93,34 @@ function Payment() {
       last_name: lastName,
       insurance: insurance
     }
+
+    
     console.log(bookingRequest);
     try {
       const response = await axios.post('http://localhost:8081/booking/add', bookingRequest, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Ticket has been successfully created with ID:', response.data);
+      setTicketId = response.data;
+
+      // Handle success, redirect, or perform other actions
+    } catch (error) {
+      console.error('Error creating booking');
+      // Handle error, display a message, etc.
+    }
+    const billingInfo = {
+      amount: TotalCost,
+      name: nameOnCard,
+      cardNumber: cardNumber,
+      expiryDate: expiryDate,
+      cvv: cvv,
+      seat_id: seatId
+    }
+    try {
+      const response = await axios.post('http://localhost:8081/payment/process', billingInfo, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -107,6 +132,8 @@ function Payment() {
       console.error('Error creating booking:', error.response ? error.response.data : error.message);
       // Handle error, display a message, etc.
     }
+
+
   };
 
   const handleChangeName = (e) => {
@@ -368,7 +395,7 @@ function Payment() {
             </div>
           </div>
         </section>
-        <Link to={`/thankyou/${seatId}/${flightId}`}>
+        <Link to={`/thankyou/${seatId}/${flightId}/${ticketId}`}>
           <button
             onClick={handleBooking}
             class="flex mx-auto text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg"

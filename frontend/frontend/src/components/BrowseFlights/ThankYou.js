@@ -4,7 +4,7 @@ import logo from "../images/logo.png"
 import axios from "axios";
 
 function ThankYou() {
-  const {flightId, seatId} = useParams();
+  const {flightId, seatId, ticketId} = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [flight, setFlight] = useState([]);
   const [ticket, setTicket] = useState([]);
@@ -86,7 +86,10 @@ function ThankYou() {
               </h2>
 
               <p className="flex-1 text-center dark:text-gray-400 text-2xl">
-              Ticket number: {ticket.d} 
+              Ticket number: {ticket.ticketId} 
+              </p>
+              <p className="flex-1 text-center dark:text-gray-400 text-2xl">
+              Ticket number: {ticketId}
               </p>
               <p className="flex-1 text-center dark:text-gray-400 text-2xl">
               Departure: {flight.departLoc}

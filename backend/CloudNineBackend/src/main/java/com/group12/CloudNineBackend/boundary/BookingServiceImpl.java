@@ -86,13 +86,13 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public Ticket getBySeatId(String id) {
 		// TODO Auto-generated method stub
-		return ticketRepository.getBySeatSeatId(id);
+		return ticketRepository.findBySeatSeatId(id);
 	}
 
 	@Override
 	public List<Ticket> getByFlightId(Long flightId) {
 		// TODO Auto-generated method stub
-		return ticketRepository.getAllByFlightFlightId(flightId);
+		return ticketRepository.findAllByFlightId(flightId);
 	}
 
 	
