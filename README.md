@@ -17,8 +17,5 @@
 The goal of this project is to create a flight reservation web application where users can browse and purchase flights. The web application also provides access for administrators to modify flights, aircrafts, and crew.
 More information can be seen in the project description document.
 
-## Project Demonstration
-... *(Continue with your content here)* ...
-
 ## Project Design
 Diagrams from the design phase of the project can be found in our [Design Phase Documentation](./Diagrams). These diagrams include: a use-case diagram, use-case scenarios based off the use-case diagram, an activity diagram, sequence diagram, state transition diagrams, a system domain diagram, domain classes, boundary classes, controller classes, a package diagram, and a deployment diagram.
