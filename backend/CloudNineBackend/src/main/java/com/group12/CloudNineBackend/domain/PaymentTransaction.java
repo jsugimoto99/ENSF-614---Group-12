@@ -32,7 +32,7 @@ public class PaymentTransaction {
     private BigDecimal amount;
     
     @OneToOne
-    @JoinColumn(name = "ticket_id")
+    @JoinColumn(name = "ticket_id", referencedColumnName = "ticketId")
     private Ticket ticket;
 
     // Default constructor

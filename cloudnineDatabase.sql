@@ -78,7 +78,7 @@ CREATE TABLE `crew` (
 
 LOCK TABLES `crew` WRITE;
 /*!40000 ALTER TABLE `crew` DISABLE KEYS */;
-INSERT INTO `crew` VALUES (1,' Matt','John','Ryan','Mary',1),(2,' Matt','John','Ryan','Mary',2),(3,' Matt','John','Ryan','Mary',3),(4,' Matt','John','Ryan','Mary',5),(5,' Matt','John','Ryan','Mary',6),(6,' Matt','John','Ryan','Mary',7),(7,' Matt','John','Ryan','Mary',8),(8,' Matt','John','Ryan','Mary',21),(9,' Matt','John','Ryan','Mary',NULL),(10,'Steve','Mark','Kim','Kate',NULL),(11,'Steve','Mark','Kim','Kate',NULL),(12,'Alton','Jeremy','Aemen','Emmanuel',NULL),(14,'qwerq','qwewqq','weqweew','qwe',NULL),(15,'qwerq','qwewqq','weqweew','qwe',NULL);
+INSERT INTO `crew` VALUES (1,' Matt','John','Ryan','Mary',1),(2,' Matt','John','Ryan','Mary',2),(3,' Matt','John','Ryan','Mary',3),(4,' Matt','John','Ryan','Mary',5),(5,' Matt','John','Ryan','Mary',6),(6,' Matt','John','Ryan','Mary',7),(7,' Matt','John','Ryan','Mary',8),(8,' Matt','John','Ryan','Mary',21),(9,' Matt','John','Ryan','Mary',NULL),(10,'Steve','Mark','Kim','Kate',NULL),(11,'Steve','Mark','Kim','Kate',NULL),(12,'Jeff','Jeremy','Aemen','Emmanuel',NULL),(14,'qwerq','qwewqq','weqweew','qwe',NULL),(15,'qwerq','qwewqq','weqweew','qwe',NULL);
 /*!40000 ALTER TABLE `crew` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +168,7 @@ CREATE TABLE `payment_transaction` (
 
 LOCK TABLES `payment_transaction` WRITE;
 /*!40000 ALTER TABLE `payment_transaction` DISABLE KEYS */;
-INSERT INTO `payment_transaction` VALUES (1,215.00,'1234 5676 5432 1234',123,'12/34','tiger',1),(3,215.00,'1234 3212 3432 3321',123,'12/32','Jeremy sugimoto',3),(4,215.00,'1234 5678 9876 5432',123,'23/45','john daly',4),(5,75.00,'3456 7654 3234 5676',234,'23/45','tom holland',5),(6,130.00,'2345 6765 4323 4567',123,'23/45','JOhn Daly',6),(8,130.00,'2345 4323 4543 5543',123,'23/45','Tom Holland',NULL);
+INSERT INTO `payment_transaction` VALUES (1,215.00,'1234 5676 5432 1234',123,'12/34','tiger',1),(3,215.00,'1234 3212 3432 3321',123,'12/32','Jeremy Smart',3),(4,215.00,'1234 5678 9876 5432',123,'23/45','john daly',4),(5,75.00,'3456 7654 3234 5676',234,'23/45','tom holland',5),(6,130.00,'2345 6765 4323 4567',123,'23/45','JOhn Daly',6),(8,130.00,'2345 4323 4543 5543',123,'23/45','Tom Holland',NULL);
 /*!40000 ALTER TABLE `payment_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +227,7 @@ CREATE TABLE `registered_users` (
 
 LOCK TABLES `registered_users` WRITE;
 /*!40000 ALTER TABLE `registered_users` DISABLE KEYS */;
-INSERT INTO `registered_users` VALUES (1,'Calgary','sugijere679@gmail.com','John','Smith','password','Alberta','51 Test St','username','1234567'),(2,'1234','jeremy.sugimoto@ucalgary.ca','Alton','Wong','password','123','123456','username1','1231223');
+INSERT INTO `registered_users` VALUES (1,'Calgary','test@gmail.com','John','Smith','password','Alberta','51 Test St','username','1234567'),(2,'1234','test@gmail.com','Jeff','Wong','password','123','123456','username1','1231223');
 /*!40000 ALTER TABLE `registered_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,7 +288,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (1,'tiger',_binary '','woods','sugijere679@gmail.com',1,'1-1A'),(3,'Jeremy',_binary '','Sugimoto','sugijere679@gmail.com',1,'1-1C'),(4,'john',_binary '','daly','sugijere679@gmail.com',1,'1-2B'),(5,'tom',_binary '','holland','sugijere679@gmail.com',1,'1-12E'),(6,'John',_binary '\0','Daly','sugijere679@gmail.com',1,'1-3C');
+INSERT INTO `ticket` VALUES (1,'tiger',_binary '','woods','test@gmail.com',1,'1-1A'),(3,'Jeremy',_binary '','Smart','test@gmail.com',1,'1-1C'),(4,'john',_binary '','daly','test@gmail.com',1,'1-2B'),(5,'tom',_binary '','holland','test@gmail.com',1,'1-12E'),(6,'John',_binary '\0','Daly','test@gmail.com',1,'1-3C');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
